@@ -12,9 +12,9 @@ function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  function onSubmit({ fullName, email, password }) {
+  function onSubmit({ fullname, email, password }) {
     signup(
-      { fullName, email, password },
+      { fullname, email, password },
       {
         onSettled: () => reset(),
       }
@@ -23,32 +23,32 @@ function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Full name" error={errors?.fullName?.message}>
+      <FormRow label="نام و نام خانوادگی" error={errors?.fullName?.message}>
         <Input
           type="text"
-          id="fullName"
+          id="fullname"
           disabled={isLoading}
-          {...register("fullName", { required: "This field is required" })}
+          {...register("fullname", { required: "این فیلد اجباری است." })}
         />
       </FormRow>
 
-      <FormRow label="Email address" error={errors?.email?.message}>
+      <FormRow label="ایمیل" error={errors?.email?.message}>
         <Input
           type="email"
           id="email"
           disabled={isLoading}
           {...register("email", {
-            required: "This field is required",
+            required: "این فیلد اجباری است.",
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Please provide a valid email address",
+              message: "لطفا یک ایمیل معتبر وارد کنید.",
             },
           })}
         />
       </FormRow>
 
       <FormRow
-        label="Password (min 8 characters)"
+        label="رمزعبور(حداقل 8 کاراکتر)"
         error={errors?.password?.message}
       >
         <Input
@@ -56,24 +56,24 @@ function SignupForm() {
           id="password"
           disabled={isLoading}
           {...register("password", {
-            required: "This field is required",
+            required: "این فیلد اجباری است.",
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
+              message: "رمزعبور باید حداقل 8 کاراکتر باشد.",
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Repeat password" error={errors?.passwordConfirm?.message}>
+      <FormRow label="تکرار رمزعبور" error={errors?.passwordConfirm?.message}>
         <Input
           type="password"
           id="passwordConfirm"
           disabled={isLoading}
           {...register("passwordConfirm", {
-            required: "This field is required",
+            required: "این فیلد اجباری است.",
             validate: (value) =>
-              value === getValues().password || "Passwords need to match",
+              value === getValues().password || "رمزعبور یکسان نیست.",
           })}
         />
       </FormRow>
@@ -86,9 +86,9 @@ function SignupForm() {
           disabled={isLoading}
           onClick={reset}
         >
-          Cancel
+          پاک کن
         </Button>
-        <Button disabled={isLoading}>Create new user</Button>
+        <Button disabled={isLoading}>ثبت نام</Button>
       </FormRow>
     </Form>
   );

@@ -1,0 +1,35 @@
+.formRow {
+  /* align-items: center; */
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 1.2rem 0;
+}
+
+.firstChild {
+  padding-top: 0;
+}
+
+.lastChild {
+  padding-bottom: 0;
+}
+
+.notLastChild {
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.hasButton {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.error {
+  font-size: 1.4rem;
+  color: var(--color-red-700);
+}

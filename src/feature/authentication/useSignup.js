@@ -1,14 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import { signup as signupApi } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 export function useSignup() {
+  const navigate = useNavigate();
+
   const { mutate: signup, isLoading } = useMutation({
     mutationFn: signupApi,
-    onSuccess: (user) => {
+    onSuccess: (data) => {
+      console.log(data);
       toast.success(
-        "Account successfully created! Please verufy the new account from the user's email address."
+        "ثبت نام با موفقیت انجام شد.لطفا وارد حساب کاربری خود شوید."
       );
+      navigate("/login");
     },
   });
 

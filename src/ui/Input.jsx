@@ -1,16 +1,17 @@
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
-import styles from "./Input.module.css";
+import styles from "./Input.module.css"; // Assuming you have a CSS module for Input
 
-function Input(props) {
-  return <input className={styles.input} {...props} />;
-}
+const Input = forwardRef((props, ref) => {
+  return <input ref={ref} className={styles.input} {...props} />;
+});
+
+Input.displayName = "Input";
 
 Input.propTypes = {
-  // Define prop types if necessary, for example:
   type: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  // ... add other prop types as needed
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Input;
