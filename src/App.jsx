@@ -1,12 +1,16 @@
 import Login from "./pages/Login";
 import Users from "./pages/Users";
+import ForgetPass from "./pages/ForgetPass";
+import LoginAdmin from "./pages/LoginAdmin";
+import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
-
 import "./styles/GlobalStyles.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute from "./ui/protectedRoute";
+import Dashboard from "./pages/Dashboard";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -21,9 +25,21 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="login" element={<Login />} />
+          <Route path="mamadDahanetServis" element={<LoginAdmin />} />
+
           <Route path="users" element={<Users />} />
+          <Route path="forgetpass" element={<ForgetPass />} />
         </Routes>
       </BrowserRouter>
       <Toaster

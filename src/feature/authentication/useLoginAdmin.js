@@ -1,18 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { login as loginApi } from "../../services/apiAuth";
+import { loginAdmin as loginAdminApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import Cookies from "js-cookie";
 
-export function useLogin() {
+export function useLoginAdmin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: login, isPending } = useMutation({
-    mutationFn: ({ email, password }) => loginApi({ email, password }),
+  const { mutate: loginAdmin, isPending } = useMutation({
+    mutationFn: ({ email, password }) => loginAdminApi({ email, password }),
     onSuccess: (user) => {
-      const token = user.token;
-      Cookies.set("authToken", token, { expires: 1, secure: true });
       queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard");
     },
@@ -23,5 +20,5 @@ export function useLogin() {
   });
   console.log("useLogin isPending:", isPending);
 
-  return { login, isPending };
+  return { loginAdmin, isPending };
 }

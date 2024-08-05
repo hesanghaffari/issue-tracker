@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react";
-import { useLogin } from "./useLogin";
+import { useLoginAdmin } from "./useLoginAdmin";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
 import SpinnerMini from "../../ui/SpinnerMini";
-import { NavLink } from "react-router-dom";
 
-function LoginForm() {
+function LoginFormAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isPending } = useLogin();
+  const { loginAdmin, isPending } = useLoginAdmin();
   useEffect(() => {
     console.log("LoginForm isPending:", isPending);
   }, [isPending]);
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    login(
+    loginAdmin(
       { email, password },
       {
         onSettled: () => {
@@ -57,18 +56,8 @@ function LoginForm() {
           {!isPending ? "تایید و ادامه" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
-      <FormRowVertical>
-        <NavLink to="/Users">
-          <span>هنوز ثبت نام نکرده اید؟</span>
-        </NavLink>
-      </FormRowVertical>
-      <FormRowVertical>
-        <NavLink to="/forgetpass">
-          <span>رمز عبورتان را فراموش کرده اید؟</span>
-        </NavLink>
-      </FormRowVertical>
     </Form>
   );
 }
 
-export default LoginForm;
+export default LoginFormAdmin;

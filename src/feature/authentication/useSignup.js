@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 export function useSignup() {
   const navigate = useNavigate();
 
-  const { mutate: signup, isLoading } = useMutation({
+  const { mutate: signup, isPending } = useMutation({
     mutationFn: signupApi,
     onSuccess: (data) => {
       console.log(data);
@@ -15,7 +15,12 @@ export function useSignup() {
       );
       navigate("/login");
     },
+    onError: (error) => {
+      // Extract the error message and show it in a toast
+      const errorMessage = error.message || "خطا";
+      toast.error(errorMessage);
+    },
   });
 
-  return { signup, isLoading };
+  return { signup, isPending };
 }
