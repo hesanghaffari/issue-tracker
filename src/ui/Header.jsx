@@ -1,12 +1,18 @@
-import HeaderMenu from "./HeaderMenu";
+import PropTypes from "prop-types";
+import HamburgerMenu from "./HamburgerMenu";
 import styles from "./Header.module.css";
 
-function Header() {
+function Header({ onToggleSidebar }) {
   return (
     <header className={styles.Header}>
-      <HeaderMenu />
+      <HamburgerMenu onClick={onToggleSidebar} />
+      {/* Add other header contents here */}
     </header>
   );
 }
+
+Header.propTypes = {
+  onToggleSidebar: PropTypes.func.isRequired,
+};
 
 export default Header;

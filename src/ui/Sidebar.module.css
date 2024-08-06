@@ -1,10 +1,62 @@
 .Sidebar {
   background-color: var(--color-grey-0);
   padding: 3.2rem 2.4rem;
-  border-right: 1px solid var(--color-grey-100);
-
-  grid-row: 1 / -1;
+  border-left: 1px solid var(--color-grey-100);
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 26rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+.Sidebar.open {
+  transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+  .Sidebar {
+    position: static;
+    transform: translateX(0);
+    grid-row: 1 / -1;
+  }
+}
+
+.CloseButton {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .CloseButton {
+    display: block;
+  }
+}
+
+.Overlay {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .Overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Ensure it is behind the sidebar but above other content */
+  }
 }
