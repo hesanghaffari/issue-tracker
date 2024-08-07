@@ -25,7 +25,7 @@ function MainNav({ onClose }) {
         </li>
         <li>
           <NavLink
-            to="/bookings"
+            to="/createticket"
             className={({ isActive }) =>
               isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
             }
