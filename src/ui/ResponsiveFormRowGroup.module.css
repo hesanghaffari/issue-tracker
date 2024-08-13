@@ -1,0 +1,17 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem; /* Space between rows on mobile */
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .group {
+    flex-direction: row;
+    gap: 2.4rem; /* Space between rows on desktop */
+  }
+
+  .group > * {
+    flex: 1;
+  }
+}

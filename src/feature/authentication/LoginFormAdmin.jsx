@@ -10,9 +10,7 @@ function LoginFormAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loginAdmin, isPending } = useLoginAdmin();
-  useEffect(() => {
-    console.log("LoginForm isPending:", isPending);
-  }, [isPending]);
+  useEffect(() => {}, [isPending]);
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;

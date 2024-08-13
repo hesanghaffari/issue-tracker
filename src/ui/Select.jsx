@@ -1,13 +1,14 @@
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./Select.module.css";
 
-function Select({ options, value, onChange, type, ...props }) {
+const Select = forwardRef(({ options, onChange, type, ...props }, ref) => {
   const selectClassName =
     type === "white" ? `${styles.select} ${styles.selectWhite}` : styles.select;
 
   return (
     <select
-      value={value}
+      ref={ref}
       onChange={onChange}
       className={selectClassName}
       {...props}
@@ -19,7 +20,9 @@ function Select({ options, value, onChange, type, ...props }) {
       ))}
     </select>
   );
-}
+});
+
+Select.displayName = "Select";
 
 Select.propTypes = {
   options: PropTypes.arrayOf(
@@ -28,7 +31,6 @@ Select.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
 };

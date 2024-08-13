@@ -11,17 +11,25 @@ export function useLogin() {
   const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (user) => {
-      const token = user.token;
-      Cookies.set("authToken", token, { expires: 1, secure: true });
-      queryClient.setQueryData(["user"], user.user);
-      navigate("/dashboard");
+      if (user.isVerified) {
+        const token = user.token;
+        const id = user.id;
+        Cookies.set("authToken", token, { expires: 1, secure: true });
+        Cookies.set("userID", id);
+        Cookies.set("userEmail", user.email, { expires: 1, secure: true });
+        queryClient.setQueryData(["user"], user.user);
+        navigate("/dashboard");
+        toast.success("باز که پیدات شد!😒");
+      } else {
+        toast.success("لطفا ایمیل خود را تایید کنید.");
+        navigate("/verify-email");
+      }
     },
     onError: (error) => {
-      const errorMessage = error.message || "An error occurred";
+      const errorMessage = error.message || "خطا در ورود.";
       toast.error(errorMessage);
     },
   });
-  console.log("useLogin isPending:", isPending);
 
   return { login, isPending };
 }

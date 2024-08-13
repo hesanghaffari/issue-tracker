@@ -18,7 +18,6 @@ export function useLoginAdmin() {
       toast.error(errorMessage);
     },
   });
-  console.log("useLogin isPending:", isPending);
 
   return { loginAdmin, isPending };
 }

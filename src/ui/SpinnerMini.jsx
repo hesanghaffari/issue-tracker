@@ -1,8 +1,12 @@
+import styles from "./Spinner.module.css";
 import { BiLoaderAlt } from "react-icons/bi";
-import styles from "./SpinnerMini.module.css";
 
-function SpinnerMini(props) {
-  return <BiLoaderAlt className={styles.spinner} {...props} />;
+function SpinnerMini() {
+  return (
+    <div className={styles.SpinnerMini}>
+      <BiLoaderAlt />
+    </div>
+  );
 }
 
 export default SpinnerMini;

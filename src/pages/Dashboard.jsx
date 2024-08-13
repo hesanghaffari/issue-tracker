@@ -1,7 +1,11 @@
-import Heading from "../ui/Heading";
+import TicketListTable from "../feature/submitTicket/TicketListTable";
 
 function Dashboard() {
-  return <Heading as="h1">Dashboard</Heading>;
+  return (
+    <main>
+      <TicketListTable />
+    </main>
+  );
 }
 
 export default Dashboard;

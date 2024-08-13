@@ -1,16 +1,72 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-export async function ticket({ fullname, email, password }) {
+export async function ticket(data) {
   try {
-    const response = await axios.post("http://localhost:5000/api/tickets", {
-      email,
-      password,
-      fullname,
-    });
+    const token = Cookies.get("authToken");
+
+    const response = await axios.post(
+      "http://localhost:3000/api/tickets",
+      data,
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
     return response.data;
   } catch (error) {
-    // Access the response data directly since it's plain text
     const errorMessage = error.response?.data || "An error occurred";
     throw new Error(errorMessage);
+  }
+}
+
+//////////
+
+export async function ticketlist() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(
+      `http://localhost:3000/api/tickets/users?page=1`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+//////////////////////
+export async function getTicketById(id) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(
+      `http://localhost:3000/api/tickets/users/${id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }

@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard";
 import CreateTicket from "./feature/submitTicket/CreateTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/GlobalStyles.css";
+import VerifyEmailForm from "./feature/authentication/VerifyEmailForm";
+import TicketDetail from "./pages/TicketDetail";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,12 +39,16 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="createticket" element={<CreateTicket />} />
+            <Route path="dashboard/:ticketId" element={<TicketDetail />} />
           </Route>
+          <Route path="verify-email" element={<VerifyEmailForm />} />
+
           <Route path="login" element={<Login />} />
           <Route path="mamadDahanetServis" element={<LoginAdmin />} />
 
           <Route path="users" element={<Users />} />
           <Route path="forgetpass" element={<ForgetPass />} />
+          {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
       </BrowserRouter>
       <Toaster

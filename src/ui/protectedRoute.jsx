@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     const token = Cookies.get("authToken");
-    console.log(token);
 
     if (!token) {
       navigate("/login");

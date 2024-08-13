@@ -11,9 +11,9 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isPending } = useLogin();
-  useEffect(() => {
-    console.log("LoginForm isPending:", isPending);
-  }, [isPending]);
+
+  useEffect(() => {}, [isPending]);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
@@ -34,7 +34,6 @@ function LoginForm() {
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -59,12 +58,12 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <NavLink to="/Users">
-          <span>هنوز ثبت نام نکرده اید؟</span>
+          <span>هنوز ثبت نام نکرده‌اید؟</span>
         </NavLink>
       </FormRowVertical>
       <FormRowVertical>
         <NavLink to="/forgetpass">
-          <span>رمز عبورتان را فراموش کرده اید؟</span>
+          <span>رمز عبورتان را فراموش کرده‌اید؟</span>
         </NavLink>
       </FormRowVertical>
     </Form>
