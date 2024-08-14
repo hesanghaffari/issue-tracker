@@ -17,18 +17,20 @@ function TicketListTable() {
   return (
     <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
       <Table.Header>
-        <div></div>
+        <div>#</div>
         <div>شرکت</div>
-        <div>ایشو</div>
+        <div>موضوع تیکت</div>
         <div>لایسنس کد</div>
-        <div>نوع ایشو</div>
+        <div>نوع تیکت</div>
       </Table.Header>
 
       <Table.Body
         // data={cabins}
         // data={filteredCabins}
         data={tickets}
-        render={(tickets) => <TicketRow tickets={tickets} key={tickets._id} />}
+        render={(tickets, index) => (
+          <TicketRow tickets={tickets} key={tickets._id} index={index} />
+        )}
       />
     </Table>
   );

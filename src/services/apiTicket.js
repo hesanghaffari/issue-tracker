@@ -70,3 +70,50 @@ export async function getTicketById(id) {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }
+/////////////
+export async function getRepliesByTicketId(ticketId) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(
+      `http://localhost:3000/api/chat/${ticketId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch replies: ${error.message}`);
+  }
+}
+///////////////////////////
+export async function submitReply(ticketId, reply) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.post(
+      `http://localhost:3000/api/chat/${ticketId}`,
+      reply,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to submit reply: ${error.message}`);
+  }
+}

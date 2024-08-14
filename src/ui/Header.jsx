@@ -5,14 +5,14 @@ import Logout from "../feature/authentication/Logout";
 import Cookies from "js-cookie";
 
 function Header({ onToggleSidebar }) {
-  const email = Cookies.get("userEmail");
+  const fullname = Cookies.get("fullname");
 
   return (
     <header className={styles.Header}>
       <HamburgerMenu onClick={onToggleSidebar} />
       {/* Add other header contents here */}
       <Logout />
-      {email}
+      {fullname}
     </header>
   );
 }

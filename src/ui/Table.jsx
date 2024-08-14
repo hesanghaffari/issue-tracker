@@ -7,8 +7,11 @@ const TableContext = createContext();
 function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <div className={styles.styledTable} role="table">
-        {children}
+      <div className={styles.styledTableContainer}>
+        {/* Wrapping table in a scrollable container */}
+        <div className={styles.styledTable} role="table">
+          {children}
+        </div>
       </div>
     </TableContext.Provider>
   );

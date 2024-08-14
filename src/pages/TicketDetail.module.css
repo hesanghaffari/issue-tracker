@@ -1,93 +1,221 @@
-/* BookingDataBox.module.css */
-
-.styledBookingDataBox {
+.container {
+  padding: 2.4rem 4rem;
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-  overflow: hidden;
+  max-width: 120rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .header {
-  background-color: var(--color-brand-500);
-  padding: 2rem 4rem;
-  color: #e0e7ff;
-  font-size: 1.8rem;
-  font-weight: 500;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-.header svg {
-  height: 3.2rem;
-  width: 3.2rem;
-}
-
-.header div:first-child {
-  display: flex;
   align-items: center;
-  gap: 1.6rem;
-  font-weight: 600;
-  font-size: 1.8rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
-.header span {
-  font-family: "Sono";
-  font-size: 2rem;
-  margin-left: 4px;
+.title {
+  font-size: 28px;
+  color: #333;
+  margin: 0;
 }
 
-.section {
-  padding: 3.2rem 4rem 1.2rem;
+.ticketNumber {
+  font-size: 16px;
+  color: #888;
+  margin-top: 8px;
 }
 
-.guest {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 1.6rem;
-  color: var(--color-grey-500);
-}
-
-.guest p:first-of-type {
-  font-weight: 500;
-  color: var(--color-grey-700);
-}
-
-.price {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.6rem 3.2rem;
-  border-radius: var(--border-radius-sm);
-  margin-top: 2.4rem;
-}
-
-.pricePaid {
-  background-color: var(--color-green-100);
-  color: var(--color-green-700);
-}
-
-.priceNotPaid {
-  background-color: var(--color-yellow-100);
-  color: var(--color-yellow-700);
-}
-
-.price p:last-child {
-  text-transform: uppercase;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.price svg {
-  height: 2.4rem;
-  width: 2.4rem;
-  color: currentColor !important;
-}
-
-.footer {
-  padding: 1.6rem 4rem;
-  font-size: 1.2rem;
-  color: var(--color-grey-500);
+.userInfo {
   text-align: right;
+}
+
+.userInfo strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.email {
+  font-size: 14px;
+  color: #888;
+}
+.details {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.detailRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailRow strong {
+  color: #888;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.detailRow span {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+.descriptionSection {
+  margin-bottom: 20px;
+}
+
+.descriptionSection h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #444;
+  white-space: pre-line;
+}
+
+.attachments {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.attachments h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.attachmentList {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.attachmentItem {
+  flex: 1 0 150px;
+  max-width: 150px;
+  text-align: center;
+}
+
+.attachmentImage {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attachmentLink {
+  display: block;
+  margin-top: 8px;
+  color: #1a73e8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.attachmentLink:hover {
+  text-decoration: underline;
+}
+
+.repliesSection {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+
+.reply {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.replyRight {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.replyLeft {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.submitButton {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+}
+.repliesSection h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.noReplies {
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #999;
+  text-align: center;
+  padding: 20px;
+  border: 1px dashed #ddd;
+  border-radius: 5px;
+}
+@media (max-width: 1200px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left on mobile */
+  }
+
+  .userInfo {
+    text-align: left; /* Text aligns to the left on mobile */
+    margin-top: 10px; /* Adds space between the title and user info */
+    width: 100%; /* User info takes full width */
+  }
+
+  .title {
+    font-size: 24px; /* Slightly reduce title font size on mobile */
+  }
+
+  .ticketNumber {
+    font-size: 14px; /* Slightly reduce ticket number font size on mobile */
+  }
+
+  .userInfo strong {
+    font-size: 16px; /* Slightly reduce user name font size on mobile */
+  }
+
+  .email {
+    font-size: 13px; /* Slightly reduce email font size on mobile */
+  }
 }

@@ -66,7 +66,7 @@ function CreateTicket() {
     formData.append("problemType", data.typeissue);
     formData.append("request", data.description);
     formData.append("requestTitle", data.title);
-    formData.append("errorTime", "7687");
+    formData.append("errorTime", data.errorTime);
 
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
@@ -154,8 +154,26 @@ function CreateTicket() {
           })}
         />
       </FormRow>
-
-      <FormRow label="موضوع ایشو" error={errors?.title?.message}>
+      <FormRow
+        label="چند وقت است که با این خطا مواجه هستید؟"
+        error={errors?.errortime?.message}
+      >
+        <Select
+          options={[
+            { value: "", label: "انتخاب کنید" },
+            { value: "زیر یک هفته", label: "زیر یک هفته" },
+            { value: "1 الی 2 هفته", label: "1 الی 2 هفته" },
+            { value: "2 الی 3 هفته", label: "2 الی 3 هفته" },
+            { value: "3 الی 4 هفته", label: "3 الی 4 هفته" },
+          ]}
+          type="white"
+          disabled={isCreating}
+          {...register("errortime", {
+            required: "این فیلد اجباری است.",
+          })}
+        />
+      </FormRow>
+      <FormRow label="موضوع تیکت" error={errors?.title?.message}>
         <Input
           type="text"
           id="title"
@@ -167,7 +185,7 @@ function CreateTicket() {
       </FormRow>
 
       <FormRow
-        label="توضیحات ایشو"
+        label="توضیحات تیکت"
         disabled={isCreating}
         error={errors?.description?.message}
       >

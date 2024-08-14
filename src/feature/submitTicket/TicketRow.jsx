@@ -5,7 +5,7 @@ import Button from "../../ui/Button";
 
 import Table from "../../ui/Table";
 
-function TicketRow({ tickets }) {
+function TicketRow({ tickets, index }) {
   const { company, requestTitle, licenseCode, problemType, _id } = tickets;
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function TicketRow({ tickets }) {
 
   return (
     <Table.Row>
-      <div></div>
+      <div>{index + 1}</div>
       <div className={styles.tickets}>{company}</div>
       <div>{requestTitle}</div>
       <div className={styles.price}>{licenseCode}</div>
@@ -30,6 +30,8 @@ function TicketRow({ tickets }) {
 }
 
 TicketRow.propTypes = {
+  index: PropTypes.number.isRequired,
+
   tickets: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     company: PropTypes.string.isRequired,
