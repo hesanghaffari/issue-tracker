@@ -1,7 +1,7 @@
 import styles from "./LoginAdmin.module.css";
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
-import LoginFormAdmin from "../feature/adminPanel/authentication/LoginFormAdmin";
+import LoginFormAdmin from "../feature/authentication/LoginFormAdmin";
 
 function Login() {
   return (

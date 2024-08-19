@@ -61,6 +61,7 @@
 }
 @font-face {
   font-family: "dana";
+  font-size: medium;
   src: url("/public/Dana-Medium.woff") format("woff");
 }
 html {

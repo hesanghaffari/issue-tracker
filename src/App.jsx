@@ -9,11 +9,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute from "./ui/protectedRoute";
 import Dashboard from "./pages/Dashboard";
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
+
 import CreateTicket from "./feature/submitTicket/CreateTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/GlobalStyles.css";
 import VerifyEmailForm from "./feature/authentication/VerifyEmailForm";
 import TicketDetail from "./pages/TicketDetail";
+import TicketDetailAdmin from "./pages/admin/TicketDetailAdmin";
+import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,16 +40,28 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
+
             <Route path="createticket" element={<CreateTicket />} />
             <Route path="dashboard/:ticketId" element={<TicketDetail />} />
           </Route>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayoutAdmin />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboardadmin" element={<DashboardAdmin />} />
+            <Route
+              path="dashboardadmin/:ticketId"
+              element={<TicketDetailAdmin />}
+            />
+          </Route>
+          <Route index element={<Navigate replace to="login" />} />
           <Route path="verify-email" element={<VerifyEmailForm />} />
-
           <Route path="login" element={<Login />} />
           <Route path="mamadDahanetServis" element={<LoginAdmin />} />
-
           <Route path="users" element={<Users />} />
           <Route path="forgetpass" element={<ForgetPass />} />
           {/* <Route path="*" element={<PageNotFound />} /> */}

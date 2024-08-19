@@ -117,3 +117,46 @@ export async function submitReply(ticketId, reply) {
     throw new Error(`Failed to submit reply: ${error.message}`);
   }
 }
+/////////////////
+export async function ticketlistAdmin() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`http://localhost:3000/api/tickets`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+////////////////////////////////////
+export async function getTicketAdminById(id) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(
+      `http://localhost:3000/api/tickets/${id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}

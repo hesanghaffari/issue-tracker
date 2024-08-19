@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLoginAdmin } from "./useLoginAdmin";
-import Button from "../../ui/Button";
-import Form from "../../ui/Form";
-import Input from "../../ui/Input";
-import FormRowVertical from "../../ui/FormRowVertical";
-import SpinnerMini from "../../ui/SpinnerMini";
+import Button from "../../../ui/Button";
+import Form from "../../../ui/Form";
+import Input from "../../../ui/Input";
+import FormRowVertical from "../../../ui/FormRowVertical";
+import SpinnerMini from "../../../ui/SpinnerMini";
 
 function LoginFormAdmin() {
   const [email, setEmail] = useState("");
