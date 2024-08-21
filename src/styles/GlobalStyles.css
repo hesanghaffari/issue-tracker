@@ -59,11 +59,40 @@
 
   transition: background-color 0.3s, border 0.3s;
 }
+
+.ss02 {
+  -moz-font-feature-settings: "ss02";
+  -webkit-font-feature-settings: "ss02";
+  font-feature-settings: "ss02";
+}
 @font-face {
+  font-family: dana;
+  font-style: normal;
+  font-weight: 10;
+  src: url("/public/fonts/woff2/DanaFaNum-Regular.woff2") format("woff2"),
+    /* FF39+,Chrome36+, Opera24+*/
+      url("/public/fonts/woff/DanaFaNum-Regular.woff") format("woff"); /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+/* @font-face {
+  font-family: dana;
+  font-style: normal;
+  font-weight: 100;
+  src: url("/public/fonts/woff2/DanaFaNum-Regular.woff2") format("woff2"),
+      url("/public/fonts/woff/DanaFaNum-Regular.woff") format("woff"); 
+} */
+@font-face {
+  font-family: dana;
+  font-style: normal;
+  font-weight: 200;
+  src: url("/public/fonts/woff2/DanaFaNum-Medium.woff2") format("woff2"),
+    /* FF39+,Chrome36+, Opera24+*/
+      url("/public/fonts/woff/DanaFaNum-Medium.woff") format("woff"); /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+/* @font-face {
   font-family: "dana";
   font-size: medium;
   src: url("/public/Dana-Medium.woff") format("woff");
-}
+} */
 html {
   font-size: 62.5%;
 }

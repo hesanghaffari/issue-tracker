@@ -75,6 +75,8 @@ function CreateTicket() {
     }
 
     mutate(formData);
+    const errortime = formData.get("errorTime");
+    console.log(errortime);
   }
 
   function onError() {}

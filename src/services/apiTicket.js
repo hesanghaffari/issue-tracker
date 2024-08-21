@@ -25,7 +25,7 @@ export async function ticket(data) {
 
 //////////
 
-export async function ticketlist() {
+export async function ticketlist({ page }) {
   try {
     const token = Cookies.get("authToken");
 
@@ -34,8 +34,11 @@ export async function ticketlist() {
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/tickets/users?page=1`,
+      `http://localhost:3000/api/tickets/users`,
       {
+        params: {
+          page: page,
+        },
         headers: {
           Authorization: token,
         },
@@ -118,7 +121,12 @@ export async function submitReply(ticketId, reply) {
   }
 }
 /////////////////
-export async function ticketlistAdmin() {
+export async function ticketlistAdmin({
+  filter = null,
+  problemType = null, // Changed from sortByRaw to problemType
+  page = 1,
+  company = null,
+}) {
   try {
     const token = Cookies.get("authToken");
 
@@ -126,7 +134,23 @@ export async function ticketlistAdmin() {
       throw new Error("Auth token not found in cookies");
     }
 
+    const params = { page };
+
+    if (filter) {
+      params[filter.field] = filter.value;
+    }
+
+    if (problemType) {
+      // Use problemType here
+      params.problemType = problemType;
+    }
+    if (company) {
+      // Use problemType here
+      params.company = company;
+    }
+
     const response = await axios.get(`http://localhost:3000/api/tickets`, {
+      params,
       headers: {
         Authorization: token,
       },
@@ -137,6 +161,7 @@ export async function ticketlistAdmin() {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }
+
 ////////////////////////////////////
 export async function getTicketAdminById(id) {
   try {

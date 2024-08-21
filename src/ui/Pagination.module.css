@@ -1,0 +1,60 @@
+/* Pagination.module.css */
+
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text {
+  font-size: 1.4rem;
+  margin-left: 0.8rem;
+}
+
+.text span {
+  font-weight: 600;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.paginationButton {
+  background-color: var(--color-grey-50);
+  color: inherit;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s;
+}
+
+.paginationButton:has(span:last-child) {
+  padding-left: 0.4rem;
+}
+
+.paginationButton:has(span:first-child) {
+  padding-right: 0.4rem;
+}
+
+.paginationButton svg {
+  height: 1.8rem;
+  width: 1.8rem;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: var(--color-brand-600);
+  color: var(--color-brand-50);
+}
+
+.paginationButtonActive {
+  background-color: var(--color-brand-600);
+  color: var(--color-brand-50);
+}
