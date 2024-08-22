@@ -1,5 +1,6 @@
 .styledTableContainer {
   width: 100%;
+  margin-top: 20px;
   overflow-x: auto; /* Enable horizontal scrolling */
 }
 

@@ -14,10 +14,12 @@ export function useTicketAdmin() {
 
   // SORT
   const problemType = searchParams.get("problemType") || "";
-  const company = searchParams.get("company") || "";
 
   // PAGINATION
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
+  // SEARCH QUERY
+  const search = searchParams.get("search") || ""; // Get the search query from the URL
 
   // QUERY
   const {
@@ -25,8 +27,8 @@ export function useTicketAdmin() {
     data: tickets,
     error,
   } = useQuery({
-    queryKey: ["tickets", filter, problemType, page, company],
-    queryFn: () => ticketlistAdmin({ filter, problemType, page, company }),
+    queryKey: ["tickets", filter, problemType, page, search], // Add searchQuery to the query key
+    queryFn: () => ticketlistAdmin({ filter, problemType, page, search }), // Pass searchQuery to the API function
   });
 
   return { isLoading, error, tickets };

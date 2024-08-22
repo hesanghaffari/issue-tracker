@@ -1,10 +1,10 @@
 import TicketListTableAdmin from "../../feature/adminPanel/submitTicket/TicketListTableAdmin";
-import TicketTableOperations from "../../feature/submitTicket/TicketTableOperations";
+import TicketTableOperationsAdmin from "../../feature/adminPanel/submitTicket/TicketTableOperationsAdmin";
 
 function Dashboard() {
   return (
     <main>
-      <TicketTableOperations />
+      <TicketTableOperationsAdmin />
       <TicketListTableAdmin />
     </main>
   );

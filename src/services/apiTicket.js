@@ -125,7 +125,7 @@ export async function ticketlistAdmin({
   filter = null,
   problemType = null, // Changed from sortByRaw to problemType
   page = 1,
-  company = null,
+  search = "", // Add searchQuery as a parameter
 }) {
   try {
     const token = Cookies.get("authToken");
@@ -141,12 +141,11 @@ export async function ticketlistAdmin({
     }
 
     if (problemType) {
-      // Use problemType here
       params.problemType = problemType;
     }
-    if (company) {
-      // Use problemType here
-      params.company = company;
+
+    if (search) {
+      params.search = search; // Add search query to the params
     }
 
     const response = await axios.get(`http://localhost:3000/api/tickets`, {
@@ -161,7 +160,6 @@ export async function ticketlistAdmin({
     throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }
-
 ////////////////////////////////////
 export async function getTicketAdminById(id) {
   try {
