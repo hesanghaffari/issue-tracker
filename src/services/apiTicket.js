@@ -123,9 +123,11 @@ export async function submitReply(ticketId, reply) {
 /////////////////
 export async function ticketlistAdmin({
   filter = null,
-  problemType = null, // Changed from sortByRaw to problemType
+  problemType = null,
   page = 1,
-  search = "", // Add searchQuery as a parameter
+  search = "",
+  startDate = null,
+  endDate = null, // Add endDate as a parameter
 }) {
   try {
     const token = Cookies.get("authToken");
@@ -145,7 +147,15 @@ export async function ticketlistAdmin({
     }
 
     if (search) {
-      params.search = search; // Add search query to the params
+      params.search = search;
+    }
+
+    if (startDate) {
+      params.startDate = startDate; // Add createdAt to the params
+    }
+
+    if (endDate) {
+      params.endDate = endDate; // Add endDate to the params
     }
 
     const response = await axios.get(`http://localhost:3000/api/tickets`, {
@@ -160,6 +170,7 @@ export async function ticketlistAdmin({
     throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }
+
 ////////////////////////////////////
 export async function getTicketAdminById(id) {
   try {
@@ -181,5 +192,21 @@ export async function getTicketAdminById(id) {
     return response.data;
   } catch (error) {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+/////////////////////////////
+export async function assignTicketToUser(ticketId, email) {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/tickets/assign",
+      {
+        ticketId,
+        email,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
   }
 }

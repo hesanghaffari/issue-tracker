@@ -19,7 +19,7 @@ function TicketRow({ tickets, index, currentPage }) {
   };
 
   const handleDetailClick = () => {
-    navigate(`/dashboardadmin/${_id}`);
+    navigate(`/myticket/${_id}`);
   };
 
   // Calculate the correct index based on the current page

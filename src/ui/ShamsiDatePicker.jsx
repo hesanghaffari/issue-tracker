@@ -1,32 +1,58 @@
 import { useState } from "react";
-import { Datepicker } from "@ijavad805/react-datepicker";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { useSearchParams } from "react-router-dom";
+import moment from "moment-jalaali";
 import PropTypes from "prop-types";
 
-function ShamsiDatePicker({ label, paramName, onDateChange }) {
-  const [selectedDate, setSelectedDate] = useState(null);
+export default function ShamsiDatePicker({ paramName }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedDate, setSelectedDate] = useState(null); // Control the selected date
 
-  const handleDateChange = (jalaliDate) => {
-    const gregorianDate = jalaliDate.format("YYYY-MM-DD"); // Convert to Gregorian
-    setSelectedDate(jalaliDate);
-    onDateChange(paramName, gregorianDate); // Send the Gregorian date back to the parent component
+  const handleDateChange = (date) => {
+    if (date) {
+      // Convert selected date to Gregorian date
+      const gregorianDate = moment(date.toDate()).format("YYYY-MM-DD");
+      searchParams.set(paramName, gregorianDate);
+    } else {
+      searchParams.delete(paramName);
+    }
+    setSelectedDate(date); // Update the state with the selected date
+    setSearchParams(searchParams);
+  };
+
+  ShamsiDatePicker.propTypes = {
+    paramName: PropTypes.string.isRequired,
   };
 
   return (
-    <div>
-      <label>{label}</label>
-      <Datepicker
-        format={"jYYYY/jMM/jDD"} // Display format in Jalali
+    <div style={{ direction: "rtl" }}>
+      <DatePicker
+        calendar={persian}
+        locale={persian_fa}
+        calendarPosition="bottom-right"
+        value={selectedDate} // Use the controlled state
         onChange={handleDateChange}
-        lang={"fa"}
-        defaultValue={selectedDate}
-        input={<input placeholder="Select a date" />}
+        render={
+          <CustomInput value={selectedDate ? selectedDate.format() : ""} />
+        } // Pass the value properly
       />
     </div>
   );
 }
-ShamsiDatePicker.propTypes = {
-  label: PropTypes.string.isRequired,
-  paramName: PropTypes.string.isRequired,
-  onDateChange: PropTypes.func.isRequired,
+
+function CustomInput({ openCalendar, value }) {
+  return (
+    <input
+      onFocus={openCalendar} // Open the calendar on focus
+      value={value || ""} // Display the selected date or an empty string
+      readOnly
+    />
+  );
+}
+
+CustomInput.propTypes = {
+  value: PropTypes.string,
+  openCalendar: PropTypes.func.isRequired,
 };
-export default ShamsiDatePicker;

@@ -3,7 +3,7 @@ import { useTicketAdmin } from "./useTicketAdmin";
 
 import Spinner from "../../../ui/Spinner";
 import Table from "../../../ui/Table";
-import TicketRow from "./TicketRowAdmin";
+import TicketRow from "./TicketRowMyTicketAdmin";
 import Empty from "../../../ui/Empty";
 import Pagination from "../../../ui/Pagination";
 

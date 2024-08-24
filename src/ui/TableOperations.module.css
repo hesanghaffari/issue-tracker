@@ -1,6 +1,7 @@
 /* TableOperations.module.css */
 .tableOperations {
   display: flex;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
   gap: 1.6rem;
 }

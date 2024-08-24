@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import {
   HiOutlineHome,
   HiOutlineUsers,
-  // HiOutlineTicket,
+  HiOutlineTicket,
 } from "react-icons/hi2";
 import styles from "./MainNav.module.css";
 
@@ -20,6 +20,18 @@ function MainNav({ onClose }) {
             onClick={onClose}
           >
             <HiOutlineHome />
+            <span>تیکت ها</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/myticket"
+            className={({ isActive }) =>
+              isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
+            }
+            onClick={onClose}
+          >
+            <HiOutlineTicket />
             <span>تیکت‌های من</span>
           </NavLink>
         </li>

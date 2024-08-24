@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute from "./ui/protectedRoute";
 import Dashboard from "./pages/Dashboard";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
+import MyTicket from "./pages/admin/MyTicket";
 
 import CreateTicket from "./feature/submitTicket/CreateTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,6 +18,8 @@ import "./styles/GlobalStyles.css";
 import VerifyEmailForm from "./feature/authentication/VerifyEmailForm";
 import TicketDetail from "./pages/TicketDetail";
 import TicketDetailAdmin from "./pages/admin/TicketDetailAdmin";
+import TicketDetailMyTicketAdmin from "./pages/admin/TicketDetailMyTicketAdmin";
+
 import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 
 const queryClient = new QueryClient({
@@ -56,6 +59,11 @@ function App() {
             <Route
               path="dashboardadmin/:ticketId"
               element={<TicketDetailAdmin />}
+            />
+            <Route path="myticket" element={<MyTicket />} />
+            <Route
+              path="myticket/:ticketId"
+              element={<TicketDetailMyTicketAdmin />}
             />
           </Route>
           <Route index element={<Navigate replace to="login" />} />

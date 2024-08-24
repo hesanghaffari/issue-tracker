@@ -1,22 +1,24 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getTicketAdminById,
-  assignTicketToUser,
+  submitReply,
+  getRepliesByTicketId,
 } from "../../services/apiTicket";
+
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import { useParams } from "react-router-dom";
-import styles from "./TicketDetailAdmin.module.css";
-import moment from "moment-jalaali";
-import Button from "../../ui/Button";
 import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
+import styles from "./TicketDetailAdmin.module.css";
+import Textarea from "../../ui/Textarea";
+import Button from "../../ui/Button";
+import moment from "moment-jalaali";
 
 function TicketDetailAdmin() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
 
-  // Fetch the ticket details
   const {
     isLoading,
     data: ticket,
@@ -26,34 +28,34 @@ function TicketDetailAdmin() {
     queryFn: () => getTicketAdminById(ticketId),
   });
 
-  // Mutation to assign the ticket
-  const assignTicketMutation = useMutation({
-    mutationFn: ({ ticketId, email }) => {
-      assignTicketToUser(ticketId, email);
-    },
+  const { isLoading: isRepliesLoading, data: replies } = useQuery({
+    queryKey: ["replies", ticketId],
+    queryFn: () => getRepliesByTicketId(ticketId),
+  });
+
+  const { register, handleSubmit, reset } = useForm();
+
+  const mutation = useMutation({
+    mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
-      // Invalidate the ticket query to refresh the data
-      queryClient.invalidateQueries(["tickets", ticketId]);
-      toast.success("افرینن");
-    },
-    onError: (error) => {
-      toast.error(error);
+      queryClient.invalidateQueries(["replies", ticketId]);
+      reset();
     },
   });
 
-  // Handle button click to assign the ticket
-  const handleAssignTicket = () => {
-    const email = Cookies.get("userEmail");
-    if (!email) {
-      alert("User email not found in cookies.");
-      return;
-    }
-    assignTicketMutation.mutate({ ticketId, email });
+  const onSubmit = (data) => {
+    const userName = Cookies.get("fullname");
+    mutation.mutate({
+      message: data.reply,
+      user: userName,
+    });
   };
 
   if (isLoading) return <Spinner />;
   if (error) return <p>Failed to load ticket details.</p>;
   if (!ticket) return <Empty resourceName="Ticket" />;
+
+  const userName = Cookies.get("fullname"); // Get the logged-in user's name
 
   return (
     <div className={styles.container}>
@@ -67,14 +69,6 @@ function TicketDetailAdmin() {
         <div className={styles.userInfo}>
           <strong>{ticket.fullName}</strong>
           <p className={styles.email}>{ticket.email}</p>
-        </div>
-        <div>
-          <Button
-            onClick={handleAssignTicket}
-            disabled={assignTicketMutation.isLoading}
-          >
-            {assignTicketMutation.isLoading ? "در حال انجام..." : "گردن میگیرم"}
-          </Button>
         </div>
       </div>
 
@@ -130,6 +124,48 @@ function TicketDetailAdmin() {
           </div>
         </div>
       )}
+
+      <div className={styles.repliesSection}>
+        {isRepliesLoading ? (
+          <Spinner />
+        ) : (
+          <div>
+            {replies.length > 0 ? (
+              replies.map((reply) => {
+                const isUserReply = reply.user === userName;
+                const replyClassName = isUserReply
+                  ? styles.replyRight
+                  : styles.replyLeft;
+
+                return (
+                  <div
+                    key={reply._id}
+                    className={`${styles.reply} ${replyClassName}`}
+                  >
+                    <strong>{reply.user}</strong>
+                    <p>{reply.message}</p>
+                    <small>
+                      {moment(reply.timestamp).format("jYYYY/jMM/jDD HH:mm:ss")}
+                    </small>
+                  </div>
+                );
+              })
+            ) : (
+              <div className={styles.noReplies}>پاسخی موجود نیست </div>
+            )}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Textarea
+            {...register("reply")}
+            placeholder="هر چی میخوای بنویس برام ..."
+          />
+          <Button type="submit" disabled={isLoading}>
+            ثبت
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }
