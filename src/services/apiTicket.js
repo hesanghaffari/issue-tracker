@@ -281,3 +281,67 @@ export async function assignTicketToUser(ticketId, email) {
     throw new Error(errorMessage);
   }
 }
+///////////////////////////////
+
+// export async function finishTicket(ticketId) {
+//   try {
+//     const token = Cookies.get("authToken");
+
+//     const response = await axios.put(
+//       `http://localhost:3000/api/tickets/${ticketId}/finish`,
+//       {
+//         headers: {
+//           Authorization: token,
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     const errorMessage = error.response?.data || "An error occurred";
+//     throw new Error(errorMessage);
+//   }
+// }
+
+export async function updateTicketStatus(ticketId, status) {
+  try {
+    const token = Cookies.get("authToken");
+
+    const response = await axios.put(
+      `http://localhost:3000/api/tickets/${ticketId}`,
+      { status },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
+  }
+}
+
+export async function finishTicket(ticketId) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.put(
+      `http://localhost:3000/api/tickets/${ticketId}/finish`,
+      {}, // Empty object for the payload, since PUT requests usually expect one
+      {
+        headers: {
+          Authorization: token, // Correctly add the token to the headers
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to finish the ticket: ${error.message}`);
+  }
+}

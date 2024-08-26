@@ -4,6 +4,8 @@ import {
   getTicketAdminById,
   submitReply,
   getRepliesByTicketId,
+  finishTicket, // Import the new API call
+  updateTicketStatus, // Import the new API call
 } from "../../services/apiTicket";
 
 import Spinner from "../../ui/Spinner";
@@ -14,6 +16,7 @@ import styles from "./TicketDetailAdmin.module.css";
 import Textarea from "../../ui/Textarea";
 import Button from "../../ui/Button";
 import moment from "moment-jalaali";
+import { toast } from "react-hot-toast";
 
 function TicketDetailAdmin() {
   const { ticketId } = useParams();
@@ -43,6 +46,38 @@ function TicketDetailAdmin() {
     },
   });
 
+  // Mutation for finishing the ticket
+  const finishTicketMutation = useMutation({
+    mutationFn: (ticketId) => finishTicket(ticketId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tickets", ticketId]);
+      toast.success("تیکت با موفقیت به پایان رسید.");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  // Mutation for updating the ticket status
+  const updateStatusMutation = useMutation({
+    mutationFn: ({ ticketId, status }) => updateTicketStatus(ticketId, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tickets", ticketId]);
+      toast.success("وضعیت تیکت با موفقیت به روز شد.");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleFinishTicket = () => {
+    finishTicketMutation.mutate(ticketId);
+  };
+
+  const handleUpdateStatus = () => {
+    updateStatusMutation.mutate({ ticketId, status: "در انتظار پاسخ" });
+  };
+
   const onSubmit = (data) => {
     const userName = Cookies.get("fullname");
     mutation.mutate({
@@ -55,7 +90,7 @@ function TicketDetailAdmin() {
   if (error) return <p>Failed to load ticket details.</p>;
   if (!ticket) return <Empty resourceName="Ticket" />;
 
-  const userName = Cookies.get("fullname"); // Get the logged-in user's name
+  const userName = Cookies.get("fullname");
 
   return (
     <div className={styles.container}>
@@ -69,6 +104,22 @@ function TicketDetailAdmin() {
         <div className={styles.userInfo}>
           <strong>{ticket.fullName}</strong>
           <p className={styles.email}>{ticket.email}</p>
+        </div>
+        <div>
+          <Button
+            onClick={handleFinishTicket}
+            disabled={finishTicketMutation.isLoading}
+          >
+            {finishTicketMutation.isLoading ? "در حال انجام..." : "پایان تیکت"}
+          </Button>
+          <Button
+            onClick={handleUpdateStatus}
+            disabled={updateStatusMutation.isLoading}
+          >
+            {updateStatusMutation.isLoading
+              ? "در حال انجام..."
+              : "به روز رسانی وضعیت"}
+          </Button>
         </div>
       </div>
 
