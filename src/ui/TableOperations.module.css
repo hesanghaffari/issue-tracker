@@ -2,6 +2,13 @@
 .tableOperations {
   display: flex;
   align-items: start;
-  flex-direction: column;
   gap: 1.6rem;
+}
+@media (max-width: 767px) {
+  .tableOperations {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
 }

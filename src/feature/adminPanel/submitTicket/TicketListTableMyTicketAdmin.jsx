@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useTicketAdmin } from "./useTicketAdmin";
+import { useTicketMyTicketAdmin } from "./useTicketMyTicketAdmin";
 
 import Spinner from "../../../ui/Spinner";
 import Table from "../../../ui/Table";
@@ -8,7 +8,7 @@ import Empty from "../../../ui/Empty";
 import Pagination from "../../../ui/Pagination";
 
 function TicketListTable() {
-  const { tickets, isLoading } = useTicketAdmin();
+  const { tickets, isLoading } = useTicketMyTicketAdmin();
   const [searchParams] = useSearchParams();
   const currentPage = !searchParams.get("page")
     ? 1

@@ -29,15 +29,15 @@ function TicketDetailAdmin() {
   // Mutation to assign the ticket
   const assignTicketMutation = useMutation({
     mutationFn: ({ ticketId, email }) => {
-      assignTicketToUser(ticketId, email);
+      return assignTicketToUser(ticketId, email); // Return the result
     },
     onSuccess: () => {
       // Invalidate the ticket query to refresh the data
-      queryClient.invalidateQueries(["tickets", ticketId]);
-      toast.success("افرینن");
+      queryClient.invalidateQueries(["tickets", ticketId]); // Fix the query key
+      toast.success("گردن گرفتیش...");
     },
     onError: (error) => {
-      toast.error(error);
+      toast.error(error.message); // Display the error message
     },
   });
 
@@ -99,7 +99,7 @@ function TicketDetailAdmin() {
         </div>
         <div className={styles.detailRow}>
           <strong>مدت زمان ارور:</strong>
-          <span>{new Date(ticket.errorTicket).toLocaleString()}</span>
+          <span>{ticket.errorTime}</span>
         </div>
       </div>
 

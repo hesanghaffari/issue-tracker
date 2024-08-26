@@ -27,7 +27,7 @@ function CreateTicket() {
     mutationFn: ticket,
     onSuccess: () => {
       toast.success("تیکت شما با موفقیت ثبت شد.");
-      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ticketssubmit"] });
       reset();
       setFileError("");
       navigate("/dashboard");
@@ -66,7 +66,7 @@ function CreateTicket() {
     formData.append("problemType", data.typeissue);
     formData.append("request", data.description);
     formData.append("requestTitle", data.title);
-    formData.append("errorTime", data.errorTime);
+    formData.append("errorTime", data.errortime);
 
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {

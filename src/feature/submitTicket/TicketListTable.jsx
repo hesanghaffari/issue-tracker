@@ -1,66 +1,49 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { ticketlist } from "../../services/apiTicket";
+import { useSearchParams } from "react-router-dom";
+import { useTicket } from "./useTicket";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-import Pagination from "../../ui/Pagination";
-
 import TicketRow from "./TicketRow";
 import Empty from "../../ui/Empty";
-import { useSearchParams } from "react-router-dom";
-// import styles from "./TicketListTable.module.css";
+import Pagination from "../../ui/Pagination";
+
 function TicketListTable() {
-  const [page, setPage] = useState(1);
+  const { tickets, isLoading } = useTicket();
   const [searchParams] = useSearchParams();
-  const filterValue = searchParams.get("status");
-  const filter =
-    !filterValue || filterValue === "all"
-      ? null
-      : { field: "status", value: filterValue };
-  const {
-    isLoading,
-    data: tickets,
-    isFetching,
-  } = useQuery({
-    queryKey: ["tickets", page],
-    queryFn: () => ticketlist(page, filter),
-    keepPreviousData: true,
-  });
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
   if (!tickets?.tickets.length) return <Empty resourceName="ایشو" />;
 
-  const startIndex = (page - 1) * 10;
   return (
     <>
-      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr">
         <Table.Header>
           <div>#</div>
           <div>شرکت</div>
           <div>موضوع تیکت</div>
           <div>لایسنس کد</div>
           <div>نوع تیکت</div>
+          <div>وضعیت</div>
         </Table.Header>
 
         <Table.Body
-          // data={cabins}
-          // data={filteredCabins}
           data={tickets}
-          render={(tickets, index) => (
+          render={(ticket, index) => (
             <TicketRow
-              tickets={tickets}
-              key={tickets._id}
-              index={startIndex + index}
+              tickets={ticket}
+              key={ticket._id}
+              index={index}
+              currentPage={currentPage} // Pass the currentPage as a prop
             />
           )}
         />
       </Table>
-      <Pagination
-        currentPage={page}
-        totalPages={tickets.totalPages}
-        onPageChange={(newPage) => setPage(newPage)}
-        isFetching={isFetching}
-      />
+      <Table.Footer>
+        <Pagination count={tickets.totalTickets} />
+      </Table.Footer>
     </>
   );
 }

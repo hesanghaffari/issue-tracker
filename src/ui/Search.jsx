@@ -3,7 +3,7 @@ import { useKey } from "./useKey";
 import { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Input from "./Input";
-
+import styles from "./Search.module.css";
 function Search() {
   const [query, setQuery] = useState(""); // Local state for the input
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,13 +39,15 @@ function Search() {
   }
 
   return (
-    <Input
-      type="text"
-      placeholder="جستجو..."
-      value={query}
-      onChange={handleChange}
-      ref={inputEl}
-    />
+    <div className={styles.searchcenter}>
+      <Input
+        type="text"
+        placeholder="جستجو..."
+        value={query}
+        onChange={handleChange}
+        ref={inputEl}
+      />
+    </div>
   );
 }
 

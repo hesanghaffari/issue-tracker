@@ -93,7 +93,7 @@ function TicketDetailAdmin() {
         </div>
         <div className={styles.detailRow}>
           <strong>مدت زمان ارور:</strong>
-          <span>{new Date(ticket.errorTicket).toLocaleString()}</span>
+          <span>{ticket.errorTime}</span>
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { ticketlistAdmin } from "../../../services/apiTicket";
+import { ticketlist } from "../../services/apiTicket";
 import { useSearchParams } from "react-router-dom";
 
-export function useTicketAdmin() {
+export function useTicket() {
   const [searchParams] = useSearchParams();
 
   // FILTER
@@ -23,6 +23,7 @@ export function useTicketAdmin() {
 
   // CREATED AT (DATE FILTER)
   const date = searchParams.get("date") || "";
+
   // END DATE (DATE FILTER)
 
   // QUERY
@@ -31,9 +32,9 @@ export function useTicketAdmin() {
     data: tickets,
     error,
   } = useQuery({
-    queryKey: ["ticketsadmin", filter, problemType, page, search, date], // Add endDate to the query key
+    queryKey: ["ticketsuser", filter, problemType, page, search, date], // Add endDate to the query key
     queryFn: () =>
-      ticketlistAdmin({
+      ticketlist({
         filter,
         problemType,
         page,

@@ -24,8 +24,13 @@ export async function ticket(data) {
 }
 
 //////////
-
-export async function ticketlist({ page }) {
+export async function ticketlist({
+  filter = null,
+  problemType = null,
+  page = 1,
+  search = "",
+  date = null,
+}) {
   try {
     const token = Cookies.get("authToken");
 
@@ -33,12 +38,28 @@ export async function ticketlist({ page }) {
       throw new Error("Auth token not found in cookies");
     }
 
+    const params = { page };
+
+    if (filter) {
+      params[filter.field] = filter.value;
+    }
+
+    if (problemType) {
+      params.problemType = problemType;
+    }
+
+    if (search) {
+      params.search = search;
+    }
+
+    if (date) {
+      params.date = date; // Add createdAt to the params
+    }
+
     const response = await axios.get(
       `http://localhost:3000/api/tickets/users`,
       {
-        params: {
-          page: page,
-        },
+        params,
         headers: {
           Authorization: token,
         },
@@ -126,8 +147,7 @@ export async function ticketlistAdmin({
   problemType = null,
   page = 1,
   search = "",
-  startDate = null,
-  endDate = null, // Add endDate as a parameter
+  date = null,
 }) {
   try {
     const token = Cookies.get("authToken");
@@ -150,12 +170,8 @@ export async function ticketlistAdmin({
       params.search = search;
     }
 
-    if (startDate) {
-      params.startDate = startDate; // Add createdAt to the params
-    }
-
-    if (endDate) {
-      params.endDate = endDate; // Add endDate to the params
+    if (date) {
+      params.date = date; // Add createdAt to the params
     }
 
     const response = await axios.get(`http://localhost:3000/api/tickets`, {
@@ -172,6 +188,54 @@ export async function ticketlistAdmin({
 }
 
 ////////////////////////////////////
+export async function ticketlistAdminMyTicket({
+  filter = null,
+  problemType = null,
+  page = 1,
+  search = "",
+  date = null,
+}) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const params = { page };
+
+    if (filter) {
+      params[filter.field] = filter.value;
+    }
+
+    if (problemType) {
+      params.problemType = problemType;
+    }
+
+    if (search) {
+      params.search = search;
+    }
+
+    if (date) {
+      params.date = date; // Add createdAt to the params
+    }
+
+    const response = await axios.get(
+      `http://localhost:3000/api/tickets/myTickets`,
+      {
+        params,
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+/////////////////////////////
 export async function getTicketAdminById(id) {
   try {
     const token = Cookies.get("authToken");
@@ -197,11 +261,18 @@ export async function getTicketAdminById(id) {
 /////////////////////////////
 export async function assignTicketToUser(ticketId, email) {
   try {
-    const response = await axios.post(
+    const token = Cookies.get("authToken");
+
+    const response = await axios.put(
       "http://localhost:3000/api/tickets/assign",
       {
         ticketId,
         email,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
       }
     );
     return response.data;
