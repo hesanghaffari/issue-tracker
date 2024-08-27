@@ -42,12 +42,14 @@ function TicketDetail() {
       reset();
     },
   });
+  const userRole = Cookies.get("userRole");
 
   const onSubmit = (data) => {
     const userName = Cookies.get("fullname");
     mutation.mutate({
       message: data.reply,
       user: userName,
+      role: userRole,
     });
   };
 
