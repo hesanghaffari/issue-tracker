@@ -79,10 +79,13 @@ function TicketDetailAdmin() {
   };
 
   const onSubmit = (data) => {
+    const userRole = Cookies.get("userRole");
+
     const userName = Cookies.get("fullname");
     mutation.mutate({
       message: data.reply,
       user: userName,
+      role: userRole,
     });
   };
 
