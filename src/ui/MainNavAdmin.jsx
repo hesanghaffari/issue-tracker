@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
 import {
   HiOutlineHome,
   HiOutlineTicket,
@@ -8,6 +9,9 @@ import {
 import styles from "./MainNav.module.css";
 
 function MainNav({ onClose }) {
+  // Get the userRole from the cookie
+  const userRole = Cookies.get("userRole");
+
   return (
     <nav>
       <ul className={styles.NavList}>
@@ -35,30 +39,20 @@ function MainNav({ onClose }) {
             <span>تیکت‌های من</span>
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink
-            to="/createticket"
-            className={({ isActive }) =>
-              isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
-            }
-            onClick={onClose}
-          >
-            <HiOutlineTicket />
-            <span>ثبت تیکت</span>
-          </NavLink>
-        </li> */}
-        <li>
-          <NavLink
-            to="/users"
-            className={({ isActive }) =>
-              isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
-            }
-            onClick={onClose}
-          >
-            <HiOutlineUsers />
-            <span>یوزرها</span>
-          </NavLink>
-        </li>
+        {userRole === "superadmin" && (
+          <li>
+            <NavLink
+              to="/usersList"
+              className={({ isActive }) =>
+                isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
+              }
+              onClick={onClose}
+            >
+              <HiOutlineUsers />
+              <span>یوزرها</span>
+            </NavLink>
+          </li>
+        )}
       </ul>
     </nav>
   );

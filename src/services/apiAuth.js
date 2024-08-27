@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export async function signup({ fullname, email, password }) {
   try {
@@ -62,6 +63,29 @@ export async function verifyEmail({ otp, email }) {
       otp,
       email,
     });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
+  }
+}
+//////////////
+export async function addAdmin({ fullname, email, password }) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.post(
+      "http://localhost:3000/api/admin",
+      {
+        email,
+        password,
+        fullname,
+      },
+      {
+        headers: {
+          Authorization: token, // Correctly add the token to the headers
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     const errorMessage = error.response?.data || "An error occurred";

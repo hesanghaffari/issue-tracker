@@ -13,7 +13,7 @@ function TicketRow({ tickets, index, currentPage }) {
     problemType,
     _id,
     status,
-    assignedTo,
+    assignedToName,
   } = tickets;
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ function TicketRow({ tickets, index, currentPage }) {
             مشاهده
           </Button>
           <div className={styles.tooltipText}>
-            گردن گیرنده: {assignedTo || "کسی گردن نگرفته"}
+            گردن گیرنده: {assignedToName}
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@ TicketRow.propTypes = {
     licenseCode: PropTypes.string.isRequired,
     problemType: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    assignedTo: PropTypes.string, // Add assignTo to prop types
+    assignedToName: PropTypes.string, // Add assignTo to prop types
   }).isRequired,
 };
 
