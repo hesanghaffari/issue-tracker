@@ -7,7 +7,6 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ProtectedRoute from "./ui/protectedRouteUser";
 import Dashboard from "./pages/Dashboard";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import MyTicket from "./pages/admin/MyTicket";
@@ -21,6 +20,8 @@ import TicketDetailAdmin from "./pages/admin/TicketDetailAdmin";
 import TicketDetailMyTicketAdmin from "./pages/admin/TicketDetailMyTicketAdmin";
 import UsersList from "./pages/admin/UsersList";
 import AppLayoutAdmin from "./ui/AppLayoutAdmin";
+import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
+import ProtectedRouteUser from "./ui/protectedRouteUser";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,21 +39,21 @@ function App() {
         <Routes>
           <Route
             element={
-              <ProtectedRoute>
+              <ProtectedRouteUser>
                 <AppLayout />
-              </ProtectedRoute>
+              </ProtectedRouteUser>
             }
           >
             <Route path="dashboard" element={<Dashboard />} />
-
             <Route path="createticket" element={<CreateTicket />} />
             <Route path="dashboard/:ticketId" element={<TicketDetail />} />
           </Route>
+
           <Route
             element={
-              <ProtectedRoute>
+              <ProtectedRouteAdmin>
                 <AppLayoutAdmin />
-              </ProtectedRoute>
+              </ProtectedRouteAdmin>
             }
           >
             <Route path="dashboardadmin" element={<DashboardAdmin />} />
@@ -65,8 +66,18 @@ function App() {
               path="myticket/:ticketId"
               element={<TicketDetailMyTicketAdmin />}
             />
+          </Route>
+
+          <Route
+            element={
+              <ProtectedRouteAdmin accessToUsersList={true}>
+                <AppLayoutAdmin />
+              </ProtectedRouteAdmin>
+            }
+          >
             <Route path="userslist" element={<UsersList />} />
           </Route>
+
           <Route index element={<Navigate replace to="login" />} />
           <Route path="verify-email" element={<VerifyEmailForm />} />
           <Route path="login" element={<Login />} />

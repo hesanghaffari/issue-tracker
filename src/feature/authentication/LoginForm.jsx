@@ -66,6 +66,11 @@ function LoginForm() {
           <span>رمز عبورتان را فراموش کرده‌اید؟</span>
         </NavLink>
       </FormRowVertical>
+      <FormRowVertical>
+        <NavLink to="/mamadDahanetServis">
+          <span>لاگین ادمین</span>
+        </NavLink>
+      </FormRowVertical>
     </Form>
   );
 }

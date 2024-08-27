@@ -3,20 +3,23 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRouteUser = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get("authToken");
+    const userRole = Cookies.get("userRole");
 
-    if (!token) {
+    if (!token || userRole !== "user") {
       navigate("/login");
     }
   }, [navigate]);
 
   return children;
 };
-ProtectedRoute.propTypes = {
+
+ProtectedRouteUser.propTypes = {
   children: PropTypes.node.isRequired,
 };
-export default ProtectedRoute;
+
+export default ProtectedRouteUser;

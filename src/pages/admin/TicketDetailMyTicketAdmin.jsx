@@ -5,7 +5,7 @@ import {
   submitReply,
   getRepliesByTicketId,
   finishTicket, // Import the new API call
-  updateTicketStatus, // Import the new API call
+  // updateTicketStatus, // Import the new API call
 } from "../../services/apiTicket";
 
 import Spinner from "../../ui/Spinner";
@@ -59,24 +59,24 @@ function TicketDetailAdmin() {
   });
 
   // Mutation for updating the ticket status
-  const updateStatusMutation = useMutation({
-    mutationFn: ({ ticketId, status }) => updateTicketStatus(ticketId, status),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tickets", ticketId]);
-      toast.success("وضعیت تیکت با موفقیت به روز شد.");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  // const updateStatusMutation = useMutation({
+  //   mutationFn: ({ ticketId, status }) => updateTicketStatus(ticketId, status),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["tickets", ticketId]);
+  //     toast.success("وضعیت تیکت با موفقیت به روز شد.");
+  //   },
+  //   onError: (error) => {
+  //     toast.error(error.message);
+  //   },
+  // });
 
   const handleFinishTicket = () => {
     finishTicketMutation.mutate(ticketId);
   };
 
-  const handleUpdateStatus = () => {
-    updateStatusMutation.mutate({ ticketId, status: "در انتظار پاسخ" });
-  };
+  // const handleUpdateStatus = () => {
+  //   updateStatusMutation.mutate({ ticketId, status: "در انتظار پاسخ" });
+  // };
 
   const onSubmit = (data) => {
     const userRole = Cookies.get("userRole");
@@ -117,7 +117,7 @@ function TicketDetailAdmin() {
           >
             {finishTicketMutation.isLoading ? "در حال انجام..." : "پایان تیکت"}
           </Button>
-          <Button
+          {/* <Button
             onClick={handleUpdateStatus}
             disabled={updateStatusMutation.isLoading}
             size="small"
@@ -125,7 +125,7 @@ function TicketDetailAdmin() {
             {updateStatusMutation.isLoading
               ? "در حال انجام..."
               : "تغییر به در انتظار پاسخ"}
-          </Button>
+          </Button> */}
         </div>
       </div>
 
