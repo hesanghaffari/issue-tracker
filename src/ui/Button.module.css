@@ -54,3 +54,12 @@
 .danger:hover {
   background-color: var(--color-red-800);
 }
+.secondary {
+  color: var();
+  background: var(--color-indigo-100);
+  border: 1px solid var(--color-grey-200);
+}
+
+.secondary:hover {
+  background-color: var(--color-grey-50);
+}

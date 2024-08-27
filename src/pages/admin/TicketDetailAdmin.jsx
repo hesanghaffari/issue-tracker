@@ -72,6 +72,7 @@ function TicketDetailAdmin() {
           <Button
             onClick={handleAssignTicket}
             disabled={assignTicketMutation.isLoading}
+            size="small"
           >
             {assignTicketMutation.isLoading ? "در حال انجام..." : "گردن میگیرم"}
           </Button>

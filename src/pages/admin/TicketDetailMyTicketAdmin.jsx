@@ -105,20 +105,23 @@ function TicketDetailAdmin() {
           <strong>{ticket.fullName}</strong>
           <p className={styles.email}>{ticket.email}</p>
         </div>
-        <div>
+        <div style={{ display: "flex", gap: "1rem" }}>
           <Button
             onClick={handleFinishTicket}
             disabled={finishTicketMutation.isLoading}
+            variation="danger"
+            size="small"
           >
             {finishTicketMutation.isLoading ? "در حال انجام..." : "پایان تیکت"}
           </Button>
           <Button
             onClick={handleUpdateStatus}
             disabled={updateStatusMutation.isLoading}
+            size="small"
           >
             {updateStatusMutation.isLoading
               ? "در حال انجام..."
-              : "به روز رسانی وضعیت"}
+              : "تغییر به در انتظار پاسخ"}
           </Button>
         </div>
       </div>

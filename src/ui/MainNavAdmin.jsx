@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { HiOutlineHome, HiOutlineTicket } from "react-icons/hi2";
+import {
+  HiOutlineHome,
+  HiOutlineTicket,
+  HiOutlineUsers,
+} from "react-icons/hi2";
 import styles from "./MainNav.module.css";
 
 function MainNav({ onClose }) {
@@ -43,7 +47,7 @@ function MainNav({ onClose }) {
             <span>ثبت تیکت</span>
           </NavLink>
         </li> */}
-        {/* <li>
+        <li>
           <NavLink
             to="/users"
             className={({ isActive }) =>
@@ -52,9 +56,9 @@ function MainNav({ onClose }) {
             onClick={onClose}
           >
             <HiOutlineUsers />
-            <span>پروفایل</span>
+            <span>یوزرها</span>
           </NavLink>
-        </li> */}
+        </li>
       </ul>
     </nav>
   );
