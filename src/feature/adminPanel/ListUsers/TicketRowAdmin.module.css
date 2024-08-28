@@ -1,0 +1,82 @@
+.img {
+  display: block;
+  width: 6.4rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.5) translateX(-7px);
+}
+
+.cabin {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-grey-600);
+}
+
+.price {
+  font-weight: 600;
+}
+
+.discount {
+  font-weight: 500;
+  color: var(--color-green-700);
+}
+/* .button {
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  border-radius: var(--border-radius-sm);
+  transform: translateX(0.8rem);
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: var(--color-grey-100);
+}
+
+.button svg {
+  width: 2.4rem;
+  height: 2.4rem;
+ 
+  color: var(--color-grey-500);
+} */
+/* TicketRowAdmin.module.css */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position the tooltip above the button */
+  left: 50%;
+  margin-left: -80px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Arrow at the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}

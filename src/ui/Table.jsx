@@ -44,11 +44,10 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data.tickets.length) return <p className={styles.empty}>موجود نیست</p>;
+  const items = data.tickets || data.admins;
+  if (!items.length) return <p className={styles.empty}>موجود نیست</p>;
 
-  return (
-    <section className={styles.styledBody}>{data.tickets.map(render)}</section>
-  );
+  return <section className={styles.styledBody}>{items.map(render)}</section>;
 }
 
 function Footer({ children }) {

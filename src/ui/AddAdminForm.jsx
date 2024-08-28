@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import Button from "../../../ui/Button";
-import Form from "../../../ui/Form";
-import FormRow from "../../../ui/FormRow";
-import Input from "../../../ui/Input";
-import { useAddAdmin } from "./useAddAdmin";
+import Button from "./Button";
+import Form from "./Form";
+import FormRow from "./FormRow";
+import Input from "./Input";
+import { useAddAdmin } from "../feature/adminPanel/ListUsers/useAddAdmin";
 
 function AddAdminForm() {
   const { addAdmin, isPending } = useAddAdmin();
@@ -20,7 +20,7 @@ function AddAdminForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="نام و نام خانوادگی" error={errors?.fullname?.message}>
         <Input
           type="text"
@@ -78,14 +78,14 @@ function AddAdminForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button
+        {/* <Button
           variation="secondary"
           type="reset"
           disabled={isPending}
           onClick={reset}
         >
           پاک کن
-        </Button>
+        </Button> */}
         <Button disabled={isPending}>ثبت نام</Button>
       </FormRow>
     </Form>

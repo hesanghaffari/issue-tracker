@@ -22,6 +22,7 @@ import UsersList from "./pages/admin/UsersList";
 import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";
+import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,9 +80,26 @@ function App() {
           </Route>
 
           <Route index element={<Navigate replace to="login" />} />
+
+          {/* Wrap Login Routes with RedirectIfAuthenticated */}
+          <Route
+            path="login"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="mamadDahanetServis"
+            element={
+              <RedirectIfAuthenticated>
+                <LoginAdmin />
+              </RedirectIfAuthenticated>
+            }
+          />
+
           <Route path="verify-email" element={<VerifyEmailForm />} />
-          <Route path="login" element={<Login />} />
-          <Route path="mamadDahanetServis" element={<LoginAdmin />} />
           <Route path="users" element={<Users />} />
           <Route path="forgetpass" element={<ForgetPass />} />
           {/* <Route path="*" element={<PageNotFound />} /> */}

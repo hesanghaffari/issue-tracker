@@ -345,3 +345,23 @@ export async function finishTicket(ticketId) {
     throw new Error(`Failed to finish the ticket: ${error.message}`);
   }
 }
+//////////////////////////////////////
+export async function listAdmin() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`http://localhost:3000/api/admin`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}

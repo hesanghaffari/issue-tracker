@@ -1,9 +1,10 @@
-import AddAdminForm from "../../feature/adminPanel/ListUsers/AddAdminForm";
+import AdminManagement from "../../feature/adminPanel/ListUsers/AdminManagement";
+// import AddAdminForm from "../../ui/AddAdminForm";
 
 function UsersList() {
   return (
     <main>
-      <AddAdminForm />
+      <AdminManagement />
     </main>
   );
 }
