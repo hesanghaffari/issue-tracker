@@ -1,20 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+const mainURL = "http://195.20.233.83";
+
 export async function ticket(data) {
   try {
     const token = Cookies.get("authToken");
 
-    const response = await axios.post(
-      "http://195.20.233.83/api/tickets",
-      data,
-      {
-        headers: {
-          Authorization: token,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axios.post(`${mainURL}/api/tickets`, data, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -56,15 +54,12 @@ export async function ticketlist({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(
-      `http://195.20.233.83/api/tickets/users`,
-      {
-        params,
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${mainURL}/api/tickets/users`, {
+      params,
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -80,14 +75,11 @@ export async function getTicketById(id) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(
-      `http://195.20.233.83/api/tickets/users/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${mainURL}/api/tickets/users/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -103,14 +95,11 @@ export async function getRepliesByTicketId(ticketId) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(
-      `http://195.20.233.83/api/chat/${ticketId}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${mainURL}/api/chat/${ticketId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -127,7 +116,7 @@ export async function submitReply(ticketId, reply) {
     }
 
     const response = await axios.post(
-      `http://195.20.233.83/api/chat/${ticketId}`,
+      `${mainURL}/api/chat/${ticketId}`,
       reply,
       {
         headers: {
@@ -174,7 +163,7 @@ export async function ticketlistAdmin({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(`http://195.20.233.83/api/tickets`, {
+    const response = await axios.get(`${mainURL}/api/tickets`, {
       params,
       headers: {
         Authorization: token,
@@ -220,15 +209,12 @@ export async function ticketlistAdminMyTicket({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(
-      `http://195.20.233.83/api/tickets/myTickets`,
-      {
-        params,
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${mainURL}/api/tickets/myTickets`, {
+      params,
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -244,14 +230,11 @@ export async function getTicketAdminById(id) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(
-      `http://195.20.233.83/api/tickets/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${mainURL}/api/tickets/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -264,7 +247,7 @@ export async function assignTicketToUser(ticketId, email) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      "http://195.20.233.83/api/tickets/assign",
+      "${mainURL}/api/tickets/assign",
       {
         ticketId,
         email,
@@ -307,7 +290,7 @@ export async function updateTicketStatus(ticketId, status) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      `http://195.20.233.83/api/tickets/${ticketId}`,
+      `${mainURL}/api/tickets/${ticketId}`,
       { status },
       {
         headers: {
@@ -331,7 +314,7 @@ export async function finishTicket(ticketId) {
     }
 
     const response = await axios.put(
-      `http://195.20.233.83/api/tickets/${ticketId}/finish`,
+      `${mainURL}/api/tickets/${ticketId}/finish`,
       {}, // Empty object for the payload, since PUT requests usually expect one
       {
         headers: {
@@ -354,7 +337,7 @@ export async function listAdmin() {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(`http://195.20.233.83/api/admin`, {
+    const response = await axios.get(`${mainURL}/api/admin`, {
       headers: {
         Authorization: token,
       },

@@ -1,9 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+const mainURL = "http://195.20.233.83";
+
 export async function signup({ fullname, email, password }) {
   try {
-    const response = await axios.post("http://195.20.233.83/api/users", {
+    const response = await axios.post(`${mainURL}/api/users`, {
       email,
       password,
       fullname,
@@ -17,12 +19,9 @@ export async function signup({ fullname, email, password }) {
 
 export async function pass({ email }) {
   try {
-    const response = await axios.post(
-      "http://195.20.233.83/api/forgetPassword",
-      {
-        email,
-      }
-    );
+    const response = await axios.post(`${mainURL}/api/forgetPassword`, {
+      email,
+    });
     return response.data;
   } catch (error) {
     const errorMessage = error.response?.data || "An error occurred";
@@ -32,7 +31,7 @@ export async function pass({ email }) {
 
 export async function login({ email, password }) {
   try {
-    const response = await axios.post("http://195.20.233.83/api/auth", {
+    const response = await axios.post(`${mainURL}/api/auth`, {
       email,
       password,
     });
@@ -45,7 +44,7 @@ export async function login({ email, password }) {
 
 export async function loginAdmin({ email, password }) {
   try {
-    const response = await axios.post("http://195.20.233.83/api/authAdmin", {
+    const response = await axios.post(`${mainURL}/api/authAdmin`, {
       email,
       password,
     });
@@ -59,7 +58,7 @@ export async function loginAdmin({ email, password }) {
 
 export async function verifyEmail({ otp, email }) {
   try {
-    const response = await axios.post("http://195.20.233.83/api/users/otp", {
+    const response = await axios.post(`${mainURL}/api/users/otp`, {
       otp,
       email,
     });
@@ -74,7 +73,7 @@ export async function addAdmin({ fullname, email, password }) {
   try {
     const token = Cookies.get("authToken");
     const response = await axios.post(
-      "http://195.20.233.83/api/admin",
+      `${mainURL}/api/admin`,
       {
         email,
         password,
