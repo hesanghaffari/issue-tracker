@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export async function signup({ fullname, email, password }) {
   try {
-    const response = await axios.post("http://localhost:3000/api/users", {
+    const response = await axios.post("http://195.20.233.83/api/users", {
       email,
       password,
       fullname,
@@ -18,7 +18,7 @@ export async function signup({ fullname, email, password }) {
 export async function pass({ email }) {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/forgetPassword",
+      "http://195.20.233.83/api/forgetPassword",
       {
         email,
       }
@@ -32,7 +32,7 @@ export async function pass({ email }) {
 
 export async function login({ email, password }) {
   try {
-    const response = await axios.post("http://localhost:3000/api/auth", {
+    const response = await axios.post("http://195.20.233.83/api/auth", {
       email,
       password,
     });
@@ -45,7 +45,7 @@ export async function login({ email, password }) {
 
 export async function loginAdmin({ email, password }) {
   try {
-    const response = await axios.post("http://localhost:3000/api/authAdmin", {
+    const response = await axios.post("http://195.20.233.83/api/authAdmin", {
       email,
       password,
     });
@@ -59,7 +59,7 @@ export async function loginAdmin({ email, password }) {
 
 export async function verifyEmail({ otp, email }) {
   try {
-    const response = await axios.post("http://localhost:3000/api/users/otp", {
+    const response = await axios.post("http://195.20.233.83/api/users/otp", {
       otp,
       email,
     });
@@ -74,7 +74,7 @@ export async function addAdmin({ fullname, email, password }) {
   try {
     const token = Cookies.get("authToken");
     const response = await axios.post(
-      "http://localhost:3000/api/admin",
+      "http://195.20.233.83/api/admin",
       {
         email,
         password,

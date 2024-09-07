@@ -6,7 +6,7 @@ export async function ticket(data) {
     const token = Cookies.get("authToken");
 
     const response = await axios.post(
-      "http://localhost:3000/api/tickets",
+      "http://195.20.233.83/api/tickets",
       data,
       {
         headers: {
@@ -57,7 +57,7 @@ export async function ticketlist({
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/tickets/users`,
+      `http://195.20.233.83/api/tickets/users`,
       {
         params,
         headers: {
@@ -81,7 +81,7 @@ export async function getTicketById(id) {
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/tickets/users/${id}`,
+      `http://195.20.233.83/api/tickets/users/${id}`,
       {
         headers: {
           Authorization: token,
@@ -104,7 +104,7 @@ export async function getRepliesByTicketId(ticketId) {
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/chat/${ticketId}`,
+      `http://195.20.233.83/api/chat/${ticketId}`,
       {
         headers: {
           Authorization: token,
@@ -127,7 +127,7 @@ export async function submitReply(ticketId, reply) {
     }
 
     const response = await axios.post(
-      `http://localhost:3000/api/chat/${ticketId}`,
+      `http://195.20.233.83/api/chat/${ticketId}`,
       reply,
       {
         headers: {
@@ -174,7 +174,7 @@ export async function ticketlistAdmin({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(`http://localhost:3000/api/tickets`, {
+    const response = await axios.get(`http://195.20.233.83/api/tickets`, {
       params,
       headers: {
         Authorization: token,
@@ -221,7 +221,7 @@ export async function ticketlistAdminMyTicket({
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/tickets/myTickets`,
+      `http://195.20.233.83/api/tickets/myTickets`,
       {
         params,
         headers: {
@@ -245,7 +245,7 @@ export async function getTicketAdminById(id) {
     }
 
     const response = await axios.get(
-      `http://localhost:3000/api/tickets/${id}`,
+      `http://195.20.233.83/api/tickets/${id}`,
       {
         headers: {
           Authorization: token,
@@ -264,7 +264,7 @@ export async function assignTicketToUser(ticketId, email) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      "http://localhost:3000/api/tickets/assign",
+      "http://195.20.233.83/api/tickets/assign",
       {
         ticketId,
         email,
@@ -307,7 +307,7 @@ export async function updateTicketStatus(ticketId, status) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      `http://localhost:3000/api/tickets/${ticketId}`,
+      `http://195.20.233.83/api/tickets/${ticketId}`,
       { status },
       {
         headers: {
@@ -331,7 +331,7 @@ export async function finishTicket(ticketId) {
     }
 
     const response = await axios.put(
-      `http://localhost:3000/api/tickets/${ticketId}/finish`,
+      `http://195.20.233.83/api/tickets/${ticketId}/finish`,
       {}, // Empty object for the payload, since PUT requests usually expect one
       {
         headers: {
@@ -354,7 +354,7 @@ export async function listAdmin() {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(`http://localhost:3000/api/admin`, {
+    const response = await axios.get(`http://195.20.233.83/api/admin`, {
       headers: {
         Authorization: token,
       },
