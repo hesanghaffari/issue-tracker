@@ -11,13 +11,13 @@ export function useSignup() {
     mutationFn: signupApi,
     onSuccess: (user) => {
       if (user.isVerified) {
-        Cookies.set("userEmail", user.email, { expires: 1, secure: true });
+        Cookies.set("userEmail", user.email);
         toast.success(
           "ثبت نام با موفقیت انجام شد. لطفا وارد حساب کاربری خود شوید."
         );
         navigate("/login");
       } else {
-        Cookies.set("userEmail", user.email, { expires: 1, secure: true });
+        Cookies.set("userEmail", user.email);
 
         toast.success(
           "ثبت نام با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید."

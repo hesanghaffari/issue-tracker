@@ -15,11 +15,11 @@ export function useLoginAdmin() {
       const id = user.id;
       const fullname = user.fullname;
       const userRole = user.role;
-      Cookies.set("fullname", fullname, { expires: 1, secure: true });
-      Cookies.set("authToken", token, { expires: 1, secure: true });
-      Cookies.set("userRole", userRole, { expires: 1, secure: true });
+      Cookies.set("fullname", fullname);
+      Cookies.set("authToken", token);
+      Cookies.set("userRole", userRole);
       Cookies.set("userID", id);
-      Cookies.set("userEmail", user.email, { expires: 1, secure: true });
+      Cookies.set("userEmail", user.email);
       queryClient.setQueryData(["user"], user.user);
       toast.success("باز که پیدات شد!😒");
 
