@@ -1,7 +1,7 @@
 import Login from "./pages/Login";
 import Users from "./pages/Users";
 import ForgetPass from "./pages/ForgetPass";
-import LoginAdmin from "./pages/LoginAdmin";
+import LoginAdmin from "./pages/admin/LoginAdmin";
 import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -92,7 +92,7 @@ function App() {
             }
           />
           <Route
-            path="mamadDahanetServis"
+            path="csteam"
             element={
               <RedirectIfAuthenticated>
                 <LoginAdmin />

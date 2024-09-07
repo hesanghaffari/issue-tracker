@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://195.20.233.83";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -247,7 +247,7 @@ export async function assignTicketToUser(ticketId, email) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      "${mainURL}/api/tickets/assign",
+      `${mainURL}/api/tickets/assign`,
       {
         ticketId,
         email,

@@ -21,7 +21,7 @@ export function useLoginAdmin() {
       Cookies.set("userID", id);
       Cookies.set("userEmail", user.email);
       queryClient.setQueryData(["user"], user.user);
-      toast.success("باز که پیدات شد!😒");
+      toast.success("ورود موفق!");
 
       navigate("/dashboardadmin");
     },

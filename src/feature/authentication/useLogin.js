@@ -23,7 +23,7 @@ export function useLogin() {
         Cookies.set("userEmail", user.email);
         queryClient.setQueryData(["user"], user.user);
         navigate("/dashboard");
-        toast.success("باز که پیدات شد!😒");
+        toast.success("ورود موفق!");
       } else {
         toast.success("لطفا ایمیل خود را تایید کنید.");
         navigate("/verify-email");
