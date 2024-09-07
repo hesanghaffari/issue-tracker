@@ -23,6 +23,7 @@ import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";
 import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
+import PageNotFound from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -102,7 +103,7 @@ function App() {
           <Route path="verify-email" element={<VerifyEmailForm />} />
           <Route path="users" element={<Users />} />
           <Route path="forgetpass" element={<ForgetPass />} />
-          {/* <Route path="*" element={<PageNotFound />} /> */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <Toaster
