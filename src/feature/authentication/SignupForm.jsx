@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
@@ -9,6 +10,10 @@ function SignupForm() {
   const { signup, isPending } = useSignup();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
+
+  // State variables to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   function onSubmit({ fullname, email, password }) {
     signup(
@@ -50,9 +55,11 @@ function SignupForm() {
         error={errors?.password?.message}
       >
         <Input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           disabled={isPending}
+          showtoggle={true} // Enable the eye icon
+          onToggle={() => setShowPassword(!showPassword)} // Toggle the visibility
           {...register("password", {
             required: "این فیلد اجباری است.",
             minLength: {
@@ -65,9 +72,11 @@ function SignupForm() {
 
       <FormRow label="تکرار رمزعبور" error={errors?.passwordConfirm?.message}>
         <Input
-          type="password"
+          type={showPasswordConfirm ? "text" : "password"}
           id="passwordConfirm"
           disabled={isPending}
+          showtoggle={true} // Enable the eye icon for confirmation
+          onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)} // Toggle the visibility for confirmation
           {...register("passwordConfirm", {
             required: "این فیلد اجباری است.",
             validate: (value) =>
@@ -77,14 +86,13 @@ function SignupForm() {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button
           variation="secondary"
           type="reset"
           disabled={isPending}
           onClick={reset}
         >
-          پاک کن
+          شروع مجدد{" "}
         </Button>
         <Button disabled={isPending}>ثبت نام</Button>
       </FormRow>

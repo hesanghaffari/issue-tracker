@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://195.20.233.83";
+const mainURL = "http://localhost:3000";
 // http://195.20.233.83
 export async function signup({ fullname, email, password }) {
   try {
