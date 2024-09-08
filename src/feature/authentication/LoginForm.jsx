@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
   const { login, isPending } = useLogin();
 
   useEffect(() => {}, [isPending]);
@@ -43,24 +44,29 @@ function LoginForm() {
 
       <FormRowVertical label="رمزعبور">
         <Input
-          type="password"
+          type={showPassword ? "text" : "password"} // Toggle between text and password
           id="password"
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={isPending}
+          showtoggle={true} // Prop to indicate show/hide button
+          onToggle={() => setShowPassword(!showPassword)} // Toggle handler
         />
       </FormRowVertical>
+
       <FormRowVertical>
         <Button size="large" disabled={isPending}>
           {!isPending ? "تایید و ادامه" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
+
       <FormRowVertical>
         <NavLink to="/Users">
           <span>هنوز ثبت نام نکرده‌اید؟</span>
         </NavLink>
       </FormRowVertical>
+
       <FormRowVertical>
         <NavLink to="/forgetpass">
           <span>رمز عبورتان را فراموش کرده‌اید؟</span>

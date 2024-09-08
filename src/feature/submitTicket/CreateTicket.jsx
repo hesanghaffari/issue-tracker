@@ -12,12 +12,24 @@ import { ticket } from "../../services/apiTicket";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Import js-cookie
 
 import styles from "./CreateTicket.module.css";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function CreateTicket() {
+  // Retrieve the values from the cookies
+  const fullNameFromCookie = Cookies.get("fullname") || ""; // Default to empty string if not found
+  const emailFromCookie = Cookies.get("userEmail") || ""; // Default to empty string if not found
+
   const { register, handleSubmit, reset, formState, setError, clearErrors } =
-    useForm();
+    useForm({
+      defaultValues: {
+        name: fullNameFromCookie, // Set default name from cookie
+        email: emailFromCookie, // Set default email from cookie
+      },
+    });
+
   const { errors } = formState;
   const queryClient = useQueryClient();
   const [fileError, setFileError] = useState("");
@@ -75,8 +87,6 @@ function CreateTicket() {
     }
 
     mutate(formData);
-    const errortime = formData.get("errorTime");
-    console.log(errortime);
   }
 
   function onError() {}
@@ -187,7 +197,7 @@ function CreateTicket() {
       </FormRow>
 
       <FormRow
-        label="توضیحات تیکت"
+        label="توضیحات"
         disabled={isCreating}
         error={errors?.description?.message}
       >
@@ -213,9 +223,11 @@ function CreateTicket() {
 
       <FormRow className={styles.buttonRow}>
         <Button variation="secondary" type="reset">
-          لغو
+          شروع مجدد
         </Button>
-        <Button disabled={isCreating}>ثبت</Button>
+        <Button disabled={isCreating}>
+          {!isCreating ? "ثبت" : <SpinnerMini />}
+        </Button>
       </FormRow>
     </Form>
   );

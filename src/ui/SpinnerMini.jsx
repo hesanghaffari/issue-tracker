@@ -1,4 +1,4 @@
-import styles from "./Spinner.module.css";
+import styles from "./SpinnerMini.module.css";
 import { BiLoaderAlt } from "react-icons/bi";
 
 function SpinnerMini() {

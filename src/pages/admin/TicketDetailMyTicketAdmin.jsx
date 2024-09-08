@@ -4,8 +4,7 @@ import {
   getTicketAdminById,
   submitReply,
   getRepliesByTicketId,
-  finishTicket, // Import the new API call
-  // updateTicketStatus, // Import the new API call
+  finishTicket,
 } from "../../services/apiTicket";
 
 import Spinner from "../../ui/Spinner";
@@ -58,25 +57,9 @@ function TicketDetailAdmin() {
     },
   });
 
-  // Mutation for updating the ticket status
-  // const updateStatusMutation = useMutation({
-  //   mutationFn: ({ ticketId, status }) => updateTicketStatus(ticketId, status),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["tickets", ticketId]);
-  //     toast.success("وضعیت تیکت با موفقیت به روز شد.");
-  //   },
-  //   onError: (error) => {
-  //     toast.error(error.message);
-  //   },
-  // });
-
   const handleFinishTicket = () => {
     finishTicketMutation.mutate(ticketId);
   };
-
-  // const handleUpdateStatus = () => {
-  //   updateStatusMutation.mutate({ ticketId, status: "در انتظار پاسخ" });
-  // };
 
   const onSubmit = (data) => {
     const userRole = Cookies.get("userRole");
@@ -111,21 +94,16 @@ function TicketDetailAdmin() {
         <div style={{ display: "flex", gap: "1rem" }}>
           <Button
             onClick={handleFinishTicket}
-            disabled={finishTicketMutation.isLoading}
+            disabled={ticket.endDate || finishTicketMutation.isLoading}
             variation="danger"
             size="small"
           >
-            {finishTicketMutation.isLoading ? "در حال انجام..." : "پایان تیکت"}
-          </Button>
-          {/* <Button
-            onClick={handleUpdateStatus}
-            disabled={updateStatusMutation.isLoading}
-            size="small"
-          >
-            {updateStatusMutation.isLoading
+            {ticket.endDate
+              ? "بسته شده"
+              : finishTicketMutation.isLoading
               ? "در حال انجام..."
-              : "تغییر به در انتظار پاسخ"}
-          </Button> */}
+              : "بستن تیکت"}
+          </Button>
         </div>
       </div>
 
@@ -143,7 +121,7 @@ function TicketDetailAdmin() {
           <span>{ticket.problemType}</span>
         </div>
         <div className={styles.detailRow}>
-          <strong>تاریخ ثبت تیکت:</strong>
+          <strong>تاریخ ثبت :</strong>
           <span>
             {moment(ticket.createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}
           </span>
@@ -213,12 +191,14 @@ function TicketDetailAdmin() {
           </div>
         )}
 
+        {/* Disable reply form if ticket is closed */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Textarea
             {...register("reply")}
-            placeholder="هر چی میخوای بنویس برام ..."
+            placeholder="اینجا یادداشت کنید ..."
+            disabled={ticket.endDate} // Disable textarea if endDate is present
           />
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading || ticket.endDate}>
             ثبت
           </Button>
         </form>

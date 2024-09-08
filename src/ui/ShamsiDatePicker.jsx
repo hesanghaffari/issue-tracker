@@ -10,6 +10,7 @@ import moment from "moment-jalaali";
 import PropTypes from "prop-types";
 import Input from "./Input";
 import Button from "./Button";
+const weekDays = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
 
 export default function ShamsiDatePicker({ paramName }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,6 +48,7 @@ export default function ShamsiDatePicker({ paramName }) {
   return (
     <div style={{ direction: "rtl" }}>
       <DatePicker
+        weekDays={weekDays}
         calendar={persian}
         locale={persian_fa}
         calendarPosition="bottom-right"

@@ -15,7 +15,7 @@ function TicketListTable() {
     : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
-  if (!tickets?.tickets.length) return <Empty resourceName="ایشو" />;
+  if (!tickets?.tickets.length) return <Empty resourceName="ایشویی" />;
 
   return (
     <>

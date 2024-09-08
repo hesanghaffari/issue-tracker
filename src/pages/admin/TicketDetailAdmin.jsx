@@ -34,7 +34,7 @@ function TicketDetailAdmin() {
     onSuccess: () => {
       // Invalidate the ticket query to refresh the data
       queryClient.invalidateQueries(["tickets", ticketId]); // Fix the query key
-      toast.success("گردن گرفتیش...");
+      toast.success("وضعیت با موفقیت به در حال بررسی تغییر کرد...");
     },
     onError: (error) => {
       toast.error(error.message); // Display the error message
@@ -74,7 +74,7 @@ function TicketDetailAdmin() {
             disabled={assignTicketMutation.isLoading}
             size="small"
           >
-            {assignTicketMutation.isLoading ? "در حال انجام..." : "گردن میگیرم"}
+            {assignTicketMutation.isLoading ? "در حال انجام..." : "بررسی"}
           </Button>
         </div>
       </div>
@@ -93,7 +93,7 @@ function TicketDetailAdmin() {
           <span>{ticket.problemType}</span>
         </div>
         <div className={styles.detailRow}>
-          <strong>تاریخ ثبت تیکت:</strong>
+          <strong>تاریخ ثبت :</strong>
           <span>
             {moment(ticket.createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}
           </span>

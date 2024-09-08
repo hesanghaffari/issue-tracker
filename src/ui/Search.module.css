@@ -1,3 +1,6 @@
 .searchcenter {
   margin-bottom: 10px;
 }
+.searchcenter Input {
+  width: auto !important;
+}

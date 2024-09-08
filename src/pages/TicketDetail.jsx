@@ -88,7 +88,7 @@ function TicketDetail() {
           <span>{ticket.problemType}</span>
         </div>
         <div className={styles.detailRow}>
-          <strong>تاریخ ثبت تیکت:</strong>
+          <strong>تاریخ ثبت :</strong>
           <span>
             {moment(ticket.createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}
           </span>
@@ -158,12 +158,14 @@ function TicketDetail() {
           </div>
         )}
 
+        {/* Disable reply form if ticket is closed (has endDate) */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Textarea
             {...register("reply")}
-            placeholder="هر چی میخوای بنویس برام ..."
+            placeholder="اینجا یادداشت کنید ..."
+            disabled={ticket.endDate} // Disable textarea if ticket is closed
           />
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading || ticket.endDate}>
             ثبت{" "}
           </Button>
         </form>

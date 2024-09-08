@@ -50,9 +50,7 @@ function TicketRow({ tickets, index, currentPage }) {
           >
             مشاهده
           </Button>
-          <div className={styles.tooltipText}>
-            گردن گیرنده: {assignedToName}
-          </div>
+          <div className={styles.tooltipText}>اینجنت: {assignedToName}</div>
         </div>
       </div>
     </Table.Row>

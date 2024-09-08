@@ -15,7 +15,7 @@ function ListAdminTable() {
     : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
-  if (!tickets?.admins.length) return <Empty resourceName="ایشو" />;
+  if (!tickets?.admins.length) return <Empty resourceName="ایشویی" />;
 
   return (
     <>
