@@ -142,18 +142,19 @@
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  overflow-wrap: break-word; /* Break long words */
+  word-wrap: break-word; /* For older browsers */
+  white-space: pre-wrap; /* Preserve white space and wrap text */
+  max-width: 100%; /* Ensure it doesn’t exceed the container width */
 }
 
-.replyRight {
-  align-items: flex-start;
-  text-align: left;
-}
-
+.replyRight,
 .replyLeft {
-  align-items: flex-end;
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box; /* Include padding and border in the element’s total width and height */
 }
-
 .textarea {
   width: 100%;
   padding: 0.5rem;

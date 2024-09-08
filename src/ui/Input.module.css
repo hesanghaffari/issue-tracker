@@ -11,10 +11,13 @@
   border: 1px solid var(--color-grey-300);
   background-color: var(--color-grey-0);
   border-radius: var(--border-radius-sm);
-  padding: 0.8rem 3rem 0.8rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 }
-
+.input.withToggleIcon {
+  width: 100%; /* Full width only when the toggle is shown */
+  padding-right: 30px; /* Space for the eye icon */
+}
 .toggleIcon {
   position: absolute;
   right: 10px;

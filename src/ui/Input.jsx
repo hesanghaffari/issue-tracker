@@ -5,7 +5,14 @@ import styles from "./Input.module.css"; // Assuming you have a CSS module for I
 const Input = forwardRef(({ showtoggle, onToggle, type, ...props }, ref) => {
   return (
     <div className={styles.inputWrapper}>
-      <input ref={ref} type={type} className={styles.input} {...props} />
+      <input
+        ref={ref}
+        type={type}
+        className={
+          showtoggle ? `${styles.input} ${styles.withToggleIcon}` : styles.input
+        }
+        {...props}
+      />
       {showtoggle && (
         <span onClick={onToggle} className={styles.toggleIcon}>
           {type === "password" ? "👁️" : "🙈"}
@@ -21,8 +28,8 @@ Input.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string,
   disabled: PropTypes.bool,
-  showtoggle: PropTypes.bool,
-  onToggle: PropTypes.func,
+  showtoggle: PropTypes.bool, // New prop for toggle
+  onToggle: PropTypes.func, // Function to handle toggle
 };
 
 export default Input;

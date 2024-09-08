@@ -5,6 +5,7 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignup } from "./useSignup";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function SignupForm() {
   const { signup, isPending } = useSignup();
@@ -94,7 +95,9 @@ function SignupForm() {
         >
           شروع مجدد{" "}
         </Button>
-        <Button disabled={isPending}>ثبت نام</Button>
+        <Button disabled={isPending}>
+          {!isPending ? " ثبت نام" : <SpinnerMini />}
+        </Button>
       </FormRow>
     </Form>
   );

@@ -88,7 +88,7 @@ function TicketDetail() {
           <span>{ticket.problemType}</span>
         </div>
         <div className={styles.detailRow}>
-          <strong>تاریخ ثبت :</strong>
+          <strong>تاریخ ثبت تیکت:</strong>
           <span>
             {moment(ticket.createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}
           </span>
