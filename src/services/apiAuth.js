@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://localhost:3000";
-// http://195.20.233.83
+const mainURL = "http://itk.maynd.ir";
+// http://itk.maynd.ir
 export async function signup({ fullname, email, password }) {
   try {
     const response = await axios.post(`${mainURL}/api/users`, {
