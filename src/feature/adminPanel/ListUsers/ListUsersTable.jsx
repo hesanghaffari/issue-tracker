@@ -1,49 +1,49 @@
 import { useSearchParams } from "react-router-dom";
-import { useAdminList } from "./useAdminList";
+import { useUsersList } from "./useUsersList";
 
 import Spinner from "../../../ui/Spinner";
 import Table from "../../../ui/Table";
-import AdminRow from "./AdminRow";
+import UsersRow from "./UsersRowList";
 import Empty from "../../../ui/Empty";
 import Pagination from "../../../ui/Pagination";
 
-function ListAdminTable() {
-  const { admins, isLoading } = useAdminList();
+function ListUsersTable() {
+  const { users, isLoading } = useUsersList();
   const [searchParams] = useSearchParams();
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
-  if (!admins?.admins.length) return <Empty resourceName="ادمینی" />;
+  if (!users?.users.length) return <Empty resourceName="یوزری" />;
 
   return (
     <>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr">
         <Table.Header>
           <div>#</div>
-          <div>نام</div>
-          <div>نقش</div>
+          <div>تاریخ ایجاد</div>
           <div>ایمیل</div>
+          <div>نام</div>
         </Table.Header>
 
         <Table.Body
-          data={admins}
-          render={(admin, index) => (
-            <AdminRow
-              admins={admin}
-              key={admin._id}
+          data={users}
+          render={(user, index) => (
+            <UsersRow
+              users={user}
+              key={user._id}
               index={index}
-              currentPage={currentPage}
+              currentPage={currentPage} // Pass the currentPage as a prop
             />
           )}
         />
       </Table>
       <Table.Footer>
-        <Pagination count={admins.totaladmins || admins.totalAdmins} />
+        <Pagination count={users.totalTickets || users.totalUsers} />
       </Table.Footer>
     </>
   );
 }
 
-export default ListAdminTable;
+export default ListUsersTable;

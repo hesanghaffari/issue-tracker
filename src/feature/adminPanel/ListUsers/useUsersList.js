@@ -1,23 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { listAdmin } from "../../../services/apiTicket";
+import { listUsers } from "../../../services/apiTicket";
 import { useSearchParams } from "react-router-dom";
 
-export function useAdminList() {
+export function useUsersList() {
   const [searchParams] = useSearchParams();
 
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const {
     isLoading,
-    data: admins,
+    data: users,
     error,
   } = useQuery({
-    queryKey: ["listAdmin", page],
+    queryKey: ["listUsers", page],
     queryFn: () =>
-      listAdmin({
+      listUsers({
         page,
       }),
   });
 
-  return { isLoading, error, admins };
+  return { isLoading, error, users };
 }

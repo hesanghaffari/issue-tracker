@@ -1,7 +1,7 @@
 import styles from "./Logo.module.css";
 
 function Logo() {
-  const src = "/logo.png";
+  const src = "/logomaynd.svg";
 
   return (
     <div className={styles.logo}>

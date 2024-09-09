@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = " http://195.20.233.83";
+const mainURL = " http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -329,15 +329,41 @@ export async function finishTicket(ticketId) {
   }
 }
 //////////////////////////////////////
-export async function listAdmin() {
+export async function listAdmin(page = 1) {
   try {
     const token = Cookies.get("authToken");
 
     if (!token) {
       throw new Error("Auth token not found in cookies");
     }
+    const params = page;
 
     const response = await axios.get(`${mainURL}/api/admin`, {
+      params,
+
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+///////////////////////
+export async function listUsers(page = 1) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+    const params = page;
+
+    const response = await axios.get(`${mainURL}/api/users`, {
+      params,
+
       headers: {
         Authorization: token,
       },

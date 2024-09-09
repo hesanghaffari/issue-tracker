@@ -1,18 +1,13 @@
-// import { useState } from "react";
 import Button from "../../../ui/Button";
 import Tabs from "../../../ui/Tabs";
 import Modal from "../../../ui/Modal";
 import AddAdminForm from "../../../ui/AddAdminForm";
 import ListAdminTable from "./ListAdminTable";
-// import styles from "./AdminManagement.module.css";
+import ListUsersTable from "./ListUsersTable";
 
 function AdminManagement() {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div>
-      {/* <Button onClick={() => setIsModalOpen(true)}>افزودن مدیر جدید</Button> */}
-
       <Modal>
         <Modal.Open opens="AddAdminForm">
           <Button>ثبت ادمین جدید</Button>
@@ -22,20 +17,14 @@ function AdminManagement() {
           <AddAdminForm />
         </Modal.Window>
       </Modal>
-      <Tabs tabs={["مدیران", "کاربران"]}>
+      <Tabs tabs={["مدیران", "کاربران"]} resetParams={true}>
         <div>
-          {/* List of admins goes here */}
           <ListAdminTable />
         </div>
         <div>
-          {/* List of users goes here */}
-          <p>اینجا لیست کاربران خواهد بود</p>
+          <ListUsersTable />
         </div>
       </Tabs>
-
-      {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AddAdminForm />
-      </Modal> */}
     </div>
   );
 }
