@@ -51,7 +51,7 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: var(--color-silver-100);
 }
 
 .detailRow {

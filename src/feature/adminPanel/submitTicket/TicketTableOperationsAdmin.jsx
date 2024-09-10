@@ -1,10 +1,29 @@
+import { useMutation } from "@tanstack/react-query";
+import { exportTicketsExcel } from "../../../services/apiTicket";
 import SortBy from "../../../ui/SortBy";
 import Filter from "../../../ui/Filter";
 import TableOperations from "../../../ui/TableOperations";
 import Search from "../../../ui/Search";
 import ShamsiDatePicker from "../../../ui/ShamsiDatePicker";
+import Button from "../../../ui/Button";
+import { toast } from "react-hot-toast";
 
 function TicketTableOperations() {
+  // Mutation to download the Excel file
+  const downloadExcelMutation = useMutation({
+    mutationFn: exportTicketsExcel,
+    onSuccess: () => {
+      toast.success("اکسل تیکت‌ها با موفقیت دانلود شد.");
+    },
+    onError: () => {
+      toast.error("خطایی در دانلود فایل رخ داد.");
+    },
+  });
+
+  const handleDownloadExcel = () => {
+    downloadExcelMutation.mutate();
+  };
+
   return (
     <>
       <Search />
@@ -16,7 +35,6 @@ function TicketTableOperations() {
             { value: "ثبت شده", label: "ثبت شده" },
             { value: "در حال بررسی", label: "در حال بررسی" },
             { value: "در انتظار پاسخ", label: "در انتظار پاسخ" },
-
             { value: "حل شده", label: "حل شده" },
           ]}
         />
@@ -32,6 +50,12 @@ function TicketTableOperations() {
           ]}
         />
         <ShamsiDatePicker paramName="date" />
+        <Button
+          onClick={handleDownloadExcel}
+          disabled={downloadExcelMutation.isLoading}
+        >
+          {downloadExcelMutation.isLoading ? "در حال دانلود..." : "اکسل"}
+        </Button>
       </TableOperations>
     </>
   );

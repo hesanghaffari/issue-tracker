@@ -1,13 +1,13 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = " http://localhost:3000";
+const mainURL = "https://itk.maynd.ir/api";
 
 export async function ticket(data) {
   try {
     const token = Cookies.get("authToken");
 
-    const response = await axios.post(`${mainURL}/api/tickets`, data, {
+    const response = await axios.post(`${mainURL}/tickets`, data, {
       headers: {
         Authorization: token,
         "Content-Type": "multipart/form-data",
@@ -54,7 +54,7 @@ export async function ticketlist({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(`${mainURL}/api/tickets/users`, {
+    const response = await axios.get(`${mainURL}/tickets/users`, {
       params,
       headers: {
         Authorization: token,
@@ -75,7 +75,7 @@ export async function getTicketById(id) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(`${mainURL}/api/tickets/users/${id}`, {
+    const response = await axios.get(`${mainURL}/tickets/users/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -95,7 +95,7 @@ export async function getRepliesByTicketId(ticketId) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(`${mainURL}/api/chat/${ticketId}`, {
+    const response = await axios.get(`${mainURL}/chat/${ticketId}`, {
       headers: {
         Authorization: token,
       },
@@ -115,15 +115,11 @@ export async function submitReply(ticketId, reply) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.post(
-      `${mainURL}/api/chat/${ticketId}`,
-      reply,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.post(`${mainURL}/chat/${ticketId}`, reply, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -163,7 +159,7 @@ export async function ticketlistAdmin({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(`${mainURL}/api/tickets`, {
+    const response = await axios.get(`${mainURL}/tickets`, {
       params,
       headers: {
         Authorization: token,
@@ -209,7 +205,7 @@ export async function ticketlistAdminMyTicket({
       params.date = date; // Add createdAt to the params
     }
 
-    const response = await axios.get(`${mainURL}/api/tickets/myTickets`, {
+    const response = await axios.get(`${mainURL}/tickets/myTickets`, {
       params,
       headers: {
         Authorization: token,
@@ -230,7 +226,7 @@ export async function getTicketAdminById(id) {
       throw new Error("Auth token not found in cookies");
     }
 
-    const response = await axios.get(`${mainURL}/api/tickets/${id}`, {
+    const response = await axios.get(`${mainURL}/tickets/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -247,7 +243,7 @@ export async function assignTicketToUser(ticketId, email) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      `${mainURL}/api/tickets/assign`,
+      `${mainURL}/tickets/assign`,
       {
         ticketId,
         email,
@@ -271,7 +267,7 @@ export async function assignTicketToUser(ticketId, email) {
 //     const token = Cookies.get("authToken");
 
 //     const response = await axios.put(
-//       `http://localhost:3000/api/tickets/${ticketId}/finish`,
+//       `http://localhost:3000/tickets/${ticketId}/finish`,
 //       {
 //         headers: {
 //           Authorization: token,
@@ -290,7 +286,7 @@ export async function updateTicketStatus(ticketId, status) {
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      `${mainURL}/api/tickets/${ticketId}`,
+      `${mainURL}/tickets/${ticketId}`,
       { status },
       {
         headers: {
@@ -314,7 +310,7 @@ export async function finishTicket(ticketId) {
     }
 
     const response = await axios.put(
-      `${mainURL}/api/tickets/${ticketId}/finish`,
+      `${mainURL}/tickets/${ticketId}/finish`,
       {}, // Empty object for the payload, since PUT requests usually expect one
       {
         headers: {
@@ -338,7 +334,7 @@ export async function listAdmin(page = 1) {
     }
     const params = page;
 
-    const response = await axios.get(`${mainURL}/api/admin`, {
+    const response = await axios.get(`${mainURL}/admin`, {
       params,
 
       headers: {
@@ -361,7 +357,7 @@ export async function listUsers(page = 1) {
     }
     const params = page;
 
-    const response = await axios.get(`${mainURL}/api/users`, {
+    const response = await axios.get(`${mainURL}/users`, {
       params,
 
       headers: {
@@ -372,5 +368,39 @@ export async function listUsers(page = 1) {
     return response.data;
   } catch (error) {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+///////////////////////
+
+export async function exportTicketsExcel() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`${mainURL}/tickets/export/excel`, {
+      headers: {
+        Authorization: token,
+      },
+      responseType: "blob", // Important to handle file downloads
+    });
+
+    // Create a URL for the file
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+
+    // Create a link to download the file
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "tickets.xlsx"); // Filename for the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up after download
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    throw new Error(`Failed to export tickets: ${error.message}`);
   }
 }
