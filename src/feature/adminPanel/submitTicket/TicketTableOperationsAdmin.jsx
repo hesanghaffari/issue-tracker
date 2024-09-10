@@ -7,6 +7,7 @@ import Search from "../../../ui/Search";
 import ShamsiDatePicker from "../../../ui/ShamsiDatePicker";
 import Button from "../../../ui/Button";
 import { toast } from "react-hot-toast";
+import styles from "./TicketTableOperations.module.css";
 
 function TicketTableOperations() {
   // Mutation to download the Excel file
@@ -53,6 +54,7 @@ function TicketTableOperations() {
         <Button
           onClick={handleDownloadExcel}
           disabled={downloadExcelMutation.isLoading}
+          className={styles.exel} // Using custom style from module.css
         >
           {downloadExcelMutation.isLoading ? "در حال دانلود..." : "اکسل"}
         </Button>

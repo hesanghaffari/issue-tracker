@@ -4,14 +4,15 @@ import styles from "./Button.module.css";
 function Button({
   size = "medium",
   variation = "primary",
+  className = "",
   children,
   ...props
 }) {
-  // Construct className based on size and variation props
-  const className = `${styles.button} ${styles[size]} ${styles[variation]}`;
+  // Construct className by merging Button.module.css classes with any passed className
+  const buttonClassName = `${styles.button} ${styles[size]} ${styles[variation]} ${className}`;
 
   return (
-    <button className={className} {...props}>
+    <button className={buttonClassName} {...props}>
       {children}
     </button>
   );
@@ -20,6 +21,7 @@ function Button({
 Button.propTypes = {
   size: PropTypes.oneOf(["small", "medium", "large"]),
   variation: PropTypes.oneOf(["primary", "secondary", "danger"]),
+  className: PropTypes.string, // Allow passing custom classes
   children: PropTypes.node.isRequired,
 };
 

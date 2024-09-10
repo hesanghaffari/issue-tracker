@@ -1,3 +1,11 @@
 .other {
   display: flex;
 }
+.exel {
+  margin-right: auto;
+}
+@media (max-width: 768px) {
+  .exel {
+    margin: unset;
+  }
+}
