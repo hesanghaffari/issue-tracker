@@ -13,11 +13,13 @@ import Cookies from "js-cookie";
 import styles from "./TicketDetail.module.css";
 import Textarea from "../ui/Textarea";
 import Button from "../ui/Button";
+import FormRow from "../ui/FormRow"; // Import FormRow
 import moment from "moment-jalaali";
 
 function TicketDetail() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
+  const characterLimit = 1000; // Define character limit
 
   const {
     isLoading,
@@ -33,13 +35,14 @@ function TicketDetail() {
     queryFn: () => getRepliesByTicketId(ticketId),
   });
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, watch, reset, formState } = useForm();
+  const { errors } = formState;
 
   const mutation = useMutation({
     mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
       queryClient.invalidateQueries(["replies", ticketId]);
-      reset();
+      reset(); // Reset the form after submission
     },
   });
 
@@ -52,6 +55,9 @@ function TicketDetail() {
       role: userRole,
     });
   };
+
+  const replyValue = watch("reply") || ""; // Watch the reply input
+  const isReplyTooLong = replyValue.length > characterLimit; // Check if it exceeds the limit
 
   if (isLoading) return <Spinner />;
   if (error) return <p>Failed to load ticket details.</p>;
@@ -160,13 +166,33 @@ function TicketDetail() {
 
         {/* Disable reply form if ticket is closed (has endDate) */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Textarea
-            {...register("reply")}
-            placeholder="اینجا یادداشت کنید ..."
-            disabled={ticket.endDate} // Disable textarea if ticket is closed
-          />
-          <Button type="submit" disabled={isLoading || ticket.endDate}>
-            ثبت{" "}
+          <div className={styles.noline}>
+            <FormRow
+              label="توضیحات"
+              error={errors?.reply?.message}
+              className={styles.noline}
+            >
+              <Textarea
+                id="reply"
+                {...register("reply", { maxLength: characterLimit })}
+                placeholder="اینجا یادداشت کنید ..."
+                disabled={ticket.endDate}
+              />
+            </FormRow>
+            <span className={styles.countertext}>
+              {replyValue.length}/{characterLimit}
+            </span>
+            {isReplyTooLong && (
+              <p className={styles.errorMessage}>
+                پیام شما از ۱۰۰۰ کاراکتر بیشتر نمی‌تواند باشد.
+              </p>
+            )}
+          </div>
+          <Button
+            type="submit"
+            disabled={isLoading || ticket.endDate || isReplyTooLong}
+          >
+            ثبت
           </Button>
         </form>
       </div>

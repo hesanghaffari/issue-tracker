@@ -14,7 +14,7 @@ function Form({ type = "regular", children, maxWidth = "450px", ...props }) {
 Form.propTypes = {
   type: PropTypes.oneOf(["regular", "modal"]),
   children: PropTypes.node.isRequired,
-  maxWidth: PropTypes.string, // Add maxWidth prop type
+  maxWidth: PropTypes.string,
 };
 
 export default Form;

@@ -17,7 +17,13 @@
   margin-bottom: 20px;
   flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
-
+.noline {
+  border: none !important;
+}
+.countertext {
+  display: flex;
+  justify-content: end;
+}
 .title {
   font-size: 28px;
   color: #333;
@@ -147,14 +153,24 @@
   white-space: pre-wrap; /* Preserve white space and wrap text */
   max-width: 100%; /* Ensure it doesn’t exceed the container width */
 }
-
-.replyRight,
 .replyLeft {
-  display: flex;
+  text-align: right;
   flex-direction: column;
   width: 100%; /* Ensure full width */
-  box-sizing: border-box; /* Include padding and border in the element’s total width and height */
+  box-sizing: border-box;
+  color: var(--color-green-700);
+  background-color: var(--color-green-100);
 }
+
+.replyRight {
+  text-align: right;
+  flex-direction: column;
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box;
+  color: var(--color-blue-700);
+  background-color: var(--color-blue-100);
+}
+/*  */
 .textarea {
   width: 100%;
   padding: 0.5rem;

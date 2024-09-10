@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getTicketAdminById,
@@ -6,7 +5,6 @@ import {
   getRepliesByTicketId,
   finishTicket,
 } from "../../services/apiTicket";
-
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import { useParams } from "react-router-dom";
@@ -16,10 +14,13 @@ import Textarea from "../../ui/Textarea";
 import Button from "../../ui/Button";
 import moment from "moment-jalaali";
 import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import FormRow from "../../ui/FormRow";
 
 function TicketDetailAdmin() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
+  const characterLimit = 1000; // Define character limit
 
   const {
     isLoading,
@@ -35,42 +36,46 @@ function TicketDetailAdmin() {
     queryFn: () => getRepliesByTicketId(ticketId),
   });
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, watch, reset, formState } = useForm();
+  const { errors } = formState;
 
-  const mutation = useMutation({
+  const { mutate: submitReplyMutation, isPending } = useMutation({
     mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
       queryClient.invalidateQueries(["replies", ticketId]);
-      reset();
+      reset(); // Reset the form after submission
     },
   });
 
-  // Mutation for finishing the ticket
-  const finishTicketMutation = useMutation({
-    mutationFn: (ticketId) => finishTicket(ticketId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tickets", ticketId]);
-      toast.success("تیکت با موفقیت به پایان رسید.");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate: finishTicketMutation, isPending: isFinishingTicket } =
+    useMutation({
+      mutationFn: () => finishTicket(ticketId),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["tickets", ticketId]);
+        toast.success("تیکت با موفقیت به پایان رسید.");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
 
-  const handleFinishTicket = () => {
-    finishTicketMutation.mutate(ticketId);
-  };
-
-  const onSubmit = (data) => {
+  const handleReplySubmit = (data) => {
+    const userName = Cookies.get("fullname");
     const userRole = Cookies.get("userRole");
 
-    const userName = Cookies.get("fullname");
-    mutation.mutate({
-      message: data.reply,
+    submitReplyMutation({
+      message: data.reply, // Access form data
       user: userName,
       role: userRole,
     });
   };
+
+  const handleFinishTicket = () => {
+    finishTicketMutation();
+  };
+
+  const replyValue = watch("reply") || ""; // Watch the reply input
+  const isReplyTooLong = replyValue.length > characterLimit; // Check if it exceeds the limit
 
   if (isLoading) return <Spinner />;
   if (error) return <p>Failed to load ticket details.</p>;
@@ -94,13 +99,13 @@ function TicketDetailAdmin() {
         <div style={{ display: "flex", gap: "1rem" }}>
           <Button
             onClick={handleFinishTicket}
-            disabled={ticket.endDate || finishTicketMutation.isLoading}
+            disabled={ticket.endDate || isFinishingTicket}
             variation="danger"
             size="small"
           >
             {ticket.endDate
               ? "بسته شده"
-              : finishTicketMutation.isLoading
+              : isFinishingTicket
               ? "در حال انجام..."
               : "بستن تیکت"}
           </Button>
@@ -136,6 +141,7 @@ function TicketDetailAdmin() {
         <h3>توضیحات ایشو</h3>
         <p className={styles.description}>{ticket.request}</p>
       </div>
+
       {ticket.attachmentFiles.length > 0 && (
         <div className={styles.attachments}>
           <h3>پیوست ها</h3>
@@ -191,15 +197,35 @@ function TicketDetailAdmin() {
           </div>
         )}
 
-        {/* Disable reply form if ticket is closed */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Textarea
-            {...register("reply")}
-            placeholder="اینجا یادداشت کنید ..."
-            disabled={ticket.endDate} // Disable textarea if endDate is present
-          />
-          <Button type="submit" disabled={isLoading || ticket.endDate}>
-            ثبت
+        <form onSubmit={handleSubmit(handleReplySubmit)}>
+          <div className={styles.noline}>
+            <FormRow
+              label="توضیحات"
+              disabled={isPending}
+              error={errors?.reply?.message}
+              className={styles.noline}
+            >
+              <Textarea
+                id="reply"
+                {...register("reply", { maxLength: characterLimit })} // Enforce the character limit here
+                placeholder="اینجا یادداشت کنید ..."
+                disabled={ticket.endDate || isPending}
+                {...register("reply", {
+                  required: "این فیلد اجباری است.",
+                })}
+              />
+            </FormRow>
+            <span className={styles.countertext}>
+              {replyValue.length}/{characterLimit}
+            </span>
+            {isReplyTooLong && (
+              <p className={styles.errorMessage}>
+                پیام شما از ۱۰۰۰ کاراکتر بیشتر نمی‌تواند باشد.
+              </p>
+            )}
+          </div>
+          <Button disabled={isPending || ticket.endDate || isReplyTooLong}>
+            {isPending ? "در حال ارسال..." : "ارسال"}
           </Button>
         </form>
       </div>
