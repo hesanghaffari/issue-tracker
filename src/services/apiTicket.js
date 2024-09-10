@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir";
+const mainURL = "https://itk.maynd.ir/api";
 
 export async function ticket(data) {
   try {
