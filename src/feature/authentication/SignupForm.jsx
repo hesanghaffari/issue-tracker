@@ -16,9 +16,9 @@ function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  function onSubmit({ fullname, email, password }) {
+  function onSubmit({ fullname, email, password, company, licenseCode }) {
     signup(
-      { fullname, email, password },
+      { fullname, email, password, company, licenseCode },
       {
         onSettled: () => reset(),
       }
@@ -36,6 +36,26 @@ function SignupForm() {
         />
       </FormRow>
 
+      <FormRow label="نام سازمان" error={errors?.company?.message}>
+        <Input
+          type="company"
+          id="company"
+          disabled={isPending}
+          {...register("company", {
+            required: "این فیلد اجباری است.",
+          })}
+        />
+      </FormRow>
+      <FormRow label="لایسنس کد" error={errors?.licenseCode?.message}>
+        <Input
+          type="licenseCode"
+          id="licenseCode"
+          disabled={isPending}
+          {...register("licenseCode", {
+            required: "این فیلد اجباری است.",
+          })}
+        />
+      </FormRow>
       <FormRow label="ایمیل" error={errors?.email?.message}>
         <Input
           type="email"
@@ -50,7 +70,6 @@ function SignupForm() {
           })}
         />
       </FormRow>
-
       <FormRow
         label="رمزعبور(حداقل 8 کاراکتر)"
         error={errors?.password?.message}

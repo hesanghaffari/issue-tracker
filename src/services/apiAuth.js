@@ -3,12 +3,20 @@ import Cookies from "js-cookie";
 
 const mainURL = "http://itk.maynd.ir/api";
 // http://itk.maynd.ir
-export async function signup({ fullname, email, password }) {
+export async function signup({
+  fullname,
+  email,
+  password,
+  company,
+  licenseCode,
+}) {
   try {
     const response = await axios.post(`${mainURL}/users`, {
       email,
       password,
       fullname,
+      company,
+      licenseCode,
     });
     return response.data;
   } catch (error) {
