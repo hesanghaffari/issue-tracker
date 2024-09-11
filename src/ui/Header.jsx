@@ -9,6 +9,7 @@ function Header({ onToggleSidebar }) {
 
   return (
     <header className={styles.Header}>
+      <img className={styles.Beta} src="/beta.svg"></img>
       <HamburgerMenu onClick={onToggleSidebar} />
       {/* Add other header contents here */}
       <Logout />

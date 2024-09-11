@@ -154,6 +154,8 @@
   justify-content: end;
 }
 .replyLeft {
+  padding: 10px;
+
   text-align: right;
   flex-direction: column;
   width: 100%; /* Ensure full width */
@@ -163,6 +165,8 @@
 }
 
 .replyRight {
+  padding: 10px;
+
   text-align: right;
   flex-direction: column;
   width: 100%; /* Ensure full width */

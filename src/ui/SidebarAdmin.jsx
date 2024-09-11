@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import MainNavAdmin from "./MainNavAdmin";
 import styles from "./Sidebar.module.css";
 import { HiMiniArrowLongRight } from "react-icons/hi2";
+import Footer from "./Footer";
 
 function Sidebar({ isOpen, onClose }) {
   return (
@@ -14,6 +15,7 @@ function Sidebar({ isOpen, onClose }) {
         <button onClick={onClose} className={styles.CloseButton}>
           <HiMiniArrowLongRight />
         </button>
+        <Footer />
       </aside>
     </>
   );

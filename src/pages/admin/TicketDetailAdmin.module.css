@@ -155,6 +155,7 @@
 }
 .replyLeft {
   text-align: right;
+  padding: 10px;
   flex-direction: column;
   width: 100%; /* Ensure full width */
   box-sizing: border-box;
@@ -163,6 +164,8 @@
 }
 
 .replyRight {
+  padding: 10px;
+
   text-align: right;
   flex-direction: column;
   width: 100%; /* Ensure full width */

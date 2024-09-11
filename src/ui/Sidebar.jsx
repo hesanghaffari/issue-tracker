@@ -10,6 +10,7 @@ function Sidebar({ isOpen, onClose }) {
       {isOpen && <div className={styles.Overlay} onClick={onClose}></div>}
       <aside className={`${styles.Sidebar} ${isOpen ? styles.open : ""}`}>
         <Logo />
+        fv
         <MainNav onClose={onClose} />
         <button onClick={onClose} className={styles.CloseButton}>
           <HiMiniArrowLongRight />
