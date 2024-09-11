@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://itk.maynd.ir/api";
+const mainURL = "http://itk.maynd.ir";
 // http://itk.maynd.ir
 export async function signup({ fullname, email, password }) {
   try {

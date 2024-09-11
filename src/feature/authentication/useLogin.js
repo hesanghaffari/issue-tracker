@@ -11,6 +11,7 @@ export function useLogin() {
   const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (user) => {
+      Cookies.set("userEmail", user.email);
       if (user.isVerified) {
         const token = user.token;
         const id = user.id;
@@ -20,7 +21,7 @@ export function useLogin() {
         Cookies.set("authToken", token);
         Cookies.set("userRole", userRole);
         Cookies.set("userID", id);
-        Cookies.set("userEmail", user.email);
+        // Cookies.set("userEmail", user.email);
         queryClient.setQueryData(["user"], user.user);
         navigate("/dashboard");
         toast.success("ورود موفق!");

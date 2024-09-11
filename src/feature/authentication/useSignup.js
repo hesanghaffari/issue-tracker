@@ -10,15 +10,14 @@ export function useSignup() {
   const { mutate: signup, isPending } = useMutation({
     mutationFn: signupApi,
     onSuccess: (user) => {
+      Cookies.set("userEmail", user.email);
+
       if (user.isVerified) {
-        Cookies.set("userEmail", user.email);
         toast.success(
           "ثبت نام با موفقیت انجام شد. لطفا وارد حساب کاربری خود شوید."
         );
         navigate("/login");
       } else {
-        Cookies.set("userEmail", user.email);
-
         toast.success(
           "ثبت نام با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید."
         );
