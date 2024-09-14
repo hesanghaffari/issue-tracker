@@ -6,9 +6,11 @@ export function useAddAdmin() {
   const { mutate: addAdmin, isLoading } = useMutation({
     mutationFn: addAdminApi,
     onSuccess: () => {
-      toast.success(
-        "Account successfully created! Please verufy the new account from the user's email address."
-      );
+      toast.success("ادمین جدید با موفقیت ساخته شد.");
+    },
+    onError: (error) => {
+      const errorMessage = error.message || "خطا در ورود.";
+      toast.error(errorMessage);
     },
   });
 

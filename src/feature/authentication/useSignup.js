@@ -14,7 +14,7 @@ export function useSignup() {
 
       if (user.isVerified) {
         toast.success(
-          "ثبت نام با موفقیت انجام شد. لطفا وارد حساب کاربری خود شوید."
+          "با این ایمیل حساب کاربری موجود می باشد. لطفا وارد حساب کاربری خود شوید."
         );
         navigate("/login");
       } else {

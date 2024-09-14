@@ -8,7 +8,7 @@ export function usePass() {
   const { mutate: pass, isPending } = useMutation({
     mutationFn: ({ email }) => passApi({ email }),
     onSuccess: () => {
-      navigate("/resetpassword", { replace: true });
+      navigate("/login", { replace: true });
 
       toast.success("لطفا ایمیل خود را چک کنید.");
     },

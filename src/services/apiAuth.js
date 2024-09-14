@@ -99,3 +99,24 @@ export async function addAdmin({ fullname, email, password }) {
     throw new Error(errorMessage);
   }
 }
+
+//////////////////////////////////////
+export async function updatePassword({ password, token }) {
+  try {
+    const response = await axios.put(
+      `${mainURL}/users`,
+      {
+        password,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
+  }
+}
