@@ -7,6 +7,8 @@ import Input from "../../ui/Input";
 import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 
+const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
+
 function SignupForm() {
   const { signup, isPending } = useSignup();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
@@ -24,6 +26,10 @@ function SignupForm() {
       }
     );
   }
+
+  const emailPattern = new RegExp(
+    `^[a-zA-Z0-9._%+-]+@((?!${commonDomains.join("|")}).)*$`
+  );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -64,8 +70,8 @@ function SignupForm() {
           {...register("email", {
             required: "این فیلد اجباری است.",
             pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "لطفا یک ایمیل معتبر وارد کنید.",
+              value: emailPattern,
+              message: "لطفا از ایمیل سازمانی استفاده کنید.",
             },
           })}
         />

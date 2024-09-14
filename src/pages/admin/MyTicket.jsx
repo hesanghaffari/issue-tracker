@@ -4,7 +4,7 @@ import TicketListTableAdmin from "../../feature/adminPanel/submitTicket/TicketLi
 function Dashboard() {
   return (
     <main>
-      <TicketTableOperationsAdmin />
+      <TicketTableOperationsAdmin showExcelButton={false} />
       <TicketListTableAdmin />
     </main>
   );

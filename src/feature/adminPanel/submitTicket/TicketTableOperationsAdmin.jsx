@@ -7,9 +7,10 @@ import Search from "../../../ui/Search";
 import ShamsiDatePicker from "../../../ui/ShamsiDatePicker";
 import Button from "../../../ui/Button";
 import { toast } from "react-hot-toast";
+import PropTypes from "prop-types";
 import styles from "./TicketTableOperations.module.css";
 
-function TicketTableOperations() {
+function TicketTableOperations({ showExcelButton = true }) {
   // Mutation to download the Excel file
   const downloadExcelMutation = useMutation({
     mutationFn: exportTicketsExcel,
@@ -51,16 +52,22 @@ function TicketTableOperations() {
           ]}
         />
         <ShamsiDatePicker paramName="date" />
-        <Button
-          onClick={handleDownloadExcel}
-          disabled={downloadExcelMutation.isLoading}
-          className={styles.exel} // Using custom style from module.css
-        >
-          {downloadExcelMutation.isLoading ? "در حال دانلود..." : "اکسل"}
-        </Button>
+        {showExcelButton && (
+          <Button
+            onClick={handleDownloadExcel}
+            disabled={downloadExcelMutation.isLoading}
+            className={styles.exel} // Using custom style from module.css
+          >
+            {downloadExcelMutation.isLoading ? "در حال دانلود..." : "اکسل"}
+          </Button>
+        )}
       </TableOperations>
     </>
   );
 }
+
+TicketTableOperations.propTypes = {
+  showExcelButton: PropTypes.bool,
+};
 
 export default TicketTableOperations;
