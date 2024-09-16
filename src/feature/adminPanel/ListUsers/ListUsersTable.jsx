@@ -25,6 +25,7 @@ function ListUsersTable() {
           <div>تاریخ ایجاد</div>
           <div>ایمیل</div>
           <div>نام</div>
+          <div>وضعیت حساب</div>
         </Table.Header>
 
         <Table.Body
@@ -34,7 +35,7 @@ function ListUsersTable() {
               users={user}
               key={user._id}
               index={index}
-              currentPage={currentPage} // Pass the currentPage as a prop
+              currentPage={currentPage}
             />
           )}
         />

@@ -146,22 +146,52 @@ function TicketDetailAdmin() {
         <div className={styles.attachments}>
           <h3>پیوست ها</h3>
           <div className={styles.attachmentList}>
-            {ticket.attachmentFiles.map((file, index) => (
-              <div key={index} className={styles.attachmentItem}>
-                <a
-                  href={file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.attachmentLink}
-                >
-                  <img
-                    src={file}
-                    alt={index + 1}
-                    className={styles.attachmentImage}
-                  />
-                </a>
-              </div>
-            ))}
+            {ticket.attachmentFiles.map((file, index) => {
+              const fileExtension = file.split(".").pop().toLowerCase();
+
+              // Define file type categories
+              const imageFormats = ["jpg", "jpeg", "png", "gif"];
+              const videoFormats = ["mp4", "webm", "ogg"];
+
+              // Extract the file name from the URL
+              const fileName = file.split("/").pop();
+
+              return (
+                <div key={index} className={styles.attachmentItem}>
+                  {imageFormats.includes(fileExtension) ? (
+                    // Show image preview
+                    <a
+                      href={file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.attachmentLink}
+                    >
+                      <img
+                        src={file}
+                        alt={`Attachment ${index + 1}`}
+                        className={styles.attachmentImage}
+                      />
+                    </a>
+                  ) : videoFormats.includes(fileExtension) ? (
+                    // Show video preview
+                    <video controls className={styles.attachmentVideo}>
+                      <source src={file} type={`video/${fileExtension}`} />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    // Show file name as a link for other formats
+                    <a
+                      href={file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.attachmentLink}
+                    >
+                      {fileName}
+                    </a>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
