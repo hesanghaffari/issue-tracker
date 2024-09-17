@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 // http://itk.maynd.ir
 export async function signup({
   fullname,
@@ -36,6 +36,19 @@ export async function pass({ email }) {
     throw new Error(errorMessage);
   }
 }
+//////////////////////
+export async function resend({ email }) {
+  try {
+    const response = await axios.post(`${mainURL}/users/resend-otp`, {
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
+  }
+}
+/////////////////////
 
 export async function login({ email, password }) {
   try {

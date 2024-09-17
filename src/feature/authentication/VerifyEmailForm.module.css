@@ -8,3 +8,11 @@
   gap: 3.2rem;
   background-color: var(--color-grey-50);
 }
+.sendAgain {
+  margin-top: 10px;
+  color: #19bfd3;
+  cursor: pointer;
+}
+.resendContainer {
+  margin-top: 10px;
+}
