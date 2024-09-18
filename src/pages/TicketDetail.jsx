@@ -5,6 +5,8 @@ import {
   submitReply,
   getRepliesByTicketId,
 } from "../services/apiTicket";
+import { toast } from "react-hot-toast";
+import { useState } from "react";
 
 import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
@@ -15,11 +17,13 @@ import Textarea from "../ui/Textarea";
 import Button from "../ui/Button";
 import FormRow from "../ui/FormRow"; // Import FormRow
 import moment from "moment-jalaali";
+// import FileInput from "../ui/FileInput";
 
 function TicketDetail() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
   const characterLimit = 1000; // Define character limit
+  const [fileError, setFileError] = useState("");
 
   const {
     isLoading,
@@ -35,27 +39,81 @@ function TicketDetail() {
     queryFn: () => getRepliesByTicketId(ticketId),
   });
 
-  const { register, handleSubmit, watch, reset, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState,
+    setError,
+    clearErrors,
+  } = useForm();
   const { errors } = formState;
 
-  const mutation = useMutation({
+  // const mutation = useMutation({
+  //   mutationFn: (newReply) => submitReply(ticketId, newReply),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["replies", ticketId]);
+  //     reset(); // Reset the form after submission
+  //   },
+  // });
+
+  // const onSubmit = (data) => {
+  //   const userRole = Cookies.get("userRole");
+  //   const userName = Cookies.get("fullname");
+  //   mutation.mutate({
+  //     message: data.reply,
+  //     user: userName,
+  //     role: userRole,
+  //   });
+  // };
+  const { mutate, isPending: isSubmiting } = useMutation({
     mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
       queryClient.invalidateQueries(["replies", ticketId]);
-      reset(); // Reset the form after submission
+      reset(); // Reset the form after submission    },
     },
+    onError: (err) => toast.error(err.message),
   });
 
-  const onSubmit = (data) => {
+  function onSubmit(data) {
     const userRole = Cookies.get("userRole");
     const userName = Cookies.get("fullname");
-    mutation.mutate({
-      message: data.reply,
-      user: userName,
-      role: userRole,
-    });
-  };
+    const files = data.image;
+    let totalSize = 0;
 
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        totalSize += files[i].size;
+      }
+
+      if (totalSize > 20 * 1024 * 1024) {
+        setFileError("مجموع حجم فایل‌ها نمی‌تواند بیشتر از ۲۰ مگابایت باشد.");
+        setError("image", {
+          type: "manual",
+          message: "مجموع حجم فایل‌ها بیشتر از ۲۰ مگابایت است.",
+        });
+        return;
+      } else {
+        clearErrors("image");
+        setFileError("");
+      }
+    }
+
+    const formData = new FormData();
+
+    formData.append("message", data.reply);
+    formData.append("user", userName);
+    formData.append("role", userRole);
+
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append("images", files[i]);
+      }
+    }
+
+    mutate(formData);
+  }
   const replyValue = watch("reply") || ""; // Watch the reply input
   const isReplyTooLong = replyValue.length > characterLimit; // Check if it exceeds the limit
 
@@ -185,11 +243,27 @@ function TicketDetail() {
                     <small>
                       {moment(reply.timestamp).format("jYYYY/jMM/jDD HH:mm:ss")}
                     </small>
+
+                    {reply.attachmentFiles?.length > 0 && (
+                      <div className={styles.replyAttachments}>
+                        {reply.attachmentFiles.map((file, index) => (
+                          <a
+                            key={index}
+                            href={file}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.attachmentLink}
+                          >
+                            {`پیوست ${index + 1}`}
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
               })
             ) : (
-              <div className={styles.noReplies}>پاسخی موجود نیست </div>
+              <div className={styles.noReplies}>پاسخی موجود نیست</div>
             )}
           </div>
         )}
@@ -204,11 +278,37 @@ function TicketDetail() {
             >
               <Textarea
                 id="reply"
-                {...register("reply", { maxLength: characterLimit })}
+                {...register("reply", {
+                  maxLength: characterLimit,
+                  required: "این فیلد اجباری است.",
+                })}
                 placeholder="اینجا یادداشت کنید ..."
-                disabled={ticket.endDate}
+                disabled={ticket.endDate || isSubmiting}
               />
             </FormRow>
+            <FormRow error={fileError || errors?.image?.message}>
+              <div className={styles.fileUploadWrapper}>
+                <label htmlFor="image" className={styles.fileUploadLabel}>
+                  <i className="fa fa-paperclip"></i> {/* Pin or Upload icon */}
+                  <span>آپلود فایل</span>
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  multiple
+                  accept="*/*"
+                  {...register("image")}
+                  className={styles.fileInputHidden} // Hide default file input
+                  disabled={isSubmiting || ticket.endDate}
+                />
+              </div>
+              {watch("image") && watch("image").length > 0 && (
+                <div className={styles.fileSelectedInfo}>
+                  {watch("image").length} فایل انتخاب شده
+                </div>
+              )}
+            </FormRow>
+
             <span className={styles.countertext}>
               {replyValue.length}/{characterLimit}
             </span>
@@ -220,9 +320,9 @@ function TicketDetail() {
           </div>
           <Button
             type="submit"
-            disabled={isLoading || ticket.endDate || isReplyTooLong}
+            disabled={isSubmiting || ticket.endDate || isReplyTooLong}
           >
-            ثبت
+            {isSubmiting ? "در حال ارسال..." : "ارسال"}
           </Button>
         </form>
       </div>

@@ -164,6 +164,41 @@
   background-color: var(--color-green-100);
 }
 
+.replyAttachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Add space between attachment links */
+}
+.fileUploadWrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fileUploadLabel {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fileUploadLabel i {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.fileInputHidden {
+  display: none; /* Hides the default file input */
+}
+
+.attachmentLink {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 0.9em;
+}
+
 .replyRight {
   padding: 10px;
 

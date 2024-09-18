@@ -87,6 +87,7 @@ function CreateTicket() {
     }
 
     mutate(formData);
+    console.log(formData);
   }
 
   function onError() {}
