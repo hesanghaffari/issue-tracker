@@ -23,8 +23,8 @@ function ListAdminTable() {
         <Table.Header>
           <div>#</div>
           <div>نام</div>
-          <div>نقش</div>
           <div>ایمیل</div>
+          <div>نقش</div>
         </Table.Header>
 
         <Table.Body
