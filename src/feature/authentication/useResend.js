@@ -9,7 +9,7 @@ export function useResend() {
       toast.success("کد تایید دوباره ارسال شد.");
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

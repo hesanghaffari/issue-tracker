@@ -13,7 +13,7 @@ export function usePass() {
       toast.success("لطفا ایمیل خود را چک کنید.");
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

@@ -31,7 +31,7 @@ export function useLogin() {
       }
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا در ورود.";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

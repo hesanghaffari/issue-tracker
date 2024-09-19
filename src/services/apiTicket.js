@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -16,7 +16,7 @@ export async function ticket(data) {
 
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -256,7 +256,7 @@ export async function assignTicketToUser(ticketId, email) {
     );
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -276,7 +276,7 @@ export async function assignTicketToUser(ticketId, email) {
 //     );
 //     return response.data;
 //   } catch (error) {
-//     const errorMessage = error.response?.data || "An error occurred";
+//     const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
 //     throw new Error(errorMessage);
 //   }
 // }
@@ -296,7 +296,7 @@ export async function updateTicketStatus(ticketId, status) {
     );
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -415,7 +415,7 @@ export async function deleteAdmin(adminId) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -430,7 +430,7 @@ export async function deleteUser(userId) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }

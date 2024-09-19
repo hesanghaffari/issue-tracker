@@ -12,7 +12,7 @@ export function useAddAdmin() {
       queryClient.invalidateQueries("listAdmin"); // This will refetch the user list
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا در ورود.";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

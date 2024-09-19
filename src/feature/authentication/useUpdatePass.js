@@ -13,7 +13,7 @@ export function useUpdatePass() {
       navigate("/login");
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

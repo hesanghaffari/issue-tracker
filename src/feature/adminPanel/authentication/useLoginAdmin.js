@@ -26,7 +26,7 @@ export function useLoginAdmin() {
       navigate("/dashboardadmin");
     },
     onError: (error) => {
-      const errorMessage = error.message || "An error occurred";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

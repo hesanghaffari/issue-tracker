@@ -12,7 +12,7 @@ export function useDeleteUser() {
       queryClient.invalidateQueries("users"); // This will refetch the user list
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا در حذف.";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });

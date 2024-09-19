@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 // https://itk.maynd.ir
 export async function signup({
   fullname,
@@ -20,7 +20,7 @@ export async function signup({
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -32,7 +32,7 @@ export async function pass({ email }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -44,7 +44,7 @@ export async function resend({ email }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -58,7 +58,7 @@ export async function login({ email, password }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -71,7 +71,7 @@ export async function loginAdmin({ email, password }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -85,7 +85,7 @@ export async function verifyEmail({ otp, email }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -108,7 +108,7 @@ export async function addAdmin({ fullname, email, password }) {
     );
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }
@@ -129,7 +129,7 @@ export async function updatePassword({ password, token }) {
     );
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "An error occurred";
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
   }
 }

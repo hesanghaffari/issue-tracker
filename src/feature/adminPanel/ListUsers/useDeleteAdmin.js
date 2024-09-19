@@ -12,7 +12,7 @@ export function useDeleteAdmin() {
       queryClient.invalidateQueries("admins"); // This will refetch the admin list
     },
     onError: (error) => {
-      const errorMessage = error.message || "خطا در حذف.";
+      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });
