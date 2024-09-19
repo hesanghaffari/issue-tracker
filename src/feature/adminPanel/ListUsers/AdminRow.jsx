@@ -1,12 +1,18 @@
+import { useDeleteAdmin } from "./useDeleteAdmin";
 import PropTypes from "prop-types";
-// import styles from "./TicketRowAdmin.module.css";
 import Table from "../../../ui/Table";
+import Modal from "../../../ui/Modal";
+import Button from "../../../ui/Button";
+import ConfirmDelete from "../../../ui/ConfirmDelete";
 
 function AdminRow({ admins, index, currentPage }) {
-  const { email, role, fullname } = admins;
+  const { email, role, fullname, _id } = admins;
+  const { deleteAdmin, isLoading } = useDeleteAdmin();
 
   // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
+
+  // Handle delete button click
 
   return (
     <Table.Row>
@@ -14,6 +20,23 @@ function AdminRow({ admins, index, currentPage }) {
       <div>{fullname}</div>
       <div>{email}</div>
       <div>{role}</div>
+      <div>
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button variation="danger" size="small">
+              حذف
+            </Button>
+          </Modal.Open>
+
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName="ادمین"
+              onConfirm={() => deleteAdmin(_id)}
+              disabled={isLoading}
+            />
+          </Modal.Window>
+        </Modal>
+      </div>
     </Table.Row>
   );
 }

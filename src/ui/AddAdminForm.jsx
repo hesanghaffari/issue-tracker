@@ -1,20 +1,26 @@
 import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
 import Button from "./Button";
 import Form from "./Form";
 import FormRow from "./FormRow";
 import Input from "./Input";
 import { useAddAdmin } from "../feature/adminPanel/ListUsers/useAddAdmin";
+import { useState } from "react";
 
-function AddAdminForm() {
+function AddAdminForm({ onCloseModal }) {
   const { addAdmin, isPending } = useAddAdmin();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   function onSubmit({ fullname, email, password }) {
     addAdmin(
       { fullname, email, password },
       {
-        onSettled: () => reset(),
+        onSettled: () => {
+          reset(); // Reset the form
+          onCloseModal(); // Close the modal after submission
+        },
       }
     );
   }
@@ -50,9 +56,11 @@ function AddAdminForm() {
         error={errors?.password?.message}
       >
         <Input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           disabled={isPending}
+          showtoggle={true} // Enable the eye icon
+          onToggle={() => setShowPassword(!showPassword)} // Toggle the visibility
           {...register("password", {
             required: "این فیلد اجباری است.",
             minLength: {
@@ -65,9 +73,11 @@ function AddAdminForm() {
 
       <FormRow label="تکرار رمزعبور" error={errors?.passwordConfirm?.message}>
         <Input
-          type="password"
+          type={showPasswordConfirm ? "text" : "password"}
           id="passwordConfirm"
           disabled={isPending}
+          showtoggle={true} // Enable the eye icon for confirmation
+          onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)} // Toggle the visibility for confirmation
           {...register("passwordConfirm", {
             required: "این فیلد اجباری است.",
             validate: (value) =>
@@ -77,19 +87,15 @@ function AddAdminForm() {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
-        {/* <Button
-          variation="secondary"
-          type="reset"
-          disabled={isPending}
-          onClick={reset}
-        >
-          پاک کن
-        </Button> */}
         <Button disabled={isPending}>ثبت نام</Button>
       </FormRow>
     </Form>
   );
 }
+
+// Add prop type validation for onCloseModal
+AddAdminForm.propTypes = {
+  onCloseModal: PropTypes.func.isRequired,
+};
 
 export default AddAdminForm;

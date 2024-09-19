@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -402,5 +402,35 @@ export async function exportTicketsExcel() {
     window.URL.revokeObjectURL(url);
   } catch (error) {
     throw new Error(`Failed to export tickets: ${error.message}`);
+  }
+}
+////////////////////////
+export async function deleteAdmin(adminId) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.delete(`${mainURL}/admin/${adminId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
+  }
+}
+///////////////////////////
+export async function deleteUser(userId) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.delete(`${mainURL}/users/${userId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "An error occurred";
+    throw new Error(errorMessage);
   }
 }

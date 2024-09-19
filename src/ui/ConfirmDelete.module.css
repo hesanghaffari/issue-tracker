@@ -1,0 +1,17 @@
+ConfirmDelete.module.css .container {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.text {
+  color: var(--color-grey-500);
+  margin-bottom: 1.2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+}

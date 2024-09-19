@@ -14,9 +14,10 @@ function AdminManagement() {
         </Modal.Open>
 
         <Modal.Window name="AddAdminForm">
-          <AddAdminForm />
+          <AddAdminForm onCloseModal={() => close()} />
         </Modal.Window>
       </Modal>
+
       <Tabs tabs={["مدیران", "کاربران"]} resetParams={true}>
         <div>
           <ListAdminTable />
