@@ -30,7 +30,7 @@ function ChildRow({ admins, index, currentPage }) {
 
           <Modal.Window name="delete">
             <ConfirmDelete
-              resourceName="MOM"
+              resourceName="صورت جلسه"
               onConfirm={() => deleteMom(_id)}
               disabled={isLoading}
             />

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://localhost:3000";
+const mainURL = "https://itk.maynd.ir/api";
 // https://itk.maynd.ir
 export async function signup({
   fullname,
@@ -226,5 +226,27 @@ export async function verify() {
     return response.data;
   } catch (error) {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+////////////////
+export async function EditProfile({ fullname }) {
+  try {
+    const token = Cookies.get("authToken");
+
+    const response = await axios.put(
+      `${mainURL}/users`,
+      {
+        fullname,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    throw new Error(errorMessage);
   }
 }

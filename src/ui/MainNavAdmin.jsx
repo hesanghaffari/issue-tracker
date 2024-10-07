@@ -63,12 +63,12 @@ function MainNav({ onClose }) {
             }
             onClick={onClose}
           >
-            <HiOutlineDocument /> <span>MOM</span>
+            <HiOutlineDocument /> <span>صورت جلسه</span>
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/profile"
+            to="/profileadmin"
             className={({ isActive }) =>
               isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
             }

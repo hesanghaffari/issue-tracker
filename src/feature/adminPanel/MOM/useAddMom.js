@@ -8,7 +8,7 @@ export function useAddMom() {
   const { mutate: addMom, isLoading } = useMutation({
     mutationFn: addMomApi,
     onSuccess: () => {
-      toast.success("MOM جدید با موفقیت ساخته شد.");
+      toast.success("صورت جلسه جدید با موفقیت ساخته شد.");
       queryClient.invalidateQueries("listMom");
     },
     onError: (error) => {

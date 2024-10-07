@@ -8,7 +8,7 @@ export function useDeleteMom() {
   const { mutate: deleteMom, isLoading } = useMutation({
     mutationFn: deleteMomApi,
     onSuccess: () => {
-      toast.success("مام با موفقیت حذف شد.");
+      toast.success("صورت جلسه با موفقیت حذف شد.");
       queryClient.invalidateQueries("listMom"); // This will refetch the admin list
     },
     onError: (error) => {

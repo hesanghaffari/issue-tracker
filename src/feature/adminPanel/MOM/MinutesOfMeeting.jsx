@@ -11,7 +11,7 @@ function ChildManagment() {
     <div>
       <Modal>
         <Modal.Open opens="AddMomForm">
-          <Button>ثبت MOM جدید</Button>
+          <Button>ثبت صورت جلسه جدید</Button>
         </Modal.Open>
 
         <Modal.Window name="AddMomForm">

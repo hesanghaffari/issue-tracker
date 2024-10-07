@@ -6,6 +6,7 @@ import {
   HiOutlineHome,
   HiOutlineUsers,
   HiOutlineTicket,
+  HiOutlineCog8Tooth,
 } from "react-icons/hi2";
 import styles from "./MainNav.module.css";
 
@@ -65,6 +66,18 @@ function MainNav({ onClose }) {
             <span>پروفایل</span>
           </NavLink>
         </li> */}
+        <li>
+          <NavLink
+            to="/profileadmin"
+            className={({ isActive }) =>
+              isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
+            }
+            onClick={onClose}
+          >
+            <HiOutlineCog8Tooth />
+            <span>پروفایل</span>
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

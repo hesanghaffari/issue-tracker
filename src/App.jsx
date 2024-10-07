@@ -28,6 +28,7 @@ import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
 import PageNotFound from "./pages/PageNotFound";
 import ForgetPassAccess from "./feature/authentication/ForgetPassAccess";
 import Mom from "./pages/admin/Mom";
+import ProfileAdmin from "./pages/admin/ProfileAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="createticket" element={<CreateTicket />} />
             <Route path="dashboard/:ticketId" element={<TicketDetail />} />
+            <Route path="profileadmin" element={<ProfileAdmin />} />
           </Route>
 
           <Route

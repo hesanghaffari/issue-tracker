@@ -14,7 +14,7 @@ function ListChildTable() {
     : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
-  if (!moms?.moms.length) return <Empty resourceName="مامی" />;
+  if (!moms?.moms.length) return <Empty resourceName="صورت جلسه" />;
 
   return (
     <>
