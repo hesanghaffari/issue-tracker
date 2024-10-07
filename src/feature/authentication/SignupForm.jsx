@@ -8,6 +8,7 @@ import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 
 const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
+const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
 
 function SignupForm() {
   const { signup, isPending } = useSignup();
@@ -18,9 +19,16 @@ function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  function onSubmit({ fullname, email, password, company, licenseCode }) {
+  function onSubmit({
+    fullname,
+    email,
+    password,
+    company,
+    licenseCode,
+    phone,
+  }) {
     signup(
-      { fullname, email, password, company, licenseCode },
+      { fullname, email, password, company, licenseCode, phone },
       {
         onSettled: () => reset(),
       }
@@ -44,7 +52,7 @@ function SignupForm() {
 
       <FormRow label="نام سازمان" error={errors?.company?.message}>
         <Input
-          type="company"
+          type="text"
           id="company"
           disabled={isPending}
           {...register("company", {
@@ -52,9 +60,10 @@ function SignupForm() {
           })}
         />
       </FormRow>
+
       <FormRow label="لایسنس کد" error={errors?.licenseCode?.message}>
         <Input
-          type="licenseCode"
+          type="text"
           id="licenseCode"
           disabled={isPending}
           {...register("licenseCode", {
@@ -62,6 +71,7 @@ function SignupForm() {
           })}
         />
       </FormRow>
+
       <FormRow label="ایمیل" error={errors?.email?.message}>
         <Input
           type="email"
@@ -76,6 +86,21 @@ function SignupForm() {
           })}
         />
       </FormRow>
+
+      <FormRow label="شماره تماس" error={errors?.phone?.message}>
+        <Input
+          type="text"
+          id="phone"
+          disabled={isPending}
+          {...register("phone", {
+            pattern: {
+              value: phonePattern,
+              message: "شماره تماس باید با 09 شروع شده و 11 رقم باشد.",
+            },
+          })}
+        />
+      </FormRow>
+
       <FormRow
         label="رمزعبور(حداقل 8 کاراکتر)"
         error={errors?.password?.message}
@@ -112,14 +137,6 @@ function SignupForm() {
       </FormRow>
 
       <FormRow>
-        <Button
-          variation="secondary"
-          type="reset"
-          disabled={isPending}
-          onClick={reset}
-        >
-          شروع مجدد{" "}
-        </Button>
         <Button disabled={isPending}>
           {!isPending ? " ثبت نام" : <SpinnerMini />}
         </Button>

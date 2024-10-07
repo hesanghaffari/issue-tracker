@@ -21,12 +21,16 @@ function CreateTicket() {
   // Retrieve the values from the cookies
   const fullNameFromCookie = Cookies.get("fullname") || ""; // Default to empty string if not found
   const emailFromCookie = Cookies.get("userEmail") || ""; // Default to empty string if not found
+  const company = Cookies.get("company") || ""; // Default to empty string if not found
+  const licenseCode = Cookies.get("licenseCode") || ""; // Default to empty string if not found
 
   const { register, handleSubmit, reset, formState, setError, clearErrors } =
     useForm({
       defaultValues: {
-        name: fullNameFromCookie, // Set default name from cookie
-        email: emailFromCookie, // Set default email from cookie
+        name: fullNameFromCookie,
+        email: emailFromCookie,
+        company: company,
+        license: licenseCode,
       },
     });
 

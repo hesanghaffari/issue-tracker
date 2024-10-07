@@ -5,6 +5,7 @@ import Form from "./Form";
 import FormRow from "./FormRow";
 import Input from "./Input";
 import { useState } from "react";
+const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
 
 function AddChildForm({ onCloseModal, addAdmin, isPending }) {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
@@ -23,7 +24,9 @@ function AddChildForm({ onCloseModal, addAdmin, isPending }) {
       }
     );
   }
-
+  const emailPattern = new RegExp(
+    `^[a-zA-Z0-9._%+-]+@((?!${commonDomains.join("|")}).)*$`
+  );
   return (
     <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="نام و نام خانوادگی" error={errors?.fullname?.message}>
@@ -43,8 +46,8 @@ function AddChildForm({ onCloseModal, addAdmin, isPending }) {
           {...register("email", {
             required: "این فیلد اجباری است.",
             pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "لطفا یک ایمیل معتبر وارد کنید.",
+              value: emailPattern,
+              message: "لطفا از ایمیل سازمانی استفاده کنید.",
             },
           })}
         />

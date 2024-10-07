@@ -16,10 +16,11 @@ function AddMomForm({ onCloseModal, addAdmin, isPending }) {
   const handleDateChange = (date) => {
     setSelectedDate(date.toString());
   };
+
   // Handler for company selection
   function handleCompanySelect(selectedUserId) {
-    setValue("userId", selectedUserId); // Set the selected company _id in the form
     setValue("company", selectedUserId); // Set the selected company _id in the form
+    setValue("userId", selectedUserId); // Set the selected user _id in the form
   }
 
   function onSubmit({
@@ -32,6 +33,11 @@ function AddMomForm({ onCloseModal, addAdmin, isPending }) {
     company,
     userId,
   }) {
+    if (company === "") {
+      alert("Please select a valid company");
+      return;
+    }
+
     addAdmin(
       {
         title,

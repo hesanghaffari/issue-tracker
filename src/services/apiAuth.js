@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 // https://itk.maynd.ir
 export async function signup({
   fullname,
@@ -9,6 +9,7 @@ export async function signup({
   password,
   company,
   licenseCode,
+  phone,
 }) {
   try {
     const response = await axios.post(`${mainURL}/users`, {
@@ -17,6 +18,7 @@ export async function signup({
       fullname,
       company,
       licenseCode,
+      phone,
     });
     return response.data;
   } catch (error) {
@@ -202,5 +204,25 @@ export async function addMom({
   } catch (error) {
     const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
     throw new Error(errorMessage);
+  }
+}
+/////////////////////////////////////////////////////
+export async function verify() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`${mainURL}/users/verify`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }

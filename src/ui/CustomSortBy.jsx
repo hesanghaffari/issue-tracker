@@ -14,7 +14,8 @@ function CustomSortBy({ onCompanySelect }) {
         .filter((user) => user.role === "user")
         .map((user) => ({ value: user._id, label: user.company }));
 
-      setCompanies(companyOptions);
+      // Add the default "انتخاب کنید" option at the beginning
+      setCompanies([{ value: "", label: "انتخاب کنید" }, ...companyOptions]);
     }
   }, [usersData]);
 
