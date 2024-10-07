@@ -142,6 +142,7 @@ export async function addChild({
   password,
   company,
   licenseCode,
+  phone,
 }) {
   try {
     const token = Cookies.get("authToken");
@@ -153,6 +154,7 @@ export async function addChild({
         fullname,
         company,
         licenseCode,
+        phone,
       },
       {
         headers: {

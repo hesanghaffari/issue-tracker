@@ -6,6 +6,7 @@ import FormRow from "./FormRow";
 import Input from "./Input";
 import { useState } from "react";
 const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
+const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
 
 function AddChildForm({ onCloseModal, addAdmin, isPending }) {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
@@ -13,9 +14,16 @@ function AddChildForm({ onCloseModal, addAdmin, isPending }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  function onSubmit({ fullname, email, password, company, licenseCode }) {
+  function onSubmit({
+    fullname,
+    email,
+    password,
+    company,
+    licenseCode,
+    phone,
+  }) {
     addAdmin(
-      { fullname, email, password, company, licenseCode },
+      { fullname, email, password, company, licenseCode, phone },
       {
         onSettled: () => {
           reset(); // Reset the form
@@ -48,6 +56,19 @@ function AddChildForm({ onCloseModal, addAdmin, isPending }) {
             pattern: {
               value: emailPattern,
               message: "لطفا از ایمیل سازمانی استفاده کنید.",
+            },
+          })}
+        />
+      </FormRow>
+      <FormRow label="شماره تماس" error={errors?.phone?.message}>
+        <Input
+          type="text"
+          id="phone"
+          disabled={isPending}
+          {...register("phone", {
+            pattern: {
+              value: phonePattern,
+              message: "شماره تماس باید با 09 شروع شده و 11 رقم باشد.",
             },
           })}
         />
