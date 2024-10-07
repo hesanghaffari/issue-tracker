@@ -4,8 +4,11 @@ import Modal from "../../../ui/Modal";
 import AddAdminForm from "../../../ui/AddAdminForm";
 import ListAdminTable from "./ListAdminTable";
 import ListUsersTable from "./ListUsersTable";
+import { useAddAdmin } from "./useAddAdmin";
 
 function AdminManagement() {
+  const { addAdmin, isPending } = useAddAdmin();
+
   return (
     <div>
       <Modal>
@@ -14,7 +17,11 @@ function AdminManagement() {
         </Modal.Open>
 
         <Modal.Window name="AddAdminForm">
-          <AddAdminForm onCloseModal={() => close()} />
+          <AddAdminForm
+            onCloseModal={() => close()}
+            addAdmin={addAdmin}
+            isPending={isPending}
+          />
         </Modal.Window>
       </Modal>
 

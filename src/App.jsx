@@ -19,12 +19,15 @@ import TicketDetail from "./pages/TicketDetail";
 import TicketDetailAdmin from "./pages/admin/TicketDetailAdmin";
 import TicketDetailMyTicketAdmin from "./pages/admin/TicketDetailMyTicketAdmin";
 import UsersList from "./pages/admin/UsersList";
+import ChildList from "./pages/ChildList";
+
 import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";
 import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
 import PageNotFound from "./pages/PageNotFound";
 import ForgetPassAccess from "./feature/authentication/ForgetPassAccess";
+import Mom from "./pages/admin/Mom";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,6 +50,8 @@ function App() {
               </ProtectedRouteUser>
             }
           >
+            <Route path="childlist" element={<ChildList />} />
+
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="createticket" element={<CreateTicket />} />
             <Route path="dashboard/:ticketId" element={<TicketDetail />} />
@@ -69,6 +74,7 @@ function App() {
               path="myticket/:ticketId"
               element={<TicketDetailMyTicketAdmin />}
             />
+            <Route path="mom" element={<Mom />} />
           </Route>
 
           <Route

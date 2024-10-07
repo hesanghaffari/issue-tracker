@@ -44,7 +44,8 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  const items = data.tickets || data.admins || data.users;
+  const items =
+    data.tickets || data.admins || data.users || data.children || data.moms;
   if (!items.length) return <p className={styles.empty}>موجود نیست</p>;
 
   return <section className={styles.styledBody}>{items.map(render)}</section>;

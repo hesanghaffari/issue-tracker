@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://localhost:3000";
+const mainURL = "https://itk.maynd.ir/api";
 // https://itk.maynd.ir
 export async function signup({
   fullname,
@@ -120,6 +120,77 @@ export async function updatePassword({ password, token }) {
       `${mainURL}/users`,
       {
         password,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    throw new Error(errorMessage);
+  }
+}
+//////////////////////////////////////////
+export async function addChild({
+  fullname,
+  email,
+  password,
+  company,
+  licenseCode,
+}) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.post(
+      `${mainURL}/users/add-child`,
+      {
+        email,
+        password,
+        fullname,
+        company,
+        licenseCode,
+      },
+      {
+        headers: {
+          Authorization: token, // Correctly add the token to the headers
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    throw new Error(errorMessage);
+  }
+}
+///////////////////////////////////
+export async function addMom({
+  title,
+  description,
+  password,
+  daart,
+  webengage,
+  customer,
+  date,
+  company,
+  userId,
+}) {
+  try {
+    const token = Cookies.get("authToken");
+
+    const response = await axios.post(
+      `${mainURL}/mom`,
+      {
+        title,
+        description,
+        password,
+        daart,
+        webengage,
+        customer,
+        date,
+        company,
+        userId, // Add userId to the payload
       },
       {
         headers: {

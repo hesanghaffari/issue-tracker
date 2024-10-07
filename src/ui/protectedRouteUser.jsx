@@ -10,7 +10,7 @@ const ProtectedRouteUser = ({ children }) => {
     const token = Cookies.get("authToken");
     const userRole = Cookies.get("userRole");
 
-    if (!token || userRole !== "user") {
+    if (!token || (userRole !== "user" && userRole !== "child")) {
       navigate("/login");
     }
   }, [navigate]);

@@ -1,20 +1,21 @@
 import { useSearchParams } from "react-router-dom";
-import { useAdminList } from "./useAdminList";
-import Spinner from "../../../ui/Spinner";
-import Table from "../../../ui/Table";
-import AdminRow from "./AdminRow";
-import Empty from "../../../ui/Empty";
-import Pagination from "../../../ui/Pagination";
+import { useChildList } from "./useChildList";
 
-function ListAdminTable() {
-  const { admins, isLoading } = useAdminList();
+import Spinner from "../../ui/Spinner";
+import Table from "../../ui/Table";
+import ChildRow from "./ChildRow";
+import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
+
+function ListChildTable() {
+  const { childs, isLoading } = useChildList();
   const [searchParams] = useSearchParams();
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
 
   if (isLoading) return <Spinner />;
-  if (!admins?.admins.length) return <Empty resourceName="ادمینی" />;
+  if (!childs?.children.length) return <Empty resourceName="یوزری" />;
 
   return (
     <>
@@ -27,11 +28,11 @@ function ListAdminTable() {
         </Table.Header>
 
         <Table.Body
-          data={admins}
-          render={(admin, index) => (
-            <AdminRow
-              admins={admin}
-              key={admin._id}
+          data={childs}
+          render={(child, index) => (
+            <ChildRow
+              admins={child}
+              key={child._id}
               index={index}
               currentPage={currentPage}
             />
@@ -39,10 +40,10 @@ function ListAdminTable() {
         />
       </Table>
       <Table.Footer>
-        <Pagination count={admins.totaladmins || admins.totalAdmins} />
+        <Pagination count={childs.totalChildren || childs.totalChildren} />
       </Table.Footer>
     </>
   );
 }
 
-export default ListAdminTable;
+export default ListChildTable;

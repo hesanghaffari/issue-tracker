@@ -4,6 +4,7 @@ import {
   submitReply,
   getRepliesByTicketId,
   finishTicket,
+  updateTicketStatusToPending,
 } from "../../services/apiTicket";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
@@ -48,6 +49,21 @@ function TicketDetailAdmin() {
     clearErrors,
   } = useForm();
   const { errors } = formState;
+  const { mutate: setTicketPendingMutation, isPending: isSettingPending } =
+    useMutation({
+      mutationFn: () => updateTicketStatusToPending(ticketId), // Define your API call to update the status
+      onSuccess: () => {
+        queryClient.invalidateQueries(["tickets", ticketId]);
+        toast.success("تیکت در انتظار وب انگیج است.");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+
+  const handleSetTicketPending = () => {
+    setTicketPendingMutation();
+  };
 
   const { mutate: finishTicketMutation, isPending: isFinishingTicket } =
     useMutation({
@@ -145,6 +161,14 @@ function TicketDetailAdmin() {
               : isFinishingTicket
               ? "در حال انجام..."
               : "بستن تیکت"}
+          </Button>
+          <Button
+            onClick={handleSetTicketPending}
+            disabled={isSettingPending || ticket.endDate}
+            variation="primary"
+            size="small"
+          >
+            {isSettingPending ? "در حال انجام..." : "در انتظار وب انگیج"}
           </Button>
         </div>
       </div>

@@ -16,8 +16,8 @@ function TicketTableOperations() {
             { value: "ثبت شده", label: "ثبت شده" },
             { value: "در حال بررسی", label: "در حال بررسی" },
             { value: "در انتظار پاسخ", label: "در انتظار پاسخ" },
-
             { value: "حل شده", label: "حل شده" },
+            { value: "در انتظار وب انگیج", label: "در انتظار وب انگیج" },
           ]}
         />
         <SortBy

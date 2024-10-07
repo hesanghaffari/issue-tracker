@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "http://localhost:3000";
+const mainURL = "https://itk.maynd.ir/api";
 
 export async function ticket(data) {
   try {
@@ -348,6 +348,26 @@ export async function listAdmin(page = 1) {
   }
 }
 ///////////////////////
+export async function listUsersMom() {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`${mainURL}/users?limit=9999999999999`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+//////////////////
 export async function listUsers(page = 1) {
   try {
     const token = Cookies.get("authToken");
@@ -424,6 +444,116 @@ export async function deleteUser(userId) {
   try {
     const token = Cookies.get("authToken");
     const response = await axios.delete(`${mainURL}/users/${userId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    throw new Error(errorMessage);
+  }
+}
+/////////////////////////////////////
+export async function listChild(page = 1) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+    const params = page;
+
+    const response = await axios.get(`${mainURL}/users/children`, {
+      params,
+
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+//////////////////////////////////////
+export async function deleteChild(ChildId) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.delete(
+      `${mainURL}/users/delete-child/${ChildId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    throw new Error(errorMessage);
+  }
+}
+////////////////////////////
+export async function updateTicketStatusToPending(ticketId) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    // Payload with the status update
+    const payload = {
+      status: "در انتظار وب انگیج", // Set the status to pending on WebEngage
+    };
+
+    const response = await axios.put(
+      `${mainURL}/tickets/${ticketId}`,
+      payload, // Send the payload in the request body
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to update the ticket status: ${error.message}`);
+  }
+}
+
+///////////////////////////
+
+export async function listMom(page = 1) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+    const params = page;
+
+    const response = await axios.get(`${mainURL}/mom`, {
+      params,
+
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+//////////////////////////////
+export async function deleteMom(MomId) {
+  try {
+    const token = Cookies.get("authToken");
+    const response = await axios.delete(`${mainURL}/mom/${MomId}`, {
       headers: {
         Authorization: token,
       },

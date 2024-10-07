@@ -6,15 +6,15 @@ import FormRow from "./FormRow";
 import Input from "./Input";
 import { useState } from "react";
 
-function AddAdminForm({ onCloseModal, addAdmin, isPending }) {
+function AddChildForm({ onCloseModal, addAdmin, isPending }) {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  function onSubmit({ fullname, email, password }) {
+  function onSubmit({ fullname, email, password, company, licenseCode }) {
     addAdmin(
-      { fullname, email, password },
+      { fullname, email, password, company, licenseCode },
       {
         onSettled: () => {
           reset(); // Reset the form
@@ -49,7 +49,27 @@ function AddAdminForm({ onCloseModal, addAdmin, isPending }) {
           })}
         />
       </FormRow>
+      <FormRow label="شرکت" error={errors?.company?.message}>
+        <Input
+          type="text"
+          id="company"
+          disabled={isPending}
+          {...register("company", {
+            required: "این فیلد اجباری است.",
+          })}
+        />
+      </FormRow>
 
+      <FormRow label="لایسنس‌کد" error={errors?.licenseCode?.message}>
+        <Input
+          type="text"
+          id="licenseCode"
+          disabled={isPending}
+          {...register("licenseCode", {
+            required: "این فیلد اجباری است.",
+          })}
+        />
+      </FormRow>
       <FormRow
         label="رمزعبور(حداقل 8 کاراکتر)"
         error={errors?.password?.message}
@@ -86,16 +106,16 @@ function AddAdminForm({ onCloseModal, addAdmin, isPending }) {
       </FormRow>
 
       <FormRow>
-        <Button disabled={isPending}>ثبت نام</Button>
+        <Button disabled={isPending}>ثبت</Button>
       </FormRow>
     </Form>
   );
 }
 
-AddAdminForm.propTypes = {
+AddChildForm.propTypes = {
   onCloseModal: PropTypes.func.isRequired,
   addAdmin: PropTypes.func.isRequired,
   isPending: PropTypes.bool,
 };
 
-export default AddAdminForm;
+export default AddChildForm;

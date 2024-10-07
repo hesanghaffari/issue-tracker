@@ -22,6 +22,7 @@ function TicketRow({ tickets, index, currentPage }) {
     "ثبت شده": "green",
     "در انتظار پاسخ": "yellow",
     "حل شده": "silver",
+    "در انتظار وب انگیج": "purple",
   };
 
   const handleDetailClick = () => {

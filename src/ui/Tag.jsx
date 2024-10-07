@@ -9,7 +9,8 @@ const Tag = ({ type, children }) => {
 
 // Define prop types for the Tag component
 Tag.propTypes = {
-  type: PropTypes.oneOf(["blue", "green", "silver", "yellow"]).isRequired,
+  type: PropTypes.oneOf(["blue", "green", "silver", "yellow", "purple"])
+    .isRequired,
   children: PropTypes.node.isRequired,
 };
 
