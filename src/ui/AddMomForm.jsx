@@ -18,8 +18,8 @@ function AddMomForm({ onCloseModal, addAdmin, isPending }) {
   };
 
   // Handler for company selection
-  function handleCompanySelect(selectedUserId) {
-    setValue("company", selectedUserId); // Set the selected company _id in the form
+  function handleCompanySelect(selectedUserId, selectedCompanyName) {
+    setValue("company", selectedCompanyName); // Set the selected company name in the form
     setValue("userId", selectedUserId); // Set the selected user _id in the form
   }
 

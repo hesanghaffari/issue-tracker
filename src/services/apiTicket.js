@@ -564,3 +564,71 @@ export async function deleteMom(MomId) {
     throw new Error(errorMessage);
   }
 }
+////////////////////
+export async function listMomuser(page = 1) {
+  try {
+    const token = Cookies.get("authToken");
+    const userID = Cookies.get("userID");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+    const params = page;
+
+    const response = await axios.get(`${mainURL}/mom/users/${userID}`, {
+      params,
+
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+////////////////////////
+export async function getMomById(id) {
+  try {
+    const token = Cookies.get("authToken");
+    const userID = Cookies.get("userID");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(
+      `${mainURL}/mom/users/${userID}/moms/${id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+//////////////////////////////////////////////////////
+export async function getMomadminById(id) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.get(`${mainURL}/mom/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}

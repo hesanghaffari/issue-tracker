@@ -56,7 +56,7 @@ function MainNav({ onClose }) {
         )}
         <li>
           <NavLink
-            to="/mom"
+            to="/momadmin"
             className={({ isActive }) =>
               isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
             }

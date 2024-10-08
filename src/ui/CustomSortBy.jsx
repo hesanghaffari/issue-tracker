@@ -21,7 +21,10 @@ function CustomSortBy({ onCompanySelect }) {
 
   function handleChange(e) {
     const selectedUserId = e.target.value;
-    onCompanySelect(selectedUserId); // Pass the selected user _id back to the form
+    const selectedCompany =
+      companies.find((company) => company.value === selectedUserId)?.label ||
+      "";
+    onCompanySelect(selectedUserId, selectedCompany); // Pass both user _id and company name back to the form
   }
 
   if (isLoading) {

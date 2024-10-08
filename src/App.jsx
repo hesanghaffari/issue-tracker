@@ -26,9 +26,12 @@ import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";
 import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
 import PageNotFound from "./pages/PageNotFound";
+import DetailUserMom from "./pages/DetailUserMom";
+import MomUser from "./pages/MomUser";
 import ForgetPassAccess from "./feature/authentication/ForgetPassAccess";
 import Mom from "./pages/admin/Mom";
 import ProfileAdmin from "./pages/admin/ProfileAdmin";
+import MomDetailAdmin from "./pages/admin/MomDetailAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,6 +60,8 @@ function App() {
             <Route path="createticket" element={<CreateTicket />} />
             <Route path="dashboard/:ticketId" element={<TicketDetail />} />
             <Route path="profileadmin" element={<ProfileAdmin />} />
+            <Route path="momuser" element={<MomUser />} />
+            <Route path="momuser/:momID" element={<DetailUserMom />} />
           </Route>
 
           <Route
@@ -76,7 +81,8 @@ function App() {
               path="myticket/:ticketId"
               element={<TicketDetailMyTicketAdmin />}
             />
-            <Route path="mom" element={<Mom />} />
+            <Route path="momadmin" element={<Mom />} />
+            <Route path="momadmin/:momId" element={<MomDetailAdmin />} />
           </Route>
 
           <Route
