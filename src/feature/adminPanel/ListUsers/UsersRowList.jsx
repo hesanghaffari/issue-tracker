@@ -24,7 +24,7 @@ function UsersRow({ users, index, currentPage }) {
       <div>{isVerified ? "تایید شده" : "تایید نشده"}</div>
       <div>
         <Button
-          variation="success"
+          variation="secondary"
           size="small"
           onClick={() => verifyUser(_id)}
           disabled={isVerifying}
