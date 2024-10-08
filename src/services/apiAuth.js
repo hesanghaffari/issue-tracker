@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 // https://itk.maynd.ir
 export async function signup({
   fullname,
@@ -60,7 +60,10 @@ export async function login({ email, password }) {
     });
     return response.data;
   } catch (error) {
-    const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
+    // Check if error response is an object and contains a message
+    const errorMessage =
+      error.response?.data?.message || "لطفا مجددا امتحان کنید.";
+    // Throw a proper error with a message
     throw new Error(errorMessage);
   }
 }
@@ -229,7 +232,7 @@ export async function verify() {
   }
 }
 ////////////////
-export async function EditProfile({ fullname }) {
+export async function EditProfile({ fullname, phone }) {
   try {
     const token = Cookies.get("authToken");
 
@@ -237,6 +240,7 @@ export async function EditProfile({ fullname }) {
       `${mainURL}/users`,
       {
         fullname,
+        phone,
       },
       {
         headers: {

@@ -27,11 +27,12 @@ export function useLogin() {
         // Now, call the verify API to fetch license and company name
         try {
           const verifyResponse = await verifyApi(token); // Assuming verify API needs the token
-          const { licenseCode, company } = verifyResponse;
+          const { licenseCode, company, phone } = verifyResponse;
 
           // Set additional cookies for license and company name
           Cookies.set("licenseCode", licenseCode);
           Cookies.set("company", company);
+          Cookies.set("phone", phone);
 
           // Proceed to the dashboard after setting all cookies
           queryClient.setQueryData(["user"], user.user);
@@ -45,8 +46,11 @@ export function useLogin() {
         navigate("/verify-email");
       }
     },
-    onError: (error) => {
-      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
+    onError: (err) => {
+      // If err is an instance of Error, extract the message
+      const errorMessage =
+        err instanceof Error ? err.message : "لطفا مجددا امتحان کنید.";
+
       toast.error(errorMessage);
     },
   });

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -630,5 +630,29 @@ export async function getMomadminById(id) {
     return response.data;
   } catch (error) {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
+  }
+}
+
+/////////////////
+export async function verifyUser(userid) {
+  try {
+    const token = Cookies.get("authToken");
+
+    if (!token) {
+      throw new Error("Auth token not found in cookies");
+    }
+
+    const response = await axios.put(
+      `${mainURL}/users/adminVerify/${userid}`,
+      {}, // Empty object for the payload, since PUT requests usually expect one
+      {
+        headers: {
+          Authorization: token, // Correctly add the token to the headers
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to finish the ticket: ${error.message}`);
   }
 }
