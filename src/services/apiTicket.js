@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -527,15 +527,18 @@ export async function updateTicketStatusToPending(ticketId) {
 
 ///////////////////////////
 
-export async function listMom(page = 1) {
+export async function listMom(page = 1, search = "") {
   try {
     const token = Cookies.get("authToken");
 
     if (!token) {
       throw new Error("Auth token not found in cookies");
     }
-    const params = page;
 
+    const params = page;
+    if (search) {
+      params.search = search;
+    }
     const response = await axios.get(`${mainURL}/mom`, {
       params,
 

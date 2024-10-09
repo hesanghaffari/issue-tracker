@@ -10,7 +10,7 @@ const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
 function ProfileAdmin() {
   const fullname = Cookies.get("fullname") || ""; // Default to empty string if not found
   const phone = Cookies.get("phone") || ""; // Default to empty string if not found
-  const { editprofile, isPending } = useEditForm();
+  const { editprofile, isLoading } = useEditForm();
   const { register, formState, handleSubmit, reset } = useForm({
     defaultValues: {
       fullname: fullname,
@@ -23,7 +23,17 @@ function ProfileAdmin() {
     editprofile(
       { fullname, phone },
       {
-        onSettled: () => reset(),
+        onSettled: () => {
+          // After mutation, get the updated values from cookies
+          const updatedFullname = Cookies.get("fullname") || fullname;
+          const updatedPhone = Cookies.get("phone") || phone;
+
+          // Reset the form with updated values
+          reset({
+            fullname: updatedFullname,
+            phone: updatedPhone,
+          });
+        },
       }
     );
   }
@@ -35,7 +45,7 @@ function ProfileAdmin() {
           <Input
             type="text"
             id="fullname"
-            disabled={isPending}
+            disabled={isLoading}
             {...register("fullname", { required: "این فیلد اجباری است." })}
           />
         </FormRow>
@@ -43,7 +53,7 @@ function ProfileAdmin() {
           <Input
             type="text"
             id="phone"
-            disabled={isPending}
+            disabled={isLoading}
             {...register("phone", {
               pattern: {
                 value: phonePattern,
@@ -53,7 +63,7 @@ function ProfileAdmin() {
           />
         </FormRow>
         <FormRow>
-          <Button disabled={isPending}>ویرایش</Button>
+          <Button disabled={isLoading}>ویرایش</Button>
         </FormRow>
       </Form>
     </main>
