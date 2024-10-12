@@ -6,11 +6,13 @@ import Modal from "../../../ui/Modal";
 import Button from "../../../ui/Button";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import Dropdown from "../../../ui/Dropdown";
+import { useDeleteUser } from "./useDeleteUser"; // Import the hook
 
 function UsersRow({ users, index, currentPage }) {
   const { email, fullname, createdAt, isVerified, isAdminVerified, _id } =
     users;
-  const { updateUserStatus, isLoading: isUpdating } = useVerifyUser();
+  const { updateUserStatus, isPending: isVerify } = useVerifyUser();
+  const { deleteUser, isPending: isDeleting } = useDeleteUser();
 
   const displayIndex = index + 1 + (currentPage - 1) * 10;
 
@@ -25,6 +27,7 @@ function UsersRow({ users, index, currentPage }) {
       updateUserStatus({ userId: _id, status: action });
     }
   };
+  console.log("isLoading in isDeleting:", isDeleting);
 
   return (
     <Table.Row>
@@ -38,20 +41,22 @@ function UsersRow({ users, index, currentPage }) {
           options={options} // Dropdown options (accept/reject)
           isAdminVerified={isAdminVerified} // Pass verification status
           onActionSelect={handleActionSelect} // Handle selected action
+          isPending={isVerify} // Pass your loading state here
         />
       </div>
       <div>
         <Modal>
           <Modal.Open opens="delete">
-            <Button variation="danger" size="small" disabled={isUpdating}>
+            <Button variation="danger" size="small" disabled={isDeleting}>
               حذف
             </Button>
           </Modal.Open>
+
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="کاربر"
-              onConfirm={() => handleActionSelect("delete")} // Handle delete action
-              disabled={isUpdating}
+              onConfirm={() => deleteUser(_id)} // Call delete user API
+              disabled={isDeleting}
             />
           </Modal.Window>
         </Modal>
