@@ -637,7 +637,7 @@ export async function getMomadminById(id) {
 }
 
 /////////////////
-export async function verifyUser(userid) {
+export async function verifyUser(userId, status) {
   try {
     const token = Cookies.get("authToken");
 
@@ -646,16 +646,20 @@ export async function verifyUser(userid) {
     }
 
     const response = await axios.put(
-      `${mainURL}/users/adminVerify/${userid}`,
-      {}, // Empty object for the payload, since PUT requests usually expect one
+      `${mainURL}/users/adminVerify/${userId}`, // Use userId correctly here
+      { status }, // Pass the status (accept/reject) in the payload
       {
         headers: {
-          Authorization: token, // Correctly add the token to the headers
+          Authorization: token, // Add the token to headers
         },
       }
     );
-    return response.data;
+    return response.data; // Return the entire response data, which includes the message
   } catch (error) {
-    throw new Error(`Failed to finish the ticket: ${error.message}`);
+    throw new Error(
+      `Failed to update user status: ${
+        error.response?.data?.message || error.message
+      }`
+    );
   }
 }

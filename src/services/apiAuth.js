@@ -254,3 +254,36 @@ export async function EditProfile({ fullname, phone }) {
     throw new Error(errorMessage);
   }
 }
+//////////////
+export async function updateMom(
+  momId,
+  { title, description, daart, webengage, customer, date, company }
+) {
+  try {
+    const token = Cookies.get("authToken");
+
+    const response = await axios.put(
+      `${mainURL}/mom/${momId}`, // Use PUT request with the momId in the URL
+      {
+        title,
+        description,
+        daart,
+        webengage,
+        customer,
+        date,
+        company,
+      },
+      {
+        headers: {
+          Authorization: token, // Pass the token for authentication
+        },
+      }
+    );
+
+    return response.data; // Return the updated data
+  } catch (error) {
+    const errorMessage =
+      error.response?.data || "Failed to update the record. Please try again.";
+    throw new Error(errorMessage);
+  }
+}

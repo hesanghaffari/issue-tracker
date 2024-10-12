@@ -5,17 +5,21 @@ import { toast } from "react-hot-toast";
 export function useVerifyUser() {
   const queryClient = useQueryClient();
 
-  const { mutate: verifyUser, isLoading } = useMutation({
-    mutationFn: verifyUserApi,
-    onSuccess: () => {
-      toast.success("یوزر با موفقیت تایید شد.");
+  const { mutate: updateUserStatus, isLoading } = useMutation({
+    mutationFn: ({ userId, status }) => verifyUserApi(userId, status), // Pass both userId and status
+    onSuccess: (response) => {
+      // Display the message from the API response
+      toast.success(response || "عملیات با موفقیت انجام شد.");
       queryClient.invalidateQueries("admins"); // This will refetch the admin list
     },
     onError: (error) => {
-      const errorMessage = error.message || "لطفا مجددا امتحان کنید.";
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "لطفا مجددا امتحان کنید.";
       toast.error(errorMessage);
     },
   });
 
-  return { verifyUser, isLoading };
+  return { updateUserStatus, isLoading };
 }

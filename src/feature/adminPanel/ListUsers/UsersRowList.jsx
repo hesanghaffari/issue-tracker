@@ -1,4 +1,3 @@
-import { useDeleteUser } from "./useDeleteUser"; // Import the hook
 import { useVerifyUser } from "./useVerifyUser"; // Import the updated hook
 import PropTypes from "prop-types";
 import Table from "../../../ui/Table";
@@ -6,14 +5,26 @@ import moment from "moment-jalaali";
 import Modal from "../../../ui/Modal";
 import Button from "../../../ui/Button";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
+import Dropdown from "../../../ui/Dropdown";
 
 function UsersRow({ users, index, currentPage }) {
-  const { email, fullname, createdAt, isVerified, _id } = users; // Ensure _id is part of users
-  const { deleteUser, isLoading: isDeleting } = useDeleteUser();
-  const { verifyUser, isLoading: isVerifying } = useVerifyUser();
+  const { email, fullname, createdAt, isVerified, isAdminVerified, _id } =
+    users;
+  const { updateUserStatus, isLoading: isUpdating } = useVerifyUser();
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
+
+  const options = [
+    { value: "accept", label: "تایید " },
+    { value: "reject", label: "رد " },
+  ];
+
+  const handleActionSelect = (action) => {
+    // Only make the request for valid actions ("accept" or "reject")
+    if (action !== "") {
+      updateUserStatus({ userId: _id, status: action });
+    }
+  };
 
   return (
     <Table.Row>
@@ -23,28 +34,24 @@ function UsersRow({ users, index, currentPage }) {
       <div>{fullname}</div>
       <div>{isVerified ? "تایید شده" : "تایید نشده"}</div>
       <div>
-        <Button
-          variation="secondary"
-          size="small"
-          onClick={() => verifyUser(_id)}
-          disabled={isVerifying}
-        >
-          تایید کاربر
-        </Button>
+        <Dropdown
+          options={options} // Dropdown options (accept/reject)
+          isAdminVerified={isAdminVerified} // Pass verification status
+          onActionSelect={handleActionSelect} // Handle selected action
+        />
       </div>
       <div>
         <Modal>
           <Modal.Open opens="delete">
-            <Button variation="danger" size="small" disabled={isDeleting}>
+            <Button variation="danger" size="small" disabled={isUpdating}>
               حذف
             </Button>
           </Modal.Open>
-
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="کاربر"
-              onConfirm={() => deleteUser(_id)} // Call delete user API
-              disabled={isDeleting}
+              onConfirm={() => handleActionSelect("delete")} // Handle delete action
+              disabled={isUpdating}
             />
           </Modal.Window>
         </Modal>
@@ -57,11 +64,12 @@ UsersRow.propTypes = {
   index: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   users: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Ensure _id exists
+    _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     email: PropTypes.string.isRequired,
     fullname: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool.isRequired, // Define isVerified as a boolean
+    isVerified: PropTypes.bool.isRequired,
+    isAdminVerified: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

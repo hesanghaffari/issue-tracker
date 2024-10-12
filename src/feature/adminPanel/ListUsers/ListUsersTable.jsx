@@ -26,6 +26,7 @@ function ListUsersTable() {
           <div>ایمیل</div>
           <div>نام</div>
           <div>وضعیت حساب</div>
+          <div>وضعیت تایید</div>
         </Table.Header>
 
         <Table.Body
