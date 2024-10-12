@@ -18,11 +18,12 @@ function UsersRow({ users, index, currentPage }) {
   const options = [
     { value: "accept", label: "تایید " },
     { value: "reject", label: "رد " },
+    { value: "unverified", label: "تعیین نشده" }, // Added option for unverified
   ];
 
   const handleActionSelect = (action) => {
     // Only make the request for valid actions ("accept" or "reject")
-    if (action !== "") {
+    if (action !== "" && action !== "unverified") {
       updateUserStatus({ userId: _id, status: action });
     }
   };
@@ -33,10 +34,16 @@ function UsersRow({ users, index, currentPage }) {
       <div>{moment(createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}</div>
       <div>{email}</div>
       <div>{fullname}</div>
-      <div>{isAdminVerified ? "تایید شده" : "تایید نشده"}</div>
+      <div>
+        {isAdminVerified === null
+          ? "تعیین نشده"
+          : isAdminVerified
+          ? "تایید شده"
+          : "تایید نشده"}
+      </div>
       <div>
         <Dropdown
-          options={options} // Dropdown options (accept/reject)
+          options={options} // Dropdown options (accept/reject/unverified)
           isAdminVerified={isAdminVerified} // Pass verification status
           onActionSelect={handleActionSelect} // Handle selected action
           isPending={isVerify} // Pass your loading state here
@@ -72,7 +79,7 @@ UsersRow.propTypes = {
     fullname: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     isVerified: PropTypes.bool.isRequired,
-    isAdminVerified: PropTypes.bool.isRequired,
+    isAdminVerified: PropTypes.bool, // Changed to allow null values
   }).isRequired,
 };
 

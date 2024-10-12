@@ -9,22 +9,22 @@ function Dropdown({ options, isAdminVerified, onActionSelect, isPending }) {
   // Handle option change
   const handleChange = (e) => {
     const value = e.target.value;
-
     setSelectedOption(value); // Set the selected option
 
-    // Only call onActionSelect if a valid option is selected
-    if (value) {
+    // Only call onActionSelect if a valid option is selected and it is not "تایید نشده"
+    if (value && value !== "unverified") {
       onActionSelect(value); // Send the selected value to the parent component
     }
   };
 
   // Set default value based on isAdminVerified if needed
   useEffect(() => {
-    if (isAdminVerified !== undefined) {
+    if (isAdminVerified === null) {
+      setSelectedOption("unverified"); // Default to "تایید نشده" if isAdminVerified is null
+    } else {
       setSelectedOption(isAdminVerified ? "accept" : "reject"); // Adjust default based on verification status
     }
   }, [isAdminVerified]);
-  //   console.log("isLoading in Dropdown:", isLoading);
 
   return (
     <div>
@@ -32,7 +32,7 @@ function Dropdown({ options, isAdminVerified, onActionSelect, isPending }) {
         <SpinnerMini /> // Show spinner when loading
       ) : (
         <Select
-          options={options} // Pass the options directly (accept/reject)
+          options={options} // Pass the options directly (accept/reject/unverified)
           value={selectedOption}
           onChange={handleChange}
         />
