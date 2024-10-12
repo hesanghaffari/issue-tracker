@@ -9,8 +9,7 @@ import Dropdown from "../../../ui/Dropdown";
 import { useDeleteUser } from "./useDeleteUser"; // Import the hook
 
 function UsersRow({ users, index, currentPage }) {
-  const { email, fullname, createdAt, isVerified, isAdminVerified, _id } =
-    users;
+  const { email, fullname, createdAt, isAdminVerified, _id } = users;
   const { updateUserStatus, isPending: isVerify } = useVerifyUser();
   const { deleteUser, isPending: isDeleting } = useDeleteUser();
 
@@ -27,7 +26,6 @@ function UsersRow({ users, index, currentPage }) {
       updateUserStatus({ userId: _id, status: action });
     }
   };
-  console.log("isLoading in isDeleting:", isDeleting);
 
   return (
     <Table.Row>
@@ -35,7 +33,7 @@ function UsersRow({ users, index, currentPage }) {
       <div>{moment(createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}</div>
       <div>{email}</div>
       <div>{fullname}</div>
-      <div>{isVerified ? "تایید شده" : "تایید نشده"}</div>
+      <div>{isAdminVerified ? "تایید شده" : "تایید نشده"}</div>
       <div>
         <Dropdown
           options={options} // Dropdown options (accept/reject)
