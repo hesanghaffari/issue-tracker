@@ -52,6 +52,10 @@ function DetailMom() {
         <strong>تاریخ ثبت :</strong>
         <span>{moment(mom.timestamp).format("jYYYY/jMM/jDD HH:mm:ss")}</span>
       </div>
+      <div className={styles.timestamp}>
+        <strong>تاریخ صورت جلسه :</strong>
+        <span>{mom.date}</span>
+      </div>
     </div>
   );
 }

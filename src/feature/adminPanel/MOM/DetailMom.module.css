@@ -62,6 +62,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
   border-top: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   color: var(--color-grey-600);

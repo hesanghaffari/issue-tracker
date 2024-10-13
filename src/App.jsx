@@ -26,7 +26,7 @@ import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";
 import RedirectIfAuthenticated from "./ui/RedirectIfAuthenticated";
 import PageNotFound from "./pages/PageNotFound";
-import DetailUserMom from "./pages/PageNotFound";
+import DetailUserMom from "./pages/DetailUserMom";
 import MomUser from "./pages/MomUser";
 import ForgetPassAccess from "./feature/authentication/ForgetPassAccess";
 import Mom from "./pages/admin/Mom";
