@@ -12,7 +12,6 @@ function ListChildTable() {
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
-
   if (isLoading) return <Spinner />;
   if (!moms?.moms.length) return <Empty resourceName="صورت جلسه" />;
 

@@ -23,13 +23,11 @@ function DetailMom() {
 
   return (
     <div className={styles.container}>
-      {/* Title and description */}
       <div className={styles.header}>
         <h2 className={styles.title}>{mom.title || "Mom Details"}</h2>
         <p className={styles.description}>{mom.description}</p>
       </div>
 
-      {/* WebEngage, Customer, and Daart side */}
       <div className={styles.sections}>
         <div className={styles.section}>
           <h3>WebEngage Side</h3>
@@ -46,8 +44,6 @@ function DetailMom() {
           <p>{mom.daart}</p>
         </div>
       </div>
-
-      {/* Timestamp information */}
       <div className={styles.timestamp}>
         <strong>تاریخ ثبت :</strong>
         <span>{moment(mom.timestamp).format("jYYYY/jMM/jDD HH:mm:ss")}</span>

@@ -7,7 +7,7 @@ import Input from "../../ui/Input";
 import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
+// const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
 const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
 
 function SignupForm() {
@@ -35,9 +35,9 @@ function SignupForm() {
     );
   }
 
-  const emailPattern = new RegExp(
-    `^[a-zA-Z0-9._%+-]+@((?!${commonDomains.join("|")}).)*$`
-  );
+  // const emailPattern = new RegExp(
+  //   `^[a-zA-Z0-9._%+-]+@((?!${commonDomains.join("|")}).)*$`
+  // );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -80,8 +80,10 @@ function SignupForm() {
           {...register("email", {
             required: "این فیلد اجباری است.",
             pattern: {
-              value: emailPattern,
-              message: "لطفا از ایمیل سازمانی استفاده کنید.",
+              // emailPattern
+              // /لطفا از ایمیل سازمانی استفاده کنید.
+              value: /\S+@\S+\.\S+/,
+              message: "لطفا از ایمیل معتبر استفاده کنید.",
             },
           })}
         />
