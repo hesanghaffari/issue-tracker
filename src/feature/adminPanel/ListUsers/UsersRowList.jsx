@@ -9,7 +9,8 @@ import Dropdown from "../../../ui/Dropdown";
 import { useDeleteUser } from "./useDeleteUser"; // Import the hook
 
 function UsersRow({ users, index, currentPage }) {
-  const { email, fullname, createdAt, isAdminVerified, _id } = users;
+  const { email, fullname, createdAt, isAdminVerified, _id, role, company } =
+    users; // Destructure role and company
   const { updateUserStatus, isPending: isVerify } = useVerifyUser();
   const { deleteUser, isPending: isDeleting } = useDeleteUser();
 
@@ -28,12 +29,17 @@ function UsersRow({ users, index, currentPage }) {
     }
   };
 
+  // Determine role text
+  const roleText = role === "user" ? "اصلی" : role === "child" ? "فرعی" : "";
+
   return (
     <Table.Row>
       <div>{displayIndex}</div>
       <div>{moment(createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}</div>
       <div>{email}</div>
       <div>{fullname}</div>
+      <div>{roleText}</div> {/* Display role */}
+      <div>{company}</div> {/* Display company */}
       <div>
         {isAdminVerified === null
           ? "تعیین نشده"
@@ -78,8 +84,9 @@ UsersRow.propTypes = {
     email: PropTypes.string.isRequired,
     fullname: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool.isRequired,
     isAdminVerified: PropTypes.bool, // Changed to allow null values
+    role: PropTypes.oneOf(["user", "child"]).isRequired, // Added role prop
+    company: PropTypes.string.isRequired, // Added company prop
   }).isRequired,
 };
 

@@ -19,16 +19,18 @@ function ListUsersTable() {
 
   return (
     <>
-      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr">
+      <Table columns="0.1fr 0.7fr 2.2fr 1fr 0.4fr 1fr 0.8fr 1fr 0.5fr">
         <Table.Header>
           <div>#</div>
           <div>تاریخ ایجاد</div>
           <div>ایمیل</div>
           <div>نام</div>
+          <div>نقش</div>
+          <div>شرکت</div>
           <div>وضعیت حساب</div>
           <div>وضعیت تایید</div>
+          <div></div>
         </Table.Header>
-
         <Table.Body
           data={users}
           render={(user, index) => (
