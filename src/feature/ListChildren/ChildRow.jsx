@@ -10,13 +10,14 @@ function ChildRow({ admins, index, currentPage }) {
   const { deleteChild, isLoading } = useDeleteChild();
 
   const displayIndex = index + 1 + (currentPage - 1) * 10;
+  const roleText = role === "user" ? "اصلی" : role === "child" ? "فرعی" : "";
 
   return (
     <Table.Row>
       <div>{displayIndex}</div>
       <div>{fullname}</div>
       <div>{email}</div>
-      <div>{role}</div>
+      <div>{roleText}</div>
       <div>
         <Modal>
           <Modal.Open opens="delete">
