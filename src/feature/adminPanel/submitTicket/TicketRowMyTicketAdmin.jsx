@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styles from "./TicketRowAdmin.module.css";
 import Button from "../../../ui/Button";
 import Tag from "../../../ui/Tag";
-
 import Table from "../../../ui/Table";
 
 function TicketRow({ tickets, index, currentPage }) {
@@ -23,7 +22,6 @@ function TicketRow({ tickets, index, currentPage }) {
     navigate(`/myticket/${_id}`);
   };
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
 
   return (
@@ -47,7 +45,7 @@ function TicketRow({ tickets, index, currentPage }) {
 
 TicketRow.propTypes = {
   index: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired, // Add currentPage as a prop type
+  currentPage: PropTypes.number.isRequired,
   tickets: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     company: PropTypes.string.isRequired,

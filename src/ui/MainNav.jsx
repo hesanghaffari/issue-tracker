@@ -55,18 +55,6 @@ function MainNav({ onClose }) {
             </NavLink>
           </li>
         )}
-        {/* <li>
-          <NavLink
-            to="/users"
-            className={({ isActive }) =>
-              isActive ? `${styles.NavLink} ${styles.active}` : styles.NavLink
-            }
-            onClick={onClose}
-          >
-            <HiOutlineUsers />
-            <span>پروفایل</span>
-          </NavLink>
-        </li> */}
         <li>
           <NavLink
             to="/profileadmin"

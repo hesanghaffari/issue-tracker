@@ -53,8 +53,8 @@ export default function ShamsiDatePicker({
 
   ShamsiDatePicker.propTypes = {
     paramName: PropTypes.string.isRequired,
-    useParams: PropTypes.bool, // Controls whether to use search params
-    showButton: PropTypes.bool, // Controls whether to show the reset button
+    useParams: PropTypes.bool,
+    showButton: PropTypes.bool,
   };
 
   return (

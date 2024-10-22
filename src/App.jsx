@@ -10,7 +10,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Dashboard from "./pages/Dashboard";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import MyTicket from "./pages/admin/MyTicket";
-
 import CreateTicket from "./feature/submitTicket/CreateTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/GlobalStyles.css";
@@ -20,7 +19,6 @@ import TicketDetailAdmin from "./pages/admin/TicketDetailAdmin";
 import TicketDetailMyTicketAdmin from "./pages/admin/TicketDetailMyTicketAdmin";
 import UsersList from "./pages/admin/UsersList";
 import ChildList from "./pages/ChildList";
-
 import AppLayoutAdmin from "./ui/AppLayoutAdmin";
 import ProtectedRouteAdmin from "./ui/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./ui/protectedRouteUser";

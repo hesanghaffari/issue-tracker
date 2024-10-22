@@ -29,7 +29,6 @@ function TicketRow({ tickets, index, currentPage }) {
     navigate(`/dashboardadmin/${_id}`);
   };
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
 
   return (
@@ -68,7 +67,7 @@ TicketRow.propTypes = {
     licenseCode: PropTypes.string.isRequired,
     problemType: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    assignedToName: PropTypes.string, // Add assignTo to prop types
+    assignedToName: PropTypes.string,
   }).isRequired,
 };
 

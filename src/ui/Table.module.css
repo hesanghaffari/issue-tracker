@@ -1,7 +1,7 @@
 .styledTableContainer {
   width: 100%;
   margin-top: 20px;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
 }
 
 .styledTable {
@@ -10,7 +10,7 @@
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
-  min-width: 1000px; /* Ensure the table has a minimum width */
+  min-width: 1000px;
 }
 
 .commonRow {

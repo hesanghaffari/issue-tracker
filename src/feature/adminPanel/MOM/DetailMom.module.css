@@ -55,7 +55,7 @@
   font-size: 1.4rem;
   color: var(--color-grey-800);
   line-height: 1.6;
-  word-wrap: break-word; /* Ensures long text wraps properly */
+  word-wrap: break-word;
 }
 
 .timestamp {

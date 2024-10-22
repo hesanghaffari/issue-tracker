@@ -6,7 +6,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useUpdatePass } from "./useUpdatePass";
 import SpinnerMini from "../../ui/SpinnerMini";
-import { useParams } from "react-router-dom"; // To get the token from the URL
+import { useParams } from "react-router-dom";
 import styles from "./ForgetPassAccess.module.css";
 import Heading from "../../ui/Heading.jsx";
 
@@ -15,7 +15,6 @@ function ForgetPassAccess() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  // State variables to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
@@ -42,8 +41,8 @@ function ForgetPassAccess() {
             type={showPassword ? "text" : "password"}
             id="password"
             disabled={isPending}
-            showtoggle={true} // Enable the eye icon
-            onToggle={() => setShowPassword(!showPassword)} // Toggle the visibility
+            showtoggle={true}
+            onToggle={() => setShowPassword(!showPassword)}
             {...register("password", {
               required: "این فیلد اجباری است.",
               minLength: {
@@ -59,8 +58,8 @@ function ForgetPassAccess() {
             type={showPasswordConfirm ? "text" : "password"}
             id="passwordConfirm"
             disabled={isPending}
-            showtoggle={true} // Enable the eye icon for confirmation
-            onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)} // Toggle the visibility for confirmation
+            showtoggle={true}
+            onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)}
             {...register("passwordConfirm", {
               required: "این فیلد اجباری است.",
               validate: (value) =>

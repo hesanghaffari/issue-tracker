@@ -14,7 +14,6 @@ const ProtectedRouteAdmin = ({ children, accessToUsersList }) => {
       navigate("/login");
     }
 
-    // If the route is UsersList, ensure that only superadmins can access it
     if (accessToUsersList && userRole !== "superadmin") {
       navigate("/login");
     }

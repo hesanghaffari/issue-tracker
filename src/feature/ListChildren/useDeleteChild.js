@@ -9,7 +9,7 @@ export function useDeleteChild() {
     mutationFn: deleteChildApi,
     onSuccess: () => {
       toast.success("یوزر با موفقیت حذف شد.");
-      queryClient.invalidateQueries("listChild"); // This will refetch the admin list
+      queryClient.invalidateQueries("listChild");
     },
     onError: (error) => {
       const errorMessage = error.message || "لطفا مجددا امتحان کنید.";

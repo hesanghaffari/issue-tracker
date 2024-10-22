@@ -10,7 +10,6 @@ import {
 import styles from "./MainNav.module.css";
 
 function MainNav({ onClose }) {
-  // Get the userRole from the cookie
   const userRole = Cookies.get("userRole");
 
   return (

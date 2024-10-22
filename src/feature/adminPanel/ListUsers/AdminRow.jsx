@@ -9,10 +9,7 @@ function AdminRow({ admins, index, currentPage }) {
   const { email, role, fullname, _id } = admins;
   const { deleteAdmin, isLoading } = useDeleteAdmin();
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
-
-  // Handle delete button click
 
   return (
     <Table.Row>

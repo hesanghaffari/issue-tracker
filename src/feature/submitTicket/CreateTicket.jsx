@@ -12,17 +12,15 @@ import { ticket } from "../../services/apiTicket";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // Import js-cookie
-
+import Cookies from "js-cookie";
 import styles from "./CreateTicket.module.css";
 import SpinnerMini from "../../ui/SpinnerMini";
 
 function CreateTicket() {
-  // Retrieve the values from the cookies
-  const fullNameFromCookie = Cookies.get("fullname") || ""; // Default to empty string if not found
-  const emailFromCookie = Cookies.get("userEmail") || ""; // Default to empty string if not found
-  const company = Cookies.get("company") || ""; // Default to empty string if not found
-  const licenseCode = Cookies.get("licenseCode") || ""; // Default to empty string if not found
+  const fullNameFromCookie = Cookies.get("fullname") || "";
+  const emailFromCookie = Cookies.get("userEmail") || "";
+  const company = Cookies.get("company") || "";
+  const licenseCode = Cookies.get("licenseCode") || "";
 
   const { register, handleSubmit, reset, formState, setError, clearErrors } =
     useForm({

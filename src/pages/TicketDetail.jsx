@@ -15,14 +15,13 @@ import Cookies from "js-cookie";
 import styles from "./TicketDetail.module.css";
 import Textarea from "../ui/Textarea";
 import Button from "../ui/Button";
-import FormRow from "../ui/FormRow"; // Import FormRow
+import FormRow from "../ui/FormRow";
 import moment from "moment-jalaali";
-// import FileInput from "../ui/FileInput";
 
 function TicketDetail() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
-  const characterLimit = 1000; // Define character limit
+  const characterLimit = 1000;
   const [fileError, setFileError] = useState("");
 
   const {
@@ -50,28 +49,11 @@ function TicketDetail() {
   } = useForm();
   const { errors } = formState;
 
-  // const mutation = useMutation({
-  //   mutationFn: (newReply) => submitReply(ticketId, newReply),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["replies", ticketId]);
-  //     reset(); // Reset the form after submission
-  //   },
-  // });
-
-  // const onSubmit = (data) => {
-  //   const userRole = Cookies.get("userRole");
-  //   const userName = Cookies.get("fullname");
-  //   mutation.mutate({
-  //     message: data.reply,
-  //     user: userName,
-  //     role: userRole,
-  //   });
-  // };
   const { mutate, isPending: isSubmiting } = useMutation({
     mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
       queryClient.invalidateQueries(["replies", ticketId]);
-      reset(); // Reset the form after submission    },
+      reset();
     },
     onError: (err) => toast.error(err.message),
   });
@@ -114,14 +96,14 @@ function TicketDetail() {
 
     mutate(formData);
   }
-  const replyValue = watch("reply") || ""; // Watch the reply input
-  const isReplyTooLong = replyValue.length > characterLimit; // Check if it exceeds the limit
+  const replyValue = watch("reply") || "";
+  const isReplyTooLong = replyValue.length > characterLimit;
 
   if (isLoading) return <Spinner />;
   if (error) return <p>Failed to load ticket details.</p>;
   if (!ticket) return <Empty resourceName="Ticket" />;
 
-  const userName = Cookies.get("fullname"); // Get the logged-in user's name
+  const userName = Cookies.get("fullname");
 
   return (
     <div className={styles.container}>
@@ -174,17 +156,14 @@ function TicketDetail() {
             {ticket.attachmentFiles.map((file, index) => {
               const fileExtension = file.split(".").pop().toLowerCase();
 
-              // Define file type categories
               const imageFormats = ["jpg", "jpeg", "png", "gif"];
               const videoFormats = ["mp4", "webm", "ogg"];
 
-              // Extract the file name from the URL
               const fileName = file.split("/").pop();
 
               return (
                 <div key={index} className={styles.attachmentItem}>
                   {imageFormats.includes(fileExtension) ? (
-                    // Show image preview
                     <a
                       href={file}
                       target="_blank"
@@ -198,13 +177,11 @@ function TicketDetail() {
                       />
                     </a>
                   ) : videoFormats.includes(fileExtension) ? (
-                    // Show video preview
                     <video controls className={styles.attachmentVideo}>
                       <source src={file} type={`video/${fileExtension}`} />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    // Show file name as a link for other formats
                     <a
                       href={file}
                       target="_blank"
@@ -268,7 +245,6 @@ function TicketDetail() {
           </div>
         )}
 
-        {/* Disable reply form if ticket is closed (has endDate) */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.noline}>
             <FormRow
@@ -289,7 +265,7 @@ function TicketDetail() {
             <FormRow error={fileError || errors?.image?.message}>
               <div className={styles.fileUploadWrapper}>
                 <label htmlFor="image" className={styles.fileUploadLabel}>
-                  <i className="fa fa-paperclip"></i> {/* Pin or Upload icon */}
+                  <i className="fa fa-paperclip"></i>
                   <span>آپلود فایل</span>
                 </label>
                 <input
@@ -298,7 +274,7 @@ function TicketDetail() {
                   multiple
                   accept="*/*"
                   {...register("image")}
-                  className={styles.fileInputHidden} // Hide default file input
+                  className={styles.fileInputHidden}
                   disabled={isSubmiting || ticket.endDate}
                 />
               </div>

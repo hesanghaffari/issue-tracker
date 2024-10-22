@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 // https://itk.maynd.ir/api
 export async function signup({
   fullname,
@@ -60,10 +60,8 @@ export async function login({ email, password }) {
     });
     return response.data;
   } catch (error) {
-    // Check if error response is an object and contains a message
     const errorMessage =
       error.response?.data?.message || "لطفا مجددا امتحان کنید.";
-    // Throw a proper error with a message
     throw new Error(errorMessage);
   }
 }
@@ -107,7 +105,7 @@ export async function addAdmin({ fullname, email, password }) {
       },
       {
         headers: {
-          Authorization: token, // Correctly add the token to the headers
+          Authorization: token,
         },
       }
     );
@@ -161,7 +159,7 @@ export async function addChild({
       },
       {
         headers: {
-          Authorization: token, // Correctly add the token to the headers
+          Authorization: token,
         },
       }
     );
@@ -197,7 +195,7 @@ export async function addMom({
         customer,
         date,
         company,
-        userId, // Add userId to the payload
+        userId,
       },
       {
         headers: {
@@ -263,7 +261,7 @@ export async function updateMom(
     const token = Cookies.get("authToken");
 
     const response = await axios.put(
-      `${mainURL}/mom/${momId}`, // Use PUT request with the momId in the URL
+      `${mainURL}/mom/${momId}`,
       {
         title,
         description,
@@ -275,12 +273,12 @@ export async function updateMom(
       },
       {
         headers: {
-          Authorization: token, // Pass the token for authentication
+          Authorization: token,
         },
       }
     );
 
-    return response.data; // Return the updated data
+    return response.data;
   } catch (error) {
     const errorMessage =
       error.response?.data || "Failed to update the record. Please try again.";

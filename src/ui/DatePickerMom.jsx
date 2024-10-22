@@ -14,7 +14,7 @@ const DatePickerMom = forwardRef(({ onDateChange }, ref) => {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    onDateChange(date); // Pass the selected date to AddMomForm
+    onDateChange(date);
   };
 
   return (

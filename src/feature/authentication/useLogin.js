@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { login as loginApi, verify as verifyApi } from "../../services/apiAuth"; // Assuming verify API is imported here
+import { login as loginApi, verify as verifyApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
@@ -18,23 +18,19 @@ export function useLogin() {
         const fullname = user.fullname;
         const userRole = user.role;
 
-        // Set initial cookies from login API response
         Cookies.set("fullname", fullname);
         Cookies.set("authToken", token);
         Cookies.set("userRole", userRole);
         Cookies.set("userID", id);
 
-        // Now, call the verify API to fetch license and company name
         try {
-          const verifyResponse = await verifyApi(token); // Assuming verify API needs the token
+          const verifyResponse = await verifyApi(token);
           const { licenseCode, company, phone } = verifyResponse;
 
-          // Set additional cookies for license and company name
           Cookies.set("licenseCode", licenseCode);
           Cookies.set("company", company);
           Cookies.set("phone", phone);
 
-          // Proceed to the dashboard after setting all cookies
           queryClient.setQueryData(["user"], user.user);
           navigate("/dashboard");
           toast.success("ورود موفق!");
@@ -47,7 +43,6 @@ export function useLogin() {
       }
     },
     onError: (err) => {
-      // If err is an instance of Error, extract the message
       const errorMessage =
         err instanceof Error ? err.message : "لطفا مجددا امتحان کنید.";
 

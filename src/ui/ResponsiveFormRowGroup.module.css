@@ -1,14 +1,13 @@
 .group {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem; /* Space between rows on mobile */
+  gap: 1.6rem;
 }
 
-/* Media query for larger screens */
 @media (min-width: 768px) {
   .group {
     flex-direction: row;
-    gap: 2.4rem; /* Space between rows on desktop */
+    gap: 2.4rem;
   }
 
   .group > * {

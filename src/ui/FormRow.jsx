@@ -39,7 +39,7 @@ FormRow.propTypes = {
   children: PropTypes.node.isRequired,
   isFirstChild: PropTypes.bool,
   isLastChild: PropTypes.bool,
-  className: PropTypes.string, // Add className prop to propTypes
+  className: PropTypes.string,
 };
 
 export default FormRow;

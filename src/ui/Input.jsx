@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
-import styles from "./Input.module.css"; // Assuming you have a CSS module for Input
+import styles from "./Input.module.css";
 
 const Input = forwardRef(({ showtoggle, onToggle, type, ...props }, ref) => {
   return (
@@ -28,8 +28,8 @@ Input.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string,
   disabled: PropTypes.bool,
-  showtoggle: PropTypes.bool, // New prop for toggle
-  onToggle: PropTypes.func, // Function to handle toggle
+  showtoggle: PropTypes.bool,
+  onToggle: PropTypes.func,
 };
 
 export default Input;

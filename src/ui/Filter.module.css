@@ -6,7 +6,7 @@
   padding: 0.4rem;
   display: flex;
   gap: 0.4rem;
-  flex-wrap: wrap; /* Allows wrapping in smaller screens */
+  flex-wrap: wrap;
 }
 
 .filterButton {
@@ -29,7 +29,6 @@
   color: var(--color-brand-50);
 }
 
-/* Media query for mobile devices */
 @media (max-width: 768px) {
   .styledFilter {
     flex-direction: column;

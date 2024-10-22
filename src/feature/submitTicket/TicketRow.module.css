@@ -13,30 +13,7 @@
   color: var(--color-grey-600);
 }
 
-/* .price {
-  font-weight: 600;
-} */
-
 .discount {
   font-weight: 500;
   color: var(--color-green-700);
 }
-/* .button {
-  background: none;
-  border: none;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-}
-
-.button:hover {
-  background-color: var(--color-grey-100);
-}
-
-.button svg {
-  width: 2.4rem;
-  height: 2.4rem;
- 
-  color: var(--color-grey-500);
-} */

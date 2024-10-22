@@ -23,7 +23,6 @@ function TicketRow({ tickets, index, currentPage }) {
     navigate(`/dashboard/${_id}`);
   };
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
 
   return (
@@ -47,7 +46,7 @@ function TicketRow({ tickets, index, currentPage }) {
 
 TicketRow.propTypes = {
   index: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired, // Add currentPage as a prop type
+  currentPage: PropTypes.number.isRequired,
   tickets: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     company: PropTypes.string.isRequired,

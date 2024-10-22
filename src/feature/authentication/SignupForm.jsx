@@ -8,7 +8,7 @@ import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 
 // const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
-const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
+const phonePattern = /^09\d{9}$/;
 
 function SignupForm() {
   const { signup, isPending } = useSignup();
@@ -111,8 +111,8 @@ function SignupForm() {
           type={showPassword ? "text" : "password"}
           id="password"
           disabled={isPending}
-          showtoggle={true} // Enable the eye icon
-          onToggle={() => setShowPassword(!showPassword)} // Toggle the visibility
+          showtoggle={true}
+          onToggle={() => setShowPassword(!showPassword)}
           {...register("password", {
             required: "این فیلد اجباری است.",
             minLength: {
@@ -128,8 +128,8 @@ function SignupForm() {
           type={showPasswordConfirm ? "text" : "password"}
           id="passwordConfirm"
           disabled={isPending}
-          showtoggle={true} // Enable the eye icon for confirmation
-          onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)} // Toggle the visibility for confirmation
+          showtoggle={true}
+          onToggle={() => setShowPasswordConfirm(!showPasswordConfirm)}
           {...register("passwordConfirm", {
             required: "این فیلد اجباری است.",
             validate: (value) =>

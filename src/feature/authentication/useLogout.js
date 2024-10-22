@@ -8,20 +8,17 @@ export function useLogout() {
   const logout = () => {
     setIsPending(true);
 
-    // Simulate a delay to show pending state
     setTimeout(() => {
-      // Clear all cookies
       document.cookie.split(";").forEach((cookie) => {
         document.cookie = cookie
           .replace(/^ +/, "")
           .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
       });
 
-      // Redirect to the login page
       navigate("/login", { replace: true });
 
       setIsPending(false);
-    }, 500); // Adjust the delay as needed
+    }, 500);
   };
 
   return { logout, isPending };

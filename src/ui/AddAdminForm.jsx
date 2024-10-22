@@ -17,8 +17,8 @@ function AddAdminForm({ onCloseModal, addAdmin, isPending }) {
       { fullname, email, password },
       {
         onSettled: () => {
-          reset(); // Reset the form
-          onCloseModal(); // Close the modal after submission
+          reset();
+          onCloseModal();
         },
       }
     );

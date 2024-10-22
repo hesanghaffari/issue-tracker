@@ -8,7 +8,6 @@ function Button({
   children,
   ...props
 }) {
-  // Construct className by merging Button.module.css classes with any passed className
   const buttonClassName = `${styles.button} ${styles[size]} ${styles[variation]} ${className}`;
 
   return (
@@ -21,7 +20,7 @@ function Button({
 Button.propTypes = {
   size: PropTypes.oneOf(["small", "medium", "large"]),
   variation: PropTypes.oneOf(["primary", "secondary", "danger"]),
-  className: PropTypes.string, // Allow passing custom classes
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

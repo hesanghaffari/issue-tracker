@@ -8,14 +8,11 @@ import Cookies from "js-cookie";
 function Header({ onToggleSidebar }) {
   const [fullname, setFullname] = useState(Cookies.get("fullname") || "");
 
-  // This useEffect will run when the component mounts and when the cookie changes
   useEffect(() => {
     const handleCookieChange = () => {
-      // Update the fullname state whenever the cookie changes
       setFullname(Cookies.get("fullname") || "");
     };
 
-    // Monitor for changes in the cookies (optional but useful if cookies change in real time)
     window.addEventListener("cookiechange", handleCookieChange);
 
     return () => {

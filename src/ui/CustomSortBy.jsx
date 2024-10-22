@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Select from "./Select"; // Assuming you have a Select component
-import { useUsersList } from "../feature/adminPanel/MOM/useUsersList"; // Your custom hook
+import Select from "./Select";
+import { useUsersList } from "../feature/adminPanel/MOM/useUsersList";
 
 function CustomSortBy({ onCompanySelect }) {
   const { usersData, isLoading } = useUsersList();
   const [companies, setCompanies] = useState([]);
 
-  // Extract company names from users with the role of 'user'
   useEffect(() => {
     if (usersData && usersData.users) {
       const companyOptions = usersData.users
         .filter((user) => user.role === "user")
         .map((user) => ({ value: user._id, label: user.company }));
 
-      // Add the default "انتخاب کنید" option at the beginning
       setCompanies([{ value: "", label: "انتخاب کنید" }, ...companyOptions]);
     }
   }, [usersData]);
@@ -24,7 +22,7 @@ function CustomSortBy({ onCompanySelect }) {
     const selectedCompany =
       companies.find((company) => company.value === selectedUserId)?.label ||
       "";
-    onCompanySelect(selectedUserId, selectedCompany); // Pass both user _id and company name back to the form
+    onCompanySelect(selectedUserId, selectedCompany);
   }
 
   if (isLoading) {

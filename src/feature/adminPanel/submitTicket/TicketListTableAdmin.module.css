@@ -5,7 +5,6 @@
   border-radius: 7px;
   overflow: hidden;
 }
-
 .tableHeader {
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr;

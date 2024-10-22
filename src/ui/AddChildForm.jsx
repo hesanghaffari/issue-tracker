@@ -6,7 +6,7 @@ import FormRow from "./FormRow";
 import Input from "./Input";
 import { useState } from "react";
 const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com"];
-const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
+const phonePattern = /^09\d{9}$/;
 
 function AddChildForm({ onCloseModal, addAdmin, isPending }) {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
@@ -26,8 +26,8 @@ function AddChildForm({ onCloseModal, addAdmin, isPending }) {
       { fullname, email, password, company, licenseCode, phone },
       {
         onSettled: () => {
-          reset(); // Reset the form
-          onCloseModal(); // Close the modal after submission
+          reset();
+          onCloseModal();
         },
       }
     );

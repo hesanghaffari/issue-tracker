@@ -4,12 +4,12 @@ import FormRow from "./FormRow";
 import Input from "./Input";
 import { useEditForm } from "../feature/adminPanel/authentication/useEditForm";
 import { useForm } from "react-hook-form";
-import Cookies from "js-cookie"; // Import js-cookie
-const phonePattern = /^09\d{9}$/; // Phone must start with 09 and be 11 digits
+import Cookies from "js-cookie";
+const phonePattern = /^09\d{9}$/;
 
 function ProfileAdmin() {
-  const fullname = Cookies.get("fullname") || ""; // Default to empty string if not found
-  const phone = Cookies.get("phone") || ""; // Default to empty string if not found
+  const fullname = Cookies.get("fullname") || "";
+  const phone = Cookies.get("phone") || "";
   const { editprofile, isLoading } = useEditForm();
   const { register, formState, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -24,11 +24,9 @@ function ProfileAdmin() {
       { fullname, phone },
       {
         onSettled: () => {
-          // After mutation, get the updated values from cookies
           const updatedFullname = Cookies.get("fullname") || fullname;
           const updatedPhone = Cookies.get("phone") || phone;
 
-          // Reset the form with updated values
           reset({
             fullname: updatedFullname,
             phone: updatedPhone,

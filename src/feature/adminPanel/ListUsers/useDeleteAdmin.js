@@ -9,7 +9,7 @@ export function useDeleteAdmin() {
     mutationFn: deleteAdminApi,
     onSuccess: () => {
       toast.success("ادمین با موفقیت حذف شد.");
-      queryClient.invalidateQueries("admins"); // This will refetch the admin list
+      queryClient.invalidateQueries("admins");
     },
     onError: (error) => {
       const errorMessage = error.message || "لطفا مجددا امتحان کنید.";

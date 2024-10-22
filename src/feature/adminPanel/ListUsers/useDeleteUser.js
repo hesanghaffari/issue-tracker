@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteUser as deleteUserApi } from "../../../services/apiTicket"; // Ensure you create this API function in services
+import { deleteUser as deleteUserApi } from "../../../services/apiTicket";
 import { toast } from "react-hot-toast";
 
 export function useDeleteUser() {
@@ -9,7 +9,7 @@ export function useDeleteUser() {
     mutationFn: deleteUserApi,
     onSuccess: () => {
       toast.success("کاربر با موفقیت حذف شد.");
-      queryClient.invalidateQueries("users"); // This will refetch the user list
+      queryClient.invalidateQueries("users");
     },
     onError: (error) => {
       const errorMessage = error.message || "لطفا مجددا امتحان کنید.";

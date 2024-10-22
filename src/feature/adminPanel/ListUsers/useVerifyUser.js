@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { verifyUser as verifyUserApi } from "../../../services/apiTicket"; // Ensure you create this API function in services
+import { verifyUser as verifyUserApi } from "../../../services/apiTicket";
 import { toast } from "react-hot-toast";
 
 export function useVerifyUser() {
@@ -9,7 +9,7 @@ export function useVerifyUser() {
     mutationFn: ({ userId, status }) => verifyUserApi(userId, status),
     onSuccess: (response) => {
       toast.success(response || "عملیات با موفقیت انجام شد.");
-      queryClient.invalidateQueries("admins"); // This will refetch the admin list
+      queryClient.invalidateQueries("admins");
     },
     onError: (error) => {
       const errorMessage =

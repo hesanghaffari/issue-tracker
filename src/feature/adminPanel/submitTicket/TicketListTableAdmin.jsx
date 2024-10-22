@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import { useTicketAdmin } from "./useTicketAdmin";
-
 import Spinner from "../../../ui/Spinner";
 import Table from "../../../ui/Table";
 import TicketRow from "./TicketRowAdmin";
@@ -36,7 +35,7 @@ function TicketListTable() {
               tickets={ticket}
               key={ticket._id}
               index={index}
-              currentPage={currentPage} // Pass the currentPage as a prop
+              currentPage={currentPage}
             />
           )}
         />

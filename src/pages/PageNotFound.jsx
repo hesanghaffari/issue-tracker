@@ -1,4 +1,4 @@
-import styles from "./PageNotFound.module.css"; // Import the CSS module
+import styles from "./PageNotFound.module.css";
 import { useMoveBack } from "../hooks/useMoveBack";
 import Heading from "../ui/Heading";
 import Button from "../ui/Button";

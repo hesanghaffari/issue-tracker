@@ -6,21 +6,20 @@ import FormRow from "./FormRow";
 import Input from "./Input";
 import Textarea from "./Textarea";
 import DatePickerMom from "./DatePickerMom";
-import CustomSortBy from "./CustomSortBy"; // Import the new CustomSortBy component
+import CustomSortBy from "./CustomSortBy"; 
 import { useState } from "react";
 
 function AddMomForm({ onCloseModal, addAdmin, isPending }) {
   const { register, formState, handleSubmit, reset, setValue } = useForm();
   const { errors } = formState;
-  const [selectedDate, setSelectedDate] = useState(null); // State to store the selected date
+  const [selectedDate, setSelectedDate] = useState(null); 
   const handleDateChange = (date) => {
     setSelectedDate(date.toString());
   };
 
-  // Handler for company selection
   function handleCompanySelect(selectedUserId, selectedCompanyName) {
-    setValue("company", selectedCompanyName); // Set the selected company name in the form
-    setValue("userId", selectedUserId); // Set the selected user _id in the form
+    setValue("company", selectedCompanyName); 
+    setValue("userId", selectedUserId); 
   }
 
   function onSubmit({
@@ -46,7 +45,7 @@ function AddMomForm({ onCloseModal, addAdmin, isPending }) {
         daart,
         webengage,
         customer,
-        date: selectedDate, // Use the selected date here
+        date: selectedDate,
         company,
         userId,
       },
@@ -84,7 +83,7 @@ function AddMomForm({ onCloseModal, addAdmin, isPending }) {
           type="date"
           id="date"
           disabled={isPending}
-          onDateChange={handleDateChange} // Pass the handler to DatePickerMom
+          onDateChange={handleDateChange} 
         />
       </FormRow>
 

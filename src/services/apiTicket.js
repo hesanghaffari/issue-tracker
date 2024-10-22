@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const mainURL = "https://itk.maynd.ir/api";
+const mainURL = "http://localhost:3000";
 
 export async function ticket(data) {
   try {
@@ -51,7 +51,7 @@ export async function ticketlist({
     }
 
     if (date) {
-      params.date = date; // Add createdAt to the params
+      params.date = date;
     }
 
     const response = await axios.get(`${mainURL}/tickets/users`, {
@@ -156,7 +156,7 @@ export async function ticketlistAdmin({
     }
 
     if (date) {
-      params.date = date; // Add createdAt to the params
+      params.date = date;
     }
 
     const response = await axios.get(`${mainURL}/tickets`, {
@@ -202,7 +202,7 @@ export async function ticketlistAdminMyTicket({
     }
 
     if (date) {
-      params.date = date; // Add createdAt to the params
+      params.date = date;
     }
 
     const response = await axios.get(`${mainURL}/tickets/myTickets`, {
@@ -261,26 +261,6 @@ export async function assignTicketToUser(ticketId, email) {
   }
 }
 ///////////////////////////////
-
-// export async function finishTicket(ticketId) {
-//   try {
-//     const token = Cookies.get("authToken");
-
-//     const response = await axios.put(
-//       `http://localhost:3000/tickets/${ticketId}/finish`,
-//       {
-//         headers: {
-//           Authorization: token,
-//         },
-//       }
-//     );
-//     return response.data;
-//   } catch (error) {
-//     const errorMessage = error.response?.data || "لطفا مجددا امتحان کنید.";
-//     throw new Error(errorMessage);
-//   }
-// }
-
 export async function updateTicketStatus(ticketId, status) {
   try {
     const token = Cookies.get("authToken");
@@ -311,10 +291,10 @@ export async function finishTicket(ticketId) {
 
     const response = await axios.put(
       `${mainURL}/tickets/${ticketId}/finish`,
-      {}, // Empty object for the payload, since PUT requests usually expect one
+      {},
       {
         headers: {
-          Authorization: token, // Correctly add the token to the headers
+          Authorization: token,
         },
       }
     );
@@ -367,31 +347,38 @@ export async function listUsersMom() {
     throw new Error(`Failed to fetch tickets: ${error.message}`);
   }
 }
-//////////////////
-export async function listUsers(page = 1) {
+////////////////////////////////////
+export async function listUsers({
+  page = 1,
+  role,
+  isAdminVerified,
+  search,
+  date,
+}) {
   try {
     const token = Cookies.get("authToken");
-
     if (!token) {
       throw new Error("Auth token not found in cookies");
     }
-    const params = page;
-
+    const params = {
+      page,
+      role,
+      isAdminVerified,
+      search,
+      date,
+    };
     const response = await axios.get(`${mainURL}/users`, {
       params,
-
       headers: {
         Authorization: token,
       },
     });
-
     return response.data;
   } catch (error) {
-    throw new Error(`Failed to fetch tickets: ${error.message}`);
+    throw new Error(`Failed to fetch users: ${error.message}`);
   }
 }
-///////////////////////
-
+///////////////////////////////////////////
 export async function exportTicketsExcel() {
   try {
     const token = Cookies.get("authToken");
@@ -404,20 +391,17 @@ export async function exportTicketsExcel() {
       headers: {
         Authorization: token,
       },
-      responseType: "blob", // Important to handle file downloads
+      responseType: "blob",
     });
 
-    // Create a URL for the file
     const url = window.URL.createObjectURL(new Blob([response.data]));
 
-    // Create a link to download the file
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "tickets.xlsx"); // Filename for the download
+    link.setAttribute("download", "tickets.xlsx");
     document.body.appendChild(link);
     link.click();
 
-    // Clean up after download
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   } catch (error) {
@@ -504,14 +488,13 @@ export async function updateTicketStatusToPending(ticketId) {
       throw new Error("Auth token not found in cookies");
     }
 
-    // Payload with the status update
     const payload = {
-      status: "در انتظار وب انگیج", // Set the status to pending on WebEngage
+      status: "در انتظار وب انگیج",
     };
 
     const response = await axios.put(
       `${mainURL}/tickets/${ticketId}`,
-      payload, // Send the payload in the request body
+      payload,
       {
         headers: {
           Authorization: token,
@@ -646,15 +629,15 @@ export async function verifyUser(userId, status) {
     }
 
     const response = await axios.put(
-      `${mainURL}/users/adminVerify/${userId}`, // Use userId correctly here
-      { status }, // Pass the status (accept/reject) in the payload
+      `${mainURL}/users/adminVerify/${userId}`,
+      { status },
       {
         headers: {
-          Authorization: token, // Add the token to headers
+          Authorization: token,
         },
       }
     );
-    return response.data; // Return the entire response data, which includes the message
+    return response.data;
   } catch (error) {
     throw new Error(
       `Failed to update user status: ${

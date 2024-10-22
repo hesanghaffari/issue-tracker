@@ -9,7 +9,7 @@ export function useAddAdmin() {
     mutationFn: addAdminApi,
     onSuccess: () => {
       toast.success("ادمین جدید با موفقیت ساخته شد.");
-      queryClient.invalidateQueries("listAdmin"); // This will refetch the user list
+      queryClient.invalidateQueries("listAdmin");
     },
     onError: (error) => {
       const errorMessage = error.message || "لطفا مجددا امتحان کنید.";

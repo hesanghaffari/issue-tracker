@@ -1,9 +1,7 @@
 .formRow {
-  /* align-items: center; */
   gap: 1rem;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   padding: 1.2rem 0;
 }
 

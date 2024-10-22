@@ -1,23 +1,31 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./Tabs.module.css";
 
 function Tabs({ tabs, children, resetParams }) {
   const [activeTab, setActiveTab] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [shouldResetParams, setShouldResetParams] = useState(false);
 
-  useEffect(() => {
-    // Only reset the page parameter when switching tabs
+  const resetPageParams = useCallback(() => {
     if (resetParams && searchParams.get("page")) {
       searchParams.delete("page");
       setSearchParams(searchParams);
     }
-  }, [activeTab]); // Only trigger this effect when the activeTab changes
+  }, [resetParams, searchParams, setSearchParams]);
+
+  useEffect(() => {
+    if (shouldResetParams) {
+      resetPageParams();
+      setShouldResetParams(false);
+    }
+  }, [activeTab, shouldResetParams, resetPageParams]);
 
   const handleTabClick = (index) => {
     if (index !== activeTab) {
-      setActiveTab(index); // Only change the tab when the user clicks a different tab
+      setActiveTab(index);
+      setShouldResetParams(true);
     }
   };
 

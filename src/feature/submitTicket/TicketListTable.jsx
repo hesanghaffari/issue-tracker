@@ -36,7 +36,7 @@ function TicketListTable() {
               tickets={ticket}
               key={ticket._id}
               index={index}
-              currentPage={currentPage} // Pass the currentPage as a prop
+              currentPage={currentPage}
             />
           )}
         />

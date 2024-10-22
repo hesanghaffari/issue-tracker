@@ -1,38 +1,35 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Select from "./Select"; // Assuming your Select component is functional and styled
-import SpinnerMini from "./SpinnerMini"; // Import your spinner component
+import Select from "./Select";
+import SpinnerMini from "./SpinnerMini";
 
 function Dropdown({ options, isAdminVerified, onActionSelect, isPending }) {
-  const [selectedOption, setSelectedOption] = useState(""); // Track the selected option
+  const [selectedOption, setSelectedOption] = useState("");
 
-  // Handle option change
   const handleChange = (e) => {
     const value = e.target.value;
-    setSelectedOption(value); // Set the selected option
+    setSelectedOption(value);
 
-    // Only call onActionSelect if a valid option is selected and it is not "تایید نشده"
     if (value && value !== "unverified") {
-      onActionSelect(value); // Send the selected value to the parent component
+      onActionSelect(value);
     }
   };
 
-  // Set default value based on isAdminVerified if needed
   useEffect(() => {
     if (isAdminVerified === null) {
-      setSelectedOption("unverified"); // Default to "تایید نشده" if isAdminVerified is null
+      setSelectedOption("unverified");
     } else {
-      setSelectedOption(isAdminVerified ? "accept" : "reject"); // Adjust default based on verification status
+      setSelectedOption(isAdminVerified ? "accept" : "reject");
     }
   }, [isAdminVerified]);
 
   return (
     <div>
       {isPending ? (
-        <SpinnerMini /> // Show spinner when loading
+        <SpinnerMini />
       ) : (
         <Select
-          options={options} // Pass the options directly (accept/reject/unverified)
+          options={options}
           value={selectedOption}
           onChange={handleChange}
         />
@@ -44,13 +41,13 @@ function Dropdown({ options, isAdminVerified, onActionSelect, isPending }) {
 Dropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired, // Value to be sent in onActionSelect
-      label: PropTypes.string.isRequired, // Label for display
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  isAdminVerified: PropTypes.bool, // Boolean to detect user verification status
-  onActionSelect: PropTypes.func.isRequired, // Callback to handle selection
-  isPending: PropTypes.bool, // Prop to indicate loading state
+  isAdminVerified: PropTypes.bool,
+  onActionSelect: PropTypes.func.isRequired,
+  isPending: PropTypes.bool,
 };
 
 export default Dropdown;

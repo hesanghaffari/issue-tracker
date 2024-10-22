@@ -10,8 +10,8 @@
   transition: all 0.5s;
   width: 90vw;
   max-width: 400px;
-  max-height: 90vh; /* Limit modal height */
-  overflow-y: auto; /* Enable scrolling for long content */
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .overlay {
@@ -48,7 +48,6 @@
   color: var(--color-grey-500);
 }
 
-/* Validation styles */
 .error {
   border: 1px solid var(--color-red);
   color: var(--color-red);

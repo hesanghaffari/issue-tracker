@@ -1,4 +1,4 @@
-import { useVerifyUser } from "./useVerifyUser"; // Import the updated hook
+import { useVerifyUser } from "./useVerifyUser";
 import PropTypes from "prop-types";
 import Table from "../../../ui/Table";
 import moment from "moment-jalaali";
@@ -6,11 +6,11 @@ import Modal from "../../../ui/Modal";
 import Button from "../../../ui/Button";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import Dropdown from "../../../ui/Dropdown";
-import { useDeleteUser } from "./useDeleteUser"; // Import the hook
+import { useDeleteUser } from "./useDeleteUser";
 
 function UsersRow({ users, index, currentPage }) {
   const { email, fullname, createdAt, isAdminVerified, _id, role, company } =
-    users; // Destructure role and company
+    users;
   const { updateUserStatus, isPending: isVerify } = useVerifyUser();
   const { deleteUser, isPending: isDeleting } = useDeleteUser();
 
@@ -19,17 +19,15 @@ function UsersRow({ users, index, currentPage }) {
   const options = [
     { value: "accept", label: "تایید " },
     { value: "reject", label: "رد " },
-    { value: "unverified", label: "تعیین نشده" }, // Added option for unverified
+    { value: "unverified", label: "تعیین نشده" },
   ];
 
   const handleActionSelect = (action) => {
-    // Only make the request for valid actions ("accept" or "reject")
     if (action !== "" && action !== "unverified") {
       updateUserStatus({ userId: _id, status: action });
     }
   };
 
-  // Determine role text
   const roleText = role === "user" ? "اصلی" : role === "child" ? "فرعی" : "";
 
   return (
@@ -38,8 +36,8 @@ function UsersRow({ users, index, currentPage }) {
       <div>{moment(createdAt).format("jYYYY/jMM/jDD HH:mm:ss")}</div>
       <div>{email}</div>
       <div>{fullname}</div>
-      <div>{roleText}</div> {/* Display role */}
-      <div>{company}</div> {/* Display company */}
+      <div>{roleText}</div>
+      <div>{company}</div>
       <div>
         {isAdminVerified === null
           ? "تعیین نشده"
@@ -49,10 +47,10 @@ function UsersRow({ users, index, currentPage }) {
       </div>
       <div>
         <Dropdown
-          options={options} // Dropdown options (accept/reject/unverified)
-          isAdminVerified={isAdminVerified} // Pass verification status
-          onActionSelect={handleActionSelect} // Handle selected action
-          isPending={isVerify} // Pass your loading state here
+          options={options}
+          isAdminVerified={isAdminVerified}
+          onActionSelect={handleActionSelect}
+          isPending={isVerify}
         />
       </div>
       <div>
@@ -66,7 +64,7 @@ function UsersRow({ users, index, currentPage }) {
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="کاربر"
-              onConfirm={() => deleteUser(_id)} // Call delete user API
+              onConfirm={() => deleteUser(_id)}
               disabled={isDeleting}
             />
           </Modal.Window>
@@ -84,9 +82,9 @@ UsersRow.propTypes = {
     email: PropTypes.string.isRequired,
     fullname: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
-    isAdminVerified: PropTypes.bool, // Changed to allow null values
-    role: PropTypes.oneOf(["user", "child"]).isRequired, // Added role prop
-    company: PropTypes.string.isRequired, // Added company prop
+    isAdminVerified: PropTypes.bool,
+    role: PropTypes.oneOf(["user", "child"]).isRequired,
+    company: PropTypes.string.isRequired,
   }).isRequired,
 };
 

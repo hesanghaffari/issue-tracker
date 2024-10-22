@@ -1,6 +1,6 @@
 import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import { HiXMark } from "react-icons/hi2";
 import styles from "./Modal.module.css";
 import { useOutsideClick } from "../hooks/useOutsideClick";
@@ -39,9 +39,8 @@ function Modal({ children }) {
   );
 }
 
-// Define prop types for Modal component
 Modal.propTypes = {
-  children: PropTypes.node.isRequired, // Validate children prop
+  children: PropTypes.node.isRequired,
 };
 
 function Open({ children, opens: opensWindowName }) {
@@ -50,10 +49,9 @@ function Open({ children, opens: opensWindowName }) {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-// Define prop types for Open component
 Open.propTypes = {
-  children: PropTypes.node.isRequired, // Validate children prop
-  opens: PropTypes.string.isRequired, // Validate opens prop
+  children: PropTypes.node.isRequired,
+  opens: PropTypes.string.isRequired,
 };
 
 function Window({ children, name }) {
@@ -90,10 +88,9 @@ function Window({ children, name }) {
   );
 }
 
-// Define prop types for Window component
 Window.propTypes = {
-  children: PropTypes.node.isRequired, // Validate children prop
-  name: PropTypes.string.isRequired, // Validate name prop
+  children: PropTypes.node.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 Modal.Open = Open;

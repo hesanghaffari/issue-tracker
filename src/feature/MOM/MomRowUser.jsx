@@ -7,13 +7,11 @@ function ChildRow({ admins, index, currentPage }) {
   const { company, title, _id, date } = admins;
   const navigate = useNavigate();
 
-  // Calculate the correct index based on the current page
   const displayIndex = index + 1 + (currentPage - 1) * 10;
 
   const handleDetailClick = () => {
     navigate(`/momuser/${_id}`);
   };
-  // Handle delete button click
 
   return (
     <Table.Row>

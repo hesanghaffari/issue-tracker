@@ -6,10 +6,9 @@
   background-color: var(--color-grey-100);
   border-bottom: 1px solid var(--color-grey-200);
   position: relative;
-  z-index: 1000; /* Ensure it is above other content */
+  z-index: 1000;
 }
 
-/* Adjust the styles of other header contents as needed */
 .Beta {
   width: 7rem;
 }

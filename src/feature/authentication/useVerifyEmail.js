@@ -14,7 +14,7 @@ export function useVerifyEmail() {
     },
     onSuccess: () => {
       toast.success("ایمیل شما با موفقیت تایید شد.");
-      Cookies.remove("userEmail"); // Clean up the cookie after verification
+      Cookies.remove("userEmail");
       navigate("/login");
     },
     onError: (error) => {

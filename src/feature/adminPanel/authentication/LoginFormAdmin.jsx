@@ -9,7 +9,7 @@ import SpinnerMini from "../../../ui/SpinnerMini";
 function LoginFormAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const { loginAdmin, isPending } = useLoginAdmin();
   useEffect(() => {}, [isPending]);
@@ -33,7 +33,6 @@ function LoginFormAdmin() {
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -43,14 +42,14 @@ function LoginFormAdmin() {
 
       <FormRowVertical label="رمزعبور">
         <Input
-          type={showPassword ? "text" : "password"} // Toggle between text and password
+          type={showPassword ? "text" : "password"}
           id="password"
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={isPending}
-          showtoggle={true} // Prop to indicate show/hide button
-          onToggle={() => setShowPassword(!showPassword)} // Toggle handler
+          showtoggle={true}
+          onToggle={() => setShowPassword(!showPassword)}
         />
       </FormRowVertical>
       <FormRowVertical>

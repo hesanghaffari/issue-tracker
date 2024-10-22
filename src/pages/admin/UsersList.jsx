@@ -1,5 +1,4 @@
 import AdminManagement from "../../feature/adminPanel/ListUsers/AdminManagement";
-// import AddAdminForm from "../../ui/AddAdminForm";
 
 function UsersList() {
   return (

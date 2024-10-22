@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMomById } from "../../services/apiTicket"; // Your Mom API calls
+import { getMomById } from "../../services/apiTicket";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import { useParams } from "react-router-dom";

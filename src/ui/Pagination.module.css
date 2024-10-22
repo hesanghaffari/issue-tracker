@@ -1,5 +1,3 @@
-/* Pagination.module.css */
-
 .pagination {
   width: 100%;
   display: flex;
@@ -35,14 +33,6 @@
   padding: 0.6rem 1.2rem;
   transition: all 0.3s;
 }
-
-/* .paginationButton:has(span:last-child) {
-  padding-left: 0.4rem;
-}
-
-.paginationButton:has(span:first-child) {
-  padding-right: 0.4rem;
-} */
 
 .paginationButton svg {
   height: 1.8rem;

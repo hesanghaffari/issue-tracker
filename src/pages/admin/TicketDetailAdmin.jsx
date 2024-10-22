@@ -22,10 +22,9 @@ function TicketDetailAdmin() {
   const { ticketId } = useParams();
   const queryClient = useQueryClient();
   const [fileError, setFileError] = useState("");
-  const characterLimit = 1000; // Define character limit
-  const userRole = Cookies.get("userRole"); // Get the user's role from cookies
+  const characterLimit = 1000;
+  const userRole = Cookies.get("userRole");
 
-  // Fetch the ticket details
   const {
     isLoading,
     data: ticket,
@@ -48,25 +47,23 @@ function TicketDetailAdmin() {
     clearErrors,
   } = useForm();
   const { errors } = formState;
-  // Mutation to assign the ticket
   const assignTicketMutation = useMutation({
     mutationFn: ({ ticketId, email }) => {
-      return assignTicketToUser(ticketId, email); // Return the result
+      return assignTicketToUser(ticketId, email);
     },
     onSuccess: () => {
-      // Invalidate the ticket query to refresh the data
-      queryClient.invalidateQueries(["tickets", ticketId]); // Fix the query key
+      queryClient.invalidateQueries(["tickets", ticketId]);
       toast.success("وضعیت با موفقیت به در حال بررسی تغییر کرد...");
     },
     onError: (error) => {
-      toast.error(error.message); // Display the error message
+      toast.error(error.message);
     },
   });
   const { mutate, isPending: isSubmiting } = useMutation({
     mutationFn: (newReply) => submitReply(ticketId, newReply),
     onSuccess: () => {
       queryClient.invalidateQueries(["replies", ticketId]);
-      reset(); // Reset the form after submission    },
+      reset();
     },
     onError: (err) => toast.error(err.message),
   });
@@ -109,7 +106,6 @@ function TicketDetailAdmin() {
 
     mutate(formData);
   }
-  // Handle button click to assign the ticket
   const handleAssignTicket = () => {
     const email = Cookies.get("userEmail");
     if (!email) {
@@ -118,8 +114,8 @@ function TicketDetailAdmin() {
     }
     assignTicketMutation.mutate({ ticketId, email });
   };
-  const replyValue = watch("reply") || ""; // Watch the reply input
-  const isReplyTooLong = replyValue.length > characterLimit; // Check if it exceeds the limit
+  const replyValue = watch("reply") || "";
+  const isReplyTooLong = replyValue.length > characterLimit;
   if (isLoading) return <Spinner />;
   if (error) return <p>Failed to load ticket details.</p>;
   if (!ticket) return <Empty resourceName="Ticket" />;
@@ -185,17 +181,14 @@ function TicketDetailAdmin() {
             {ticket.attachmentFiles.map((file, index) => {
               const fileExtension = file.split(".").pop().toLowerCase();
 
-              // Define file type categories
               const imageFormats = ["jpg", "jpeg", "png", "gif"];
               const videoFormats = ["mp4", "webm", "ogg"];
 
-              // Extract the file name from the URL
               const fileName = file.split("/").pop();
 
               return (
                 <div key={index} className={styles.attachmentItem}>
                   {imageFormats.includes(fileExtension) ? (
-                    // Show image preview
                     <a
                       href={file}
                       target="_blank"
@@ -209,13 +202,11 @@ function TicketDetailAdmin() {
                       />
                     </a>
                   ) : videoFormats.includes(fileExtension) ? (
-                    // Show video preview
                     <video controls className={styles.attachmentVideo}>
                       <source src={file} type={`video/${fileExtension}`} />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    // Show file name as a link for other formats
                     <a
                       href={file}
                       target="_blank"
@@ -291,7 +282,7 @@ function TicketDetailAdmin() {
               >
                 <Textarea
                   id="reply"
-                  {...register("reply", { maxLength: characterLimit })} // Enforce the character limit here
+                  {...register("reply", { maxLength: characterLimit })}
                   placeholder="اینجا یادداشت کنید ..."
                   disabled={ticket.endDate || isSubmiting}
                   {...register("reply", {
@@ -302,9 +293,7 @@ function TicketDetailAdmin() {
               <FormRow error={fileError || errors?.image?.message}>
                 <div className={styles.fileUploadWrapper}>
                   <label htmlFor="image" className={styles.fileUploadLabel}>
-                    <i className="fa fa-paperclip"></i>{" "}
-                    {/* Pin or Upload icon */}
-                    <span>آپلود فایل</span>
+                    <i className="fa fa-paperclip"></i> <span>آپلود فایل</span>
                   </label>
                   <input
                     type="file"
@@ -312,7 +301,7 @@ function TicketDetailAdmin() {
                     multiple
                     accept="*/*"
                     {...register("image")}
-                    className={styles.fileInputHidden} // Hide default file input
+                    className={styles.fileInputHidden}
                     disabled={isSubmiting || ticket.endDate}
                   />
                 </div>

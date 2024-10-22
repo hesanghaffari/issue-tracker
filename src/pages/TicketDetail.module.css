@@ -15,7 +15,7 @@
   border-bottom: 1px solid #e0e0e0;
   padding-bottom: 15px;
   margin-bottom: 20px;
-  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  flex-wrap: wrap;
 }
 
 .title {
@@ -141,10 +141,10 @@
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  overflow-wrap: break-word; /* Break long words */
-  word-wrap: break-word; /* For older browsers */
-  white-space: pre-wrap; /* Preserve white space and wrap text */
-  max-width: 100%; /* Ensure it doesn’t exceed the container width */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
 }
 .noline {
   border: none !important;
@@ -158,7 +158,7 @@
 
   text-align: right;
   flex-direction: column;
-  width: 100%; /* Ensure full width */
+  width: 100%;
   box-sizing: border-box;
   color: var(--color-green-700);
   background-color: var(--color-green-100);
@@ -167,7 +167,7 @@
 .replyAttachments {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Add space between attachment links */
+  gap: 10px;
 }
 .fileUploadWrapper {
   display: flex;
@@ -190,7 +190,7 @@
 }
 
 .fileInputHidden {
-  display: none; /* Hides the default file input */
+  display: none;
 }
 
 .attachmentLink {
@@ -204,7 +204,7 @@
 
   text-align: right;
   flex-direction: column;
-  width: 100%; /* Ensure full width */
+  width: 100%;
   box-sizing: border-box;
   color: var(--color-blue-700);
   background-color: var(--color-blue-100);
@@ -250,28 +250,28 @@
 @media (max-width: 1200px) {
   .header {
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left on mobile */
+    align-items: flex-start;
   }
 
   .userInfo {
-    text-align: left; /* Text aligns to the left on mobile */
-    margin-top: 10px; /* Adds space between the title and user info */
-    width: 100%; /* User info takes full width */
+    text-align: left;
+    margin-top: 10px;
+    width: 100%;
   }
 
   .title {
-    font-size: 24px; /* Slightly reduce title font size on mobile */
+    font-size: 24px;
   }
 
   .ticketNumber {
-    font-size: 14px; /* Slightly reduce ticket number font size on mobile */
+    font-size: 14px;
   }
 
   .userInfo strong {
-    font-size: 16px; /* Slightly reduce user name font size on mobile */
+    font-size: 16px;
   }
 
   .email {
-    font-size: 13px; /* Slightly reduce email font size on mobile */
+    font-size: 13px;
   }
 }

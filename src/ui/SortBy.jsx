@@ -8,7 +8,7 @@ function SortBy({ options, paramName }) {
 
   function handleChange(e) {
     searchParams.set(paramName, e.target.value);
-    searchParams.set("page", 1); // Reset page to 1
+    searchParams.set("page", 1);
 
     setSearchParams(searchParams);
   }
@@ -30,7 +30,7 @@ SortBy.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  paramName: PropTypes.string.isRequired, // New prop to specify the query parameter
+  paramName: PropTypes.string.isRequired,
 };
 
 export default SortBy;

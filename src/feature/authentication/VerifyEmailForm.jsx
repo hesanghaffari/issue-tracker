@@ -11,15 +11,14 @@ import { useResend } from "./useResend.js";
 import Cookies from "js-cookie";
 
 function VerifyEmailForm() {
-  const { verifyEmail, isPending: isVerifying } = useVerifyEmail(); // Renamed isPending to isVerifying
+  const { verifyEmail, isPending: isVerifying } = useVerifyEmail();
   const { resend, isPending: isSendingOtp } = useResend();
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  const [timer, setTimer] = useState(180); // Initial countdown set to 3 minutes (180 seconds)
-  const [canResend, setCanResend] = useState(false); // Disable resend initially
+  const [timer, setTimer] = useState(180);
+  const [canResend, setCanResend] = useState(false);
 
-  // Countdown effect
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -27,11 +26,10 @@ function VerifyEmailForm() {
       }, 1000);
       return () => clearInterval(intervalId);
     } else {
-      setCanResend(true); // Allow resend after countdown ends
+      setCanResend(true);
     }
   }, [timer]);
 
-  // Format timer into MM:SS
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -52,12 +50,11 @@ function VerifyEmailForm() {
   function handleResendOtp() {
     const email = Cookies.get("userEmail");
 
-    setTimer(180); // Restart countdown to 3 minutes
+    setTimer(180);
     setCanResend(false);
     if (!email) return;
     resend({ email });
   }
-  // Handle resend OTP
 
   return (
     <main className={styles.loginLayout}>
