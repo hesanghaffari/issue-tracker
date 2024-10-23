@@ -162,6 +162,7 @@
   color: var(--color-green-700);
   background-color: var(--color-green-100);
 }
+
 .fileUploadWrapper {
   display: flex;
   align-items: center;

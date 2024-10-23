@@ -103,8 +103,6 @@ function TicketDetail() {
   if (error) return <p>Failed to load ticket details.</p>;
   if (!ticket) return <Empty resourceName="Ticket" />;
 
-  const userName = Cookies.get("fullname");
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -205,15 +203,23 @@ function TicketDetail() {
           <div>
             {replies.length > 0 ? (
               replies.map((reply) => {
-                const isUserReply = reply.user === userName;
-                const replyClassName = isUserReply
+                const replyRole = reply.role; // Assuming `role` is a property in the reply object
+                const isAdminOrSuperAdmin =
+                  replyRole === "admin" || replyRole === "superadmin";
+
+                // Determine if the message is from the current user
+
+                // Use the appropriate class for alignment (Left or Right)
+
+                // Use conditional styling for background color based on role
+                const roleClassName = isAdminOrSuperAdmin
                   ? styles.replyRight
                   : styles.replyLeft;
 
                 return (
                   <div
                     key={reply._id}
-                    className={`${styles.reply} ${replyClassName}`}
+                    className={`${styles.reply} ${roleClassName}`}
                   >
                     <strong>{reply.user}</strong>
                     <p>{reply.message}</p>

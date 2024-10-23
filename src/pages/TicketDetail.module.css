@@ -164,6 +164,16 @@
   background-color: var(--color-green-100);
 }
 
+.replyRight {
+  padding: 10px;
+
+  text-align: right;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--color-blue-700);
+  background-color: var(--color-blue-100);
+}
 .replyAttachments {
   display: flex;
   flex-wrap: wrap;
@@ -197,17 +207,6 @@
   color: #007bff;
   text-decoration: underline;
   font-size: 0.9em;
-}
-
-.replyRight {
-  padding: 10px;
-
-  text-align: right;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  color: var(--color-blue-700);
-  background-color: var(--color-blue-100);
 }
 
 .textarea {
